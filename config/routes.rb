@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # Define your root route ("/")
+  # root "home#index"  # Si tienes un controlador llamado HomeController y una acción index
+  root "welcome#index"  # Asegúrate de tener un controlador llamado WelcomeController con una acción index
 end
