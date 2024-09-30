@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  conversation: one
+  user: one
+  content: MyString
+  is_deleted: false
+
+two:
+  conversation: two
+  user: two
+  content: MyString
+  is_deleted: false
