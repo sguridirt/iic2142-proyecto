@@ -1,0 +1,2 @@
+class TeacherReview < ApplicationRecord
+end
