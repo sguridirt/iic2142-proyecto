@@ -75,4 +75,4 @@ end
 gem 'rubocop', require: false
 gem 'bootstrap'
 gem 'sassc-rails'
-
+gem 'devise'
