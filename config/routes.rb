@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  root "landing#index"
+  root "pages#index"
 end
