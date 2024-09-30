@@ -1,0 +1,2 @@
+class ClassRequestStatus < ApplicationRecord
+end

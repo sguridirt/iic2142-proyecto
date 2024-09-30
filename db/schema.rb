@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_30_163959) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_30_220604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,42 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_30_163959) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_admins_on_user_id"
+  end
+
+  create_table "class_request_statuses", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "class_requests", force: :cascade do |t|
+    t.string "description", null: false
+    t.date "startDate", null: false
+    t.date "endaDate", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "students_id", null: false
+    t.bigint "class_request_statuses_id", null: false
+    t.bigint "courses_id", null: false
+    t.index ["class_request_statuses_id"], name: "index_class_requests_on_class_request_statuses_id"
+    t.index ["courses_id"], name: "index_class_requests_on_courses_id"
+    t.index ["students_id"], name: "index_class_requests_on_students_id"
+  end
+
+  create_table "class_reviews", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "comment", null: false
+    t.integer "rating", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "class_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "conversation_messages", force: :cascade do |t|
@@ -48,46 +84,27 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_30_163959) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "students", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_students_on_user_id"
-  end
-
-  create_table "teachers", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_teachers_on_user_id"
-  end
-
-  create_table "user_roles", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "phone", null: false
-    t.string "email", null: false
-    t.string "profilePictureURL"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_role_id", null: false
-    t.index ["user_role_id"], name: "index_users_on_user_role_id"
-  end
-
-  
-  
-  create_table "class_reviews", force: :cascade do |t|
+  create_table "courses", force: :cascade do |t|
     t.string "title", null: false
-    t.string "comment", null: false
-    t.integer "rating", null: false
+    t.string "description", null: false
+    t.date "startDate", null: false
+    t.date "endDate", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "teachers_id", null: false
+    t.bigint "class_types_id", null: false
+    t.index ["class_types_id"], name: "index_courses_on_class_types_id"
+    t.index ["teachers_id"], name: "index_courses_on_teachers_id"
+  end
+
+  create_table "enrollments", force: :cascade do |t|
+    t.date "enrollmentDate", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "courses_id", null: false
+    t.bigint "students_id", null: false
+    t.index ["courses_id"], name: "index_enrollments_on_courses_id"
+    t.index ["students_id"], name: "index_enrollments_on_students_id"
   end
 
   create_table "evaluation_answers", force: :cascade do |t|
@@ -121,6 +138,29 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_30_163959) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "material_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "materials", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "material_types_id", null: false
+    t.index ["material_types_id"], name: "index_materials_on_material_types_id"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_students_on_user_id"
+  end
+
   create_table "teacher_reviews", force: :cascade do |t|
     t.string "title", null: false
     t.string "comment", null: false
@@ -128,14 +168,47 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_30_163959) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-  
+
+  create_table "teachers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_teachers_on_user_id"
+  end
+
+  create_table "user_roles", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "phone", null: false
+    t.string "email", null: false
+    t.string "profilePictureURL"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_role_id", null: false
+    t.index ["user_role_id"], name: "index_users_on_user_role_id"
+  end
+
   add_foreign_key "admins", "users", on_delete: :cascade
+  add_foreign_key "class_requests", "class_request_statuses", column: "class_request_statuses_id"
+  add_foreign_key "class_requests", "courses", column: "courses_id"
+  add_foreign_key "class_requests", "students", column: "students_id"
   add_foreign_key "conversation_messages", "conversation_participants", column: "sender_id", on_delete: :cascade
   add_foreign_key "conversation_messages", "conversations"
   add_foreign_key "conversation_participants", "conversations"
   add_foreign_key "conversation_participants", "users"
+  add_foreign_key "courses", "class_types", column: "class_types_id"
+  add_foreign_key "courses", "teachers", column: "teachers_id"
+  add_foreign_key "enrollments", "courses", column: "courses_id"
+  add_foreign_key "enrollments", "students", column: "students_id"
+  add_foreign_key "evaluation_questions", "evaluations", on_delete: :cascade
+  add_foreign_key "materials", "material_types", column: "material_types_id"
   add_foreign_key "students", "users", on_delete: :cascade
   add_foreign_key "teachers", "users", on_delete: :cascade
   add_foreign_key "users", "user_roles"
-  add_foreign_key "evaluation_questions", "evaluations", on_delete: :cascade
 end
