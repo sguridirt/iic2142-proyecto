@@ -1,16 +1,32 @@
-<h1>Mi perfil</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h1 class="text-center">Mi Perfil</h1>
+        </div>
 
-<p><strong>Nombre:</strong> <%= @user.name %></p>
-<p><strong>Email:</strong> <%= @user.email %></p>
-<p><strong>Teléfono:</strong> <%= @user.phone %></p>
+        <div class="card-body">
+          <p><strong>Nombre:</strong> <%= @user.name %></p>
+          <p><strong>Email:</strong> <%= @user.email %></p>
+          <p><strong>Teléfono:</strong> <%= @user.phone %></p>
 
-<!-- Mostrar contraseña con asteriscos (simulada, sin exponer la real) -->
-<p><strong>Contraseña:</strong> <%= '•' * 8 %> <!-- 8 asteriscos como ejemplo, podrías ajustarlo si prefieres -->
-</p>
+          <!-- Mostrar contraseña con asteriscos (simulada, sin exponer la real) -->
+          <p><strong>Contraseña:</strong> <%= '•' * 8 %></p>
 
-<%= link_to 'Editar', user_settings_edit_path, class: 'btn btn-primary' %>
+          <!-- Botón para editar perfil -->
+          <div class="text-center">
+            <%= link_to 'Editar', user_settings_edit_path, class: 'btn btn-primary btn-lg mt-3' %>
+          </div>
+        </div>
+      </div>
 
-<% if notice %>
-  <p><%= notice %></p>
-<% end %>
+      <% if notice %>
+        <div class="alert alert-info mt-4 text-center">
+          <%= notice %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
