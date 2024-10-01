@@ -1,4 +1,4 @@
-<h2>Sign up</h2>
+<h3>Sign up</h3>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -34,7 +34,9 @@
   <div class="form-group">
     <label for="user_role">Select Role:</label>
     <div>
-      <%= f.radio_button :user_role_id, UserRole.find_by(name: 'Student').id %>
+      <%# make this radio button active by default %>
+
+      <%= f.radio_button :user_role_id, UserRole.find_by(name: 'Student').id  %> 
       <%= f.label :user_role_id, 'Estudiante' %>
       <%= f.radio_button :user_role_id, UserRole.find_by(name: 'Teacher').id %>
       <%= f.label :user_role_id, 'Profesor' %>
