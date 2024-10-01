@@ -11,6 +11,15 @@ class User < ApplicationRecord
 
   after_create :assign_user_role
 
+  validates :email,
+            format: { with: Devise.email_regexp },
+            presence: true,
+            uniqueness: { case_insensitive: true }
+  validates :phone,
+            format: { with: /\A(?:\+?\d{1,3}\s*-?)?\(?(?:\d{3})?\)?[- ]?\d{3}[- ]?\d{4}\z/ },
+            presence: true,
+            uniqueness: { case_insensitive: true }
+
   def assign_user_role
     if user_role.name == "Student"
       Student.create(user_id: id)
