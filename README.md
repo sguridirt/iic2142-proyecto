@@ -40,7 +40,7 @@ rails db:drop
 ```
 git checkout -d [branch-name-to-delete]
 ```
-
+Una vez _merged_, no utilizar de nuevo la branch, siempre borrarla.
 
 
 ### Cada vez que vayas a programar
