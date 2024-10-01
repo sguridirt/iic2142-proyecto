@@ -1,10 +1,15 @@
 <h1>Solicitudes</h1>
 
+<div class="return-home">
+  <%= link_to "✖", root_path, class: "close-button", title: "Volver a la página principal" %>
+</div>
+
 <table class="table">
   <thead>
     <tr>
       <th>Curso</th>
       <th>Estudiante</th>
+      <th>Status</th>
       <th>Acciones</th>
     </tr>
   </thead>
@@ -13,8 +18,10 @@
       <tr>
         <td><%= request.course.title if request.course.present? %></td>
         <td><%= request.student.user.name if request.student.present? %></td>
+        <td><%= request.course_request_status.name if request.course_request_status.present? %></td>
         <td>
-          <!-- Aquí puedes agregar botones para aprobar/rechazar solicitudes -->
+          <!-- Botón para eliminar la solicitud -->
+          <%= button_to 'Eliminar', request_path(request), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar esta solicitud?' }, class: 'btn btn-danger' %>
         </td>
       </tr>
     <% end %>
