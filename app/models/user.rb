@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   belongs_to :user_role
+  has_one :student
 
   has_one :admins
   has_one :teachers
