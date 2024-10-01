@@ -7,7 +7,11 @@ Render Web Application URL: **[DCCanvas Learning Web](https://mysite-2m84.onrend
 ### Para correrlo en local
 
 1. Clonar el repositorio.
-2. Crear la base de datos local, esta dependerá de la git branch en la que estás.
+2. Instalar gems
+```
+bundle install
+```
+4. Crear la base de datos local, esta dependerá de la git branch en la que estás.
 ```
 rails db:create
 rails db:schema:load
