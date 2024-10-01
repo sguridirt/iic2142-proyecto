@@ -4,12 +4,11 @@ Rails.application.routes.draw do
 
   resources :courses do
     member do
-      post 'request_join'  # Esta ruta permite enviar una solicitud para unirse a un curso
+      post 'request_join'  
     end
   end
 
-  # Añade recursos para las solicitudes
-  resources :requests, only: [:index, :create, :destroy] # Puedes añadir otras acciones según sea necesario
+  resources :requests, only: [:index, :create, :destroy] 
 
   get 'settings', to: 'user_settings#show', as: 'user_settings'
   get 'settings/edit', to: 'user_settings#edit', as: 'user_settings_edit'
