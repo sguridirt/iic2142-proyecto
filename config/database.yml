@@ -94,7 +94,8 @@ default: &default
 
 development:
   <<: *default
-  database: learning_app_development
+  # Utilizamos una base de datos especifica para cada git branch. Así evitamos problemas con diferencias de modelos.
+  database: learning_app_development_<%= `git branch --show-current`.strip %>
 
 test:
   <<: *default
