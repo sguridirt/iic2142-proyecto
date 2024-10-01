@@ -23,7 +23,8 @@ default: &default
 
 development:
   <<: *default
-  database: learning_app_development
+  # Utilizamos una base de datos especifica para cada git branch. Así evitamos problemas con diferencias de modelos.
+  database: learning_app_development_<%= `git branch --show-current`.strip %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
