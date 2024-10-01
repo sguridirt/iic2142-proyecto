@@ -1,0 +1,2 @@
+class EvaluationAnswer < ApplicationRecord
+end

@@ -1,6 +1,22 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
-  # Define your root route ("/")
-  # root "home#index"  # Si tienes un controlador llamado HomeController y una acción index
-  root "welcome#index"  # Asegúrate de tener un controlador llamado WelcomeController con una acción index
+  root "pages#index"
+  devise_for :users, controllers: { registrations: 'users/registrations' }
+
+  resources :courses do
+    member do
+      post 'request_join'  # Esta ruta permite enviar una solicitud para unirse a un curso
+    end
+  end
+
+  # Añade recursos para las solicitudes
+  resources :requests, only: [:index, :create, :destroy] # Puedes añadir otras acciones según sea necesario
+
+  get 'settings', to: 'user_settings#show', as: 'user_settings'
+  get 'settings/edit', to: 'user_settings#edit', as: 'user_settings_edit'
+  patch 'settings', to: 'user_settings#update'
 end
+
+
+
+
+
