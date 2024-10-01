@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_01_201329) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_01_202441) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,13 +79,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_01_201329) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "class_types", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "conversation_messages", force: :cascade do |t|
     t.bigint "conversation_id", null: false
     t.bigint "sender_id", null: false
@@ -108,6 +102,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_01_201329) do
 
   create_table "conversations", force: :cascade do |t|
     t.boolean "is_group"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "course_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -239,7 +240,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_01_201329) do
   add_foreign_key "conversation_messages", "conversations"
   add_foreign_key "conversation_participants", "conversations"
   add_foreign_key "conversation_participants", "users"
-  add_foreign_key "courses", "class_types", column: "class_types_id"
+  add_foreign_key "courses", "course_types", column: "class_types_id"
   add_foreign_key "courses", "teachers", column: "teachers_id"
   add_foreign_key "enrollments", "courses", column: "courses_id"
   add_foreign_key "enrollments", "students", column: "students_id"
