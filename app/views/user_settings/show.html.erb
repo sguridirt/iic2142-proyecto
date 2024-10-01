@@ -1,16 +1,42 @@
-<h1>Mi perfil</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h1 class="text-center">Mi Perfil</h1>
+        </div>
 
-<p><strong>Nombre:</strong> <%= @user.name %></p>
-<p><strong>Email:</strong> <%= @user.email %></p>
-<p><strong>Teléfono:</strong> <%= @user.phone %></p>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-8">
+              <p><strong>Nombre:</strong> <%= @user.name %></p>
+              <p><strong>Email:</strong> <%= @user.email %></p>
+              <p><strong>Teléfono:</strong> <%= @user.phone %></p>
+              <p><strong>Contraseña:</strong> <%= '•' * 8 %></p>
+            </div>
 
-<!-- Mostrar contraseña con asteriscos (simulada, sin exponer la real) -->
-<p><strong>Contraseña:</strong> <%= '•' * 8 %> <!-- 8 asteriscos como ejemplo, podrías ajustarlo si prefieres -->
-</p>
+            <!-- Imagen de perfil -->
+            <div class="col-md-4 text-center">
+              <% if @user.avatar.attached? %>
+                <%= image_tag @user.avatar, class: "img-fluid", style: "width: 150px; height: 150px; object-fit: cover;", alt: "Imagen de perfil" %>
+              <% else %>
+                <!-- Espacio vacío sin imagen -->
+                <div class="img-fluid" style="width: 150px; height: 150px; background-color: #f0f0f0;"></div>
+              <% end %>
+            </div>
+          </div>
+          
+          <div class="text-center mt-4">
+            <%= link_to 'Editar', user_settings_edit_path, class: 'btn btn-primary btn-lg' %>
+          </div>
+        </div>
+      </div>
 
-<%= link_to 'Editar', user_settings_edit_path, class: 'btn btn-primary' %>
-
-<% if notice %>
-  <p><%= notice %></p>
-<% end %>
-
+      <% if notice %>
+        <div class="alert alert-info mt-4 text-center">
+          <%= notice %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
