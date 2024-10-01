@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   belongs_to :user_role
-  has_many :admins
-  has_many :teachers
-  has_many :students
+  has_one :admins
+  has_one :teachers
+  has_one :students
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
