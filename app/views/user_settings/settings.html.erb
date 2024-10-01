@@ -1,0 +1,53 @@
+<h1>Mi perfil</h1>
+
+<div class="user-info">
+  <% if current_user %>
+    <p><strong>Nombre:</strong> <%= current_user.name %></p>
+    <p><strong>Correo electrónico:</strong> <%= current_user.email %></p>
+    <p><strong>Teléfono:</strong> <%= current_user.phone %></p>
+    <p><strong>Contraseña:</strong> ********</p>
+  <% else %>
+    <p>Por favor, inicia sesión para ver tu perfil.</p>
+  <% end %>
+</div>
+<%= button_to "Editar perfil", edit_user_password_path, method: :get, class: "edit-button" %>
+<div id="edit-form" style="display: none;">
+    <%= form_for current_user, url: user_path(current_user), method: :patch do |f| %>
+      <%= f.label :name, "Nombre" %>
+      <%= f.text_field :name %>
+
+      <%= f.label :email, "Correo electrónico" %>
+      <%= f.email_field :email %>
+
+      <%= f.label :phone, "Teléfono" %>
+      <%= f.text_field :phone %>
+
+      <%= f.label :password, "Contraseña" %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, "Confirmar contraseña" %>
+      <%= f.password_field :password_confirmation %>
+
+      <%= f.submit "Guardar cambios" %>
+    <% end %>
+</div>
+<script>
+  document.querySelector('.edit-button').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('edit-form').style.display = 'block';
+  });
+</script>
+
+<% if flash[:notice] %>
+  <div class="alert alert-success"><%= flash[:notice] %></div>
+<% end %>
+
+<% if current_user.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% current_user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
