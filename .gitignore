@@ -33,3 +33,5 @@
 # Ignore files in Word, as there should always be a pdf version.
 *.doc
 *.docx
+.env
+node_modules
