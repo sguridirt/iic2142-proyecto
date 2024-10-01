@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse justify-content-end">
           <ul class="navbar-nav me-2 mb-2 mb-lg-0">
             <li class="nav-item">
-              <a href="#" class="nav-link">Cursos</a>
+              <%= link_to "Cursos", courses_path, class: "nav-link" %>
             </li>
             <li>
               <% if current_user %>
@@ -32,7 +32,8 @@
         </div>
       </div>
       </div>
-    </nav>    
+    </nav> 
+   
 
     <%= yield %>
   </body>
