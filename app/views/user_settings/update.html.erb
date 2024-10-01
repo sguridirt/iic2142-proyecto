@@ -1,0 +1,40 @@
+<h1>Editar perfil</h1>
+
+<%= form_with(model: @user, url: user_settings_path, method: :patch) do |f| %>
+  <div>
+    <%= f.label :name, "Nombre" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :phone, "Teléfono" %>
+    <%= f.text_field :phone %>
+  </div>
+
+  <hr>
+
+  <h2>Cambiar contraseña</h2>
+
+  <div class="field">
+    <%= f.label :password, "Nueva contraseña (dejar en blanco si no deseas cambiarla)" %><br />
+    <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> caracteres mínimo)</em><br />
+    <% end %>
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirmar nueva contraseña" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <%= f.submit "Guardar cambios", class: "btn btn-success" %>
+<% end %>
+
+<%= link_to 'Cancelar', user_settings_path, class: 'btn btn-secondary' %>
+
