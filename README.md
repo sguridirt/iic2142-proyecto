@@ -38,7 +38,7 @@ rails db:drop
 ```
 5. Además, eliminar la branch. Github permite eliminarla por la página. O, se puede hacer:
 ```
-git checkout -d [branch-name-to-delete]
+git branch -d [branch-name-to-delete]
 ```
 Una vez _merged_, no utilizar de nuevo la branch, siempre borrarla.
 
