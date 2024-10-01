@@ -1,0 +1,16 @@
+<h1>Mi perfil</h1>
+
+<p><strong>Nombre:</strong> <%= @user.name %></p>
+<p><strong>Email:</strong> <%= @user.email %></p>
+<p><strong>Teléfono:</strong> <%= @user.phone %></p>
+
+<!-- Mostrar contraseña con asteriscos (simulada, sin exponer la real) -->
+<p><strong>Contraseña:</strong> <%= '•' * 8 %> <!-- 8 asteriscos como ejemplo, podrías ajustarlo si prefieres -->
+</p>
+
+<%= link_to 'Editar', user_settings_edit_path, class: 'btn btn-primary' %>
+
+<% if notice %>
+  <p><%= notice %></p>
+<% end %>
+
