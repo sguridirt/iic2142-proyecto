@@ -10,6 +10,10 @@ Rails.application.routes.draw do
 
   # Añade recursos para las solicitudes
   resources :requests, only: [:index, :create, :destroy] # Puedes añadir otras acciones según sea necesario
+
+  get 'settings', to: 'user_settings#show', as: 'user_settings'
+  get 'settings/edit', to: 'user_settings#edit', as: 'user_settings_edit'
+  patch 'settings', to: 'user_settings#update'
 end
 
 
