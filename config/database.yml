@@ -99,7 +99,7 @@ development:
 
 test:
   <<: *default
-  database: learning_app_test
+  database: learning_app_test_<%= `git branch --show-current`.strip %>
 
 production:
   <<: *default
