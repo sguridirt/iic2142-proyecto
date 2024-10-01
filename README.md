@@ -25,7 +25,7 @@ git checkout -b [new-branch-name]
 ```
 rails db:create
 ```
-La configuración de la base de datos, `config/database.yml`, especifica que comando creará una base de datos llamada `learning_app_development_[new-branch-name]`. No podrás trabajar en esta branch si no creas esta base de datos específica.
+La configuración de la base de datos, `config/database.yml`, especifica que comando creará dos base de datos llamadas `learning_app_development_[new-branch-name]` y `learning_app_test_[new-branch-name]`. No podrás trabajar en esta branch si no creas esta base de datos específica. Rails sabrá cuál usar.
 
 3. Cargar el modelo previo con los datos necesarios.
 ```
