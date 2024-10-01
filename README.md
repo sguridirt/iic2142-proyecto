@@ -15,6 +15,7 @@ rails db:seed
 ```
 
 ### Cada vez que trabajes en una **nueva** `git branch`
+Si creas una branch para trabajar en algo que no utiliza base de datos, entonces esto lo puedes ignorar.
 
 1. Crear branch
 ```
@@ -24,7 +25,7 @@ git checkout -b [new-branch-name]
 ```
 rails db:create
 ```
-La configuración de la base de datos, `config/database.yml`, especifica que comando creará una base de datos llamada `learning_app_development_[new-branch-name]`.
+La configuración de la base de datos, `config/database.yml`, especifica que comando creará una base de datos llamada `learning_app_development_[new-branch-name]`. No podrás trabajar en esta branch si no creas esta base de datos específica.
 
 3. Cargar el modelo previo con los datos necesarios.
 ```
