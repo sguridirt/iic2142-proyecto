@@ -11,8 +11,6 @@
   </head>
 
   <body>
-    <p class="notice"><% notice %></p>
-    <p class="alert"><% alert %></p>
     <nav class="navbar navbar-expand">
       <div class="container-fluid">
         <span class="navbar-brand mb-0 h1">DCCanvas</span>
@@ -32,7 +30,13 @@
         </div>
       </div>
       </div>
-    </nav>    
+    </nav>
+    <% if notice %>
+      <div class="alert alert-primary" role="alert"><%= notice %></div>
+    <% end %>
+    <% if alert %>
+      <div class="alert alert-danger" role="alert"><%= alert %></div>
+    <% end %>
 
     <%= yield %>
   </body>
