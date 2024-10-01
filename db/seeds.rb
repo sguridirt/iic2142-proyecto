@@ -4,7 +4,8 @@
 # Create user roles if they don't already exist
 roles = [
   { name: 'Student', description: 'A user who can enroll in courses and participate as a student.' },
-  { name: 'Teacher', description: 'A user who can create and manage courses for students.' }
+  { name: 'Teacher', description: 'A user who can create and manage courses for students.' },
+  { name: 'Admin', description: 'A user who can create and manage courses, conversations and users.' }
 ]
 
 # Create roles only if they don't exist already
