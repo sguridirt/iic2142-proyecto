@@ -1,0 +1,2 @@
+class CourseReview < ApplicationRecord
+end
