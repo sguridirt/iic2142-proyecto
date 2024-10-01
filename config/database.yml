@@ -95,11 +95,11 @@ default: &default
 development:
   <<: *default
   # Utilizamos una base de datos especifica para cada git branch. Así evitamos problemas con diferencias de modelos.
-  database: learning_app_development_<%= `git branch --show-current`.strip %>
+  database: 2024-2-GRUPO-61<%= `git branch --show-current`.strip %>
 
 test:
   <<: *default
-  database: learning_app_test_<%= `git branch --show-current`.strip %>
+  database: 2024-2-GRUPO-61p_test_<%= `git branch --show-current`.strip %>
 
 production:
   <<: *default
