@@ -22,11 +22,10 @@ class UserSettingsController < ApplicationController
   private
 
   def user_params
-    # Filtrar la contraseña solo si está presente
     if params[:user][:password].blank?
-      params.require(:user).permit(:name, :email, :phone, :user_role_id)
+      params.require(:user).permit(:name, :email, :phone, :avatar, :user_role_id)
     else
-      params.require(:user).permit(:name, :email, :phone, :password, :password_confirmation, :user_role_id)
+      params.require(:user).permit(:name, :email, :phone, :password, :password_confirmation, :avatar, :user_role_id)
     end
   end
 end

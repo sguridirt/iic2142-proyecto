@@ -76,3 +76,5 @@ gem 'rubocop', require: false
 gem 'bootstrap'
 gem 'sassc-rails'
 gem 'devise'
+gem 'mini_magick', '~> 4.9'
+gem 'image_processing', '~> 1.2'

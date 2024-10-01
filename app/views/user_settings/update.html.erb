@@ -7,8 +7,8 @@
         </div>
 
         <div class="card-body">
-          <%= form_with(model: @user, url: user_settings_path, method: :patch, class: "form-horizontal") do |f| %>
-            
+          <%= form_with(model: @user, url: user_settings_path, method: :patch, html: { multipart: true }, class: "form-horizontal") do |f| %>
+
             <div class="mb-3">
               <%= f.label :name, "Nombre", class: "form-label" %>
               <%= f.text_field :name, class: "form-control" %>
@@ -22,6 +22,11 @@
             <div class="mb-3">
               <%= f.label :phone, "Teléfono", class: "form-label" %>
               <%= f.text_field :phone, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :avatar, "Subir imagen de perfil", class: "form-label" %>
+              <%= f.file_field :avatar, class: "form-control" %>
             </div>
 
             <hr>
