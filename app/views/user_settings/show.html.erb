@@ -7,16 +7,27 @@
         </div>
 
         <div class="card-body">
-          <p><strong>Nombre:</strong> <%= @user.name %></p>
-          <p><strong>Email:</strong> <%= @user.email %></p>
-          <p><strong>Teléfono:</strong> <%= @user.phone %></p>
+          <div class="row">
+            <div class="col-md-8">
+              <p><strong>Nombre:</strong> <%= @user.name %></p>
+              <p><strong>Email:</strong> <%= @user.email %></p>
+              <p><strong>Teléfono:</strong> <%= @user.phone %></p>
+              <p><strong>Contraseña:</strong> <%= '•' * 8 %></p>
+            </div>
 
-          <!-- Mostrar contraseña con asteriscos (simulada, sin exponer la real) -->
-          <p><strong>Contraseña:</strong> <%= '•' * 8 %></p>
-
-          <!-- Botón para editar perfil -->
-          <div class="text-center">
-            <%= link_to 'Editar', user_settings_edit_path, class: 'btn btn-primary btn-lg mt-3' %>
+            <!-- Imagen de perfil -->
+            <div class="col-md-4 text-center">
+              <% if @user.avatar.attached? %>
+                <%= image_tag @user.avatar, class: "img-fluid", style: "width: 150px; height: 150px; object-fit: cover;", alt: "Imagen de perfil" %>
+              <% else %>
+                <!-- Espacio vacío sin imagen -->
+                <div class="img-fluid" style="width: 150px; height: 150px; background-color: #f0f0f0;"></div>
+              <% end %>
+            </div>
+          </div>
+          
+          <div class="text-center mt-4">
+            <%= link_to 'Editar', user_settings_edit_path, class: 'btn btn-primary btn-lg' %>
           </div>
         </div>
       </div>
@@ -29,4 +40,3 @@
     </div>
   </div>
 </div>
-
