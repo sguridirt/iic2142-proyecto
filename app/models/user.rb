@@ -1,8 +1,11 @@
 class User < ApplicationRecord
   belongs_to :user_role
+
   has_one :admins
   has_one :teachers
   has_one :students
+  
+  has_one_attached :avatar
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -27,4 +30,8 @@ class User < ApplicationRecord
       Teacher.create(user_id: id)
     end
   end
+  def avatar_thumbnail
+    return self.avatar.variant(resize_to_fill: [300, 300], processor: :mini_magick).processed if avatar.attached?
+  end
+
 end
