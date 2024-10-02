@@ -1,2 +1,0 @@
-class ClassRequest < ApplicationRecord
-end
