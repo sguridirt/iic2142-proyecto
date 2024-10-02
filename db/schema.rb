@@ -10,12 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema[7.0].define(version: 2024_10_01_202441) do
-=======
-
 ActiveRecord::Schema[7.0].define(version: 2024_10_01_205327) do
->>>>>>> 7c8ebabcd57ce7c93c5c5091740205087ac83cfb
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,45 +49,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_01_205327) do
     t.index ["user_id"], name: "index_admins_on_user_id"
   end
 
-<<<<<<< HEAD
-  create_table "class_request_statuses", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "class_requests", force: :cascade do |t|
-    t.string "description", null: false
-    t.date "startDate", null: false
-    t.date "endaDate", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "students_id", null: false
-    t.bigint "class_request_statuses_id", null: false
-    t.bigint "courses_id", null: false
-    t.index ["class_request_statuses_id"], name: "index_class_requests_on_class_request_statuses_id"
-    t.index ["courses_id"], name: "index_class_requests_on_courses_id"
-    t.index ["students_id"], name: "index_class_requests_on_students_id"
-  end
-
-  create_table "class_reviews", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "comment", null: false
-    t.integer "rating", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "class_types", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-=======
->>>>>>> 7c8ebabcd57ce7c93c5c5091740205087ac83cfb
   create_table "conversation_messages", force: :cascade do |t|
     t.bigint "conversation_id", null: false
     t.bigint "sender_id", null: false
