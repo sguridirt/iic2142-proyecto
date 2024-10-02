@@ -15,23 +15,26 @@ roles.each do |role_data|
   end
 end
 
-admin = User.find_or_create_by!(email: "admin@admin.com", name: "Admin User", phone: "+56900000001") do |user|
+admin_user = User.find_or_create_by!(email: "admin@admin.com", name: "Ulloa", phone: "+56900000001") do |user|
   user.password = "salero"
   user.password_confirmation = "salero"
   user.user_role_id = UserRole.find_by(name: 'Admin').id
 end
-Admin.find_or_create_by!(user_id: admin.id)
+Admin.find_or_create_by!(user_id: admin_user.id)
 
-teacher = User.find_or_create_by!(email: "teacher@teacher.com", name: "Teacher User", phone: "+56900000002") do |user|
+teacher_user = User.find_or_create_by!(email: "teacher@teacher.com", name: "Profe Rod", phone: "+56900000002") do |user|
   user.password = "salero"
   user.password_confirmation = "salero"
   user.user_role_id = UserRole.find_by(name: 'Teacher').id
 end
-Teacher.find_or_create_by!(user_id: teacher.id)
+teacher = Teacher.find_or_create_by!(user_id: teacher_user.id)
 
-student = User.find_or_create_by!(email: "student@student.com", name: "Student User", phone: "+56900000003") do |user|
+student_user = User.find_or_create_by!(email: "student@student.com", name: "Doren", phone: "+56900000003") do |user|
   user.password = "salero"
   user.password_confirmation = "salero"
   user.user_role_id = UserRole.find_by(name: 'Student').id
 end
-Student.find_or_create_by!(user_id: student.id)
+Student.find_or_create_by!(user_id: student_user.id)
+
+course_type = CourseType.find_or_create_by!(name: "Maths", description: "Mathematics courses")
+Course.find_or_create_by!(title: "Maths 101", description: "bla", start_date: Date.today, end_date: Date.tomorrow, course_type: course_type, teacher: teacher)
