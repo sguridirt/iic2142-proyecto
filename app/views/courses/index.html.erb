@@ -1,0 +1,38 @@
+<h1>Cursos</h1>
+
+<div class="search-container">
+  <%= form_with url: courses_path, method: :get, local: true do |form| %>
+    <div class="input-group">
+      <%= form.text_field :query, placeholder: "Buscar por nombre de curso o profesor", class: "form-control" %>
+      <%= form.submit "Buscar", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Descripción</th>
+      <th>Profesor</th>
+      <% if current_user&.user_role_id == UserRole.find_by(name: "Student")&.id %>
+        <th>Acciones</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td><%= course.title %></td>
+        <td><%= course.description %></td>
+        <td><%= course.teacher.user.name if course.teacher.present? %></td>
+        
+        <% if current_user&.user_role_id == UserRole.find_by(name: "Student")&.id %>
+          <td>
+            <%= link_to "Solicitar unirse", join_course_path(course), method: :post, class: "btn btn-success" %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
