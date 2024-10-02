@@ -1,10 +1,8 @@
 class User < ApplicationRecord
   belongs_to :user_role
   has_one :student
-
-  has_one :admins
-  has_one :teachers
-  has_one :students
+  has_one :teacher
+  has_one :admin
   
   has_one_attached :avatar
 
