@@ -1,0 +1,22 @@
+<section class="container-fluid px-2">
+    <h1>Home</h1>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <h5>Tus cursos</h5>
+            <% @courses.each do |course| %>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5><%= link_to course.title, course_path(course), :class => "card-title" %></h5>
+                        <p class="card-text"><%= course.teacher.user.name %></p>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+        <div class="col">
+            <h5>Acciones</h5>
+            
+        </div>
+    </div>
+    
+</section>
