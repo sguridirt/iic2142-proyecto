@@ -14,3 +14,24 @@ roles.each do |role_data|
     role.description = role_data[:description]
   end
 end
+
+admin = User.find_or_create_by!(email: "admin@admin.com", name: "Admin User", phone: "+56900000001") do |user|
+  user.password = "salero"
+  user.password_confirmation = "salero"
+  user.user_role_id = UserRole.find_by(name: 'Admin').id
+end
+Admin.find_or_create_by!(user_id: admin.id)
+
+teacher = User.find_or_create_by!(email: "teacher@teacher.com", name: "Teacher User", phone: "+56900000002") do |user|
+  user.password = "salero"
+  user.password_confirmation = "salero"
+  user.user_role_id = UserRole.find_by(name: 'Teacher').id
+end
+Teacher.find_or_create_by!(user_id: teacher.id)
+
+student = User.find_or_create_by!(email: "student@student.com", name: "Student User", phone: "+56900000003") do |user|
+  user.password = "salero"
+  user.password_confirmation = "salero"
+  user.user_role_id = UserRole.find_by(name: 'Student').id
+end
+Student.find_or_create_by!(user_id: student.id)
