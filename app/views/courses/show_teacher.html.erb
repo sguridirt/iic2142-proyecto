@@ -11,11 +11,11 @@
 
   <div class="row mt-4">
     <div class="col-md-12">
-      <h3>Tests</h3>
-      <div class="d-flex justify-content-between mb-2">
-        <h4>Evaluaciones</h4>
-        <a href="#" class="btn btn-success">Crear Evaluación</a>
-      </div>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+    <h3 class="mb-0">Tests</h3>
+    <a href="#" class="btn btn-success">Crear Evaluación</a>
+  </div>
+  
       <ul class="list-group">
         <% @course.evaluations.each do |evaluation| %>
           <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -37,12 +37,11 @@
   </div>
 
   <div class="row mt-4">
-    <div class="col-md-12">
-      <h3>Contenido</h3>
-      <div class="d-flex justify-content-between mb-2">
-        <h4>Materiales</h4>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h3 class="mb-0">Contenido</h3>
         <a href="#" class="btn btn-success">Subir Material</a>
-      </div>
+    </div>
+
       <ul class="list-group">
         <% if @course.materials.any? %>
           <% @course.materials.each_with_index do |material, index| %>
