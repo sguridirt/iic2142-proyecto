@@ -1,0 +1,81 @@
+<section class="container-fluid px-2">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="mb-2"><%= @course.title %></h1>
+      <p class="mb-1"><strong>Profesor:</strong> <%= @course.teacher.user.name %></p>
+      <p class="mb-1"><strong>Horario:</strong> <%= @course.start_date %> - <%= @course.end_date %></p>
+      <p class="mb-1"><strong>Descripción:</strong> <%= @course.description %></p>
+    </div>
+  </div>
+
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h3>Tests</h3>
+      <div class="d-flex justify-content-between mb-2">
+        <h4>Evaluaciones</h4>
+        <a href="#" class="btn btn-success">Crear Evaluación</a>
+      </div>
+      <ul class="list-group">
+        <% @course.evaluations.each do |evaluation| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <strong><%= evaluation.name %></strong>
+              <br>
+              <small>Duración: <%= evaluation.duration %> minutos</small>
+              <br>
+              <small>Día: <%= evaluation.start_date.strftime('%d/%m/%Y') %></small>
+            </div>
+            <div class="d-flex">
+              <a href="#" class="btn btn-primary btn-sm me-2">Ver</a>
+              <a href="#" class="btn btn-danger btn-sm">Eliminar</a>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h3>Contenido</h3>
+      <div class="d-flex justify-content-between mb-2">
+        <h4>Materiales</h4>
+        <a href="#" class="btn btn-success">Subir Material</a>
+      </div>
+      <ul class="list-group">
+        <% if @course.materials.any? %>
+          <% @course.materials.each_with_index do |material, index| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span><%= index + 1 %>. <%= material.name %></span>
+              <div class="d-flex">
+                <a href="#" class="btn btn-primary btn-sm me-2">Ver</a>
+                <a href="#" class="btn btn-danger btn-sm">Eliminar</a>
+              </div>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">No hay material disponible en este curso.</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h3>Personas</h3>
+      <ul class="list-group">
+        <% if @course.students.any? %>
+          <% @course.students.each_with_index do |student, index| %>
+            <li class="list-group-item">
+              <%= index + 1 %>. <%= student.user.name %>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">No hay ningún estudiante inscrito en el curso.</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</section>
