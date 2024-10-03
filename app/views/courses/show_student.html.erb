@@ -23,7 +23,7 @@
                 <small>Día: <%= evaluation.start_date.strftime('%d/%m/%Y') %></small>
             </div>
             
-            <a href="#" class="btn btn-primary">Realizar</a>
+            <%= link_to 'Realizar', evaluation_path(evaluation), class: 'btn btn- ' %>
             </li>
         <% end %>
         </ul>
