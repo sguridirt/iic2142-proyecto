@@ -15,7 +15,6 @@
         <ul class="list-group">
         <% @course.evaluations.each do |evaluation| %>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-            <!-- Información de la evaluación -->
             <div>
                 <strong><%= evaluation.name %></strong>
                 <br>
@@ -40,6 +39,7 @@
             <% if @course.materials.any? %>
             <% @course.materials.each_with_index do |material, index| %>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
+
                 <span><%= index + 1 %>. <%= material.name %></span>
     
                 <a href="#" class="btn btn-primary btn-sm">Ver</a>
