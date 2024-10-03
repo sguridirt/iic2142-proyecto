@@ -24,7 +24,6 @@
                 <small>Día: <%= evaluation.start_date.strftime('%d/%m/%Y') %></small>
             </div>
             
-            <!-- Botón de realizar alineado a la derecha -->
             <a href="#" class="btn btn-primary">Realizar</a>
             </li>
         <% end %>
@@ -41,10 +40,8 @@
             <% if @course.materials.any? %>
             <% @course.materials.each_with_index do |material, index| %>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                <!-- Contenido enumerado -->
                 <span><%= index + 1 %>. <%= material.name %></span>
     
-                <!-- Botón Ver a la derecha -->
                 <a href="#" class="btn btn-primary btn-sm">Ver</a>
                 </li>
             <% end %>
