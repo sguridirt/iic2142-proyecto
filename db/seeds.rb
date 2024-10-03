@@ -42,3 +42,7 @@ course2 = Course.find_or_create_by!(title: "Maths 201", description: "ble", star
 
 Enrollment.find_or_create_by!(student: student_user.student, course: course1, enrollment_date: Date.today)
 Enrollment.find_or_create_by!(student: student_user.student, course: course2, enrollment_date: Date.today)
+
+CourseRequestStatus.create(name: "pending", description: "Pending approval")
+CourseRequestStatus.create(name: "accepted", description: "Request accepted")
+CourseRequestStatus.create(name: "rejected", description: "Request rejected")
