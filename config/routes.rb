@@ -7,11 +7,11 @@ Rails.application.routes.draw do
 
   resources :courses do
     member do
-      post 'request_join'
+      post 'request_join'  
     end
   end
 
-  resources :requests, only: [:index, :create, :destroy]
+  resources :requests, only: [:index, :create, :destroy] 
 
   get 'settings', to: 'user_settings#show', as: 'user_settings'
   get 'settings/edit', to: 'user_settings#edit', as: 'user_settings_edit'
