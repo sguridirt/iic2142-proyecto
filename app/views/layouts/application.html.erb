@@ -13,7 +13,11 @@
   <body>
     <nav class="navbar navbar-expand">
       <div class="container-fluid">
-        <%= link_to "DCCanvas", root_path, :class => "navbar-brand mb-0 h1" %>
+        <% if current_user %>
+          <%= link_to "DCCanvas", home_path, :class => "navbar-brand mb-0 h1" %>
+        <% else %>
+          <%= link_to "DCCanvas", root_path, :class => "navbar-brand mb-0 h1" %>
+        <% end %>
         <div class="collapse navbar-collapse justify-content-end">
           <ul class="navbar-nav me-2 mb-2 mb-lg-0">
             <li class="nav-item">
