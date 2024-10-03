@@ -13,7 +13,7 @@
     <div class="col-md-12">
     <div class="d-flex justify-content-between align-items-center mb-2">
     <h3 class="mb-0">Tests</h3>
-    <a href="#" class="btn btn-success">Crear Evaluación</a>
+    <%= link_to 'Crear Evaluación', new_evaluation_path, class: 'btn btn-secondary' %>
   </div>
   
       <ul class="list-group">
@@ -27,7 +27,7 @@
               <small>Día: <%= evaluation.start_date.strftime('%d/%m/%Y') %></small>
             </div>
             <div class="d-flex">
-              <a href="#" class="btn btn-primary btn-sm me-2">Ver</a>
+              <%= link_to 'Ver', evaluation_path(evaluation), class: 'btn btn-primary btn-sm me-2' %>
               <a href="#" class="btn btn-danger btn-sm">Eliminar</a>
             </div>
           </li>
@@ -39,7 +39,7 @@
   <div class="row mt-4">
     <div class="d-flex justify-content-between align-items-center mb-2">
         <h3 class="mb-0">Contenido</h3>
-        <a href="#" class="btn btn-success">Subir Material</a>
+        <a href="#" class="btn btn-secondary">Subir Material</a>
     </div>
 
       <ul class="list-group">

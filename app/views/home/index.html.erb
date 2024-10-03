@@ -16,7 +16,7 @@
         <div class="col-sm">
             <h5>Acciones</h5>
             <% if current_user.teacher.present? %>
-                <%= link_to "Crear evaluación", new_course_path, :class => "btn btn-outline-secondary w-100 mb-2 fluid" %>
+                <%= link_to "Crear evaluación", new_evaluation_path, :class => "btn btn-outline-secondary w-100 mb-2 fluid" %>
                 <%= link_to "Crear curso", new_course_path, :class => "btn btn-outline-secondary w-100 mb-2 fluid" %>
             <% end%>
             
