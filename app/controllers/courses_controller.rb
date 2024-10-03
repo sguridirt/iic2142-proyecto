@@ -60,5 +60,16 @@ class CoursesController < ApplicationController
       render 'show_student'
     end
   end
+
+  def upload_material
+    @course = Course.find(params[:id])
+  end
+  
+  def process_upload_material
+    @course = Course.find(params[:id])
+    # Add logic to handle the file upload and save the material
+    redirect_to @course, notice: 'Material uploaded successfully.'
+  end
+  
 end
 
