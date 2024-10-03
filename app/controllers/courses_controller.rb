@@ -58,6 +58,15 @@ class CoursesController < ApplicationController
       render :new
     end
   end
+  
+  def show
+    @course = Course.find(params[:id])
+    if current_user.teacher?
+      render 'show_teacher'
+    else
+      render 'show_student'
+    end
+  end
 
   private
 
