@@ -10,32 +10,39 @@ class CoursesController < ApplicationController
 
   def request_join
     course = Course.find(params[:id])
-    
     student = current_user.student
-
-    existing_request = CourseRequest.find_by(course: course, student: student)
-
-    if existing_request
-      redirect_to courses_path, alert: "Ya has solicitado unirte a este curso."
+  
+    
+    existing_enrollment = Enrollment.find_by(course: course, student: student)
+  
+    if existing_enrollment
+      redirect_to courses_path, alert: "Ya estás inscrito en este curso."
     else
-      status = CourseRequestStatus.find_by(name: "pending")
-      if status
-        description = "Solicitud de unión al curso por #{current_user.name}" # Nombre del usuario en la descripción
-        start_date = Date.today
-        end_date = start_date + 1.month
-
-        CourseRequest.create(
-          student: student,
-          course: course,
-          course_request_status: status,
-          start_date: start_date,
-          end_date: end_date,
-          description: description
-        )
-
-        redirect_to courses_path, notice: "Has solicitado unirte al curso: #{course.title}."
+      
+      existing_request = CourseRequest.find_by(course: course, student: student)
+  
+      if existing_request
+        redirect_to courses_path, alert: "Ya has solicitado unirte a este curso."
       else
-        redirect_to courses_path, alert: "No se pudo crear la solicitud. Estado de solicitud no encontrado."
+        status = CourseRequestStatus.find_by(name: "pending")
+        if status
+          description = "Solicitud de unión al curso por #{current_user.name}"
+          start_date = Date.today
+          end_date = start_date + 1.month
+  
+          CourseRequest.create(
+            student: student,
+            course: course,
+            course_request_status: status,
+            start_date: start_date,
+            end_date: end_date,
+            description: description
+          )
+  
+          redirect_to courses_path, notice: "Has solicitado unirte al curso: #{course.title}."
+        else
+          redirect_to courses_path, alert: "No se pudo crear la solicitud. Estado de solicitud no encontrado."
+        end
       end
     end
   end
