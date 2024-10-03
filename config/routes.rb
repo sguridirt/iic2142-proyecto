@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
   resources :requests, only: [:index, :create, :destroy] 
 
+  resources :evaluations, only: [:new, :create, :destroy, :show] do
+    resources :evaluation_questions, only: [:new, :create]
+  end
+
   get 'settings', to: 'user_settings#show', as: 'user_settings'
   get 'settings/edit', to: 'user_settings#edit', as: 'user_settings_edit'
   patch 'settings', to: 'user_settings#update'
