@@ -1,8 +1,10 @@
 class User < ApplicationRecord
   belongs_to :user_role
   has_one :student
-  has_one :teacher
-  has_one :admin
+
+  has_one :admins
+  has_one :teachers
+  has_one :students
   
   has_one_attached :avatar
 
@@ -31,14 +33,6 @@ class User < ApplicationRecord
   end
   def avatar_thumbnail
     return self.avatar.variant(resize_to_fill: [300, 300], processor: :mini_magick).processed if avatar.attached?
-  end
-
-  def teacher?
-    user_role.name == "Teacher"
-  end
-  
-  def student?
-    user_role.name == "Student"
   end
 
 end
