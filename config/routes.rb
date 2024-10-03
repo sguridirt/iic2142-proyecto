@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root "pages#index"
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { 
+    sessions: 'users/sessions',
+    registrations: 'users/registrations' 
+  }
 
   resources :courses do
     member do
@@ -13,6 +16,8 @@ Rails.application.routes.draw do
   get 'settings', to: 'user_settings#show', as: 'user_settings'
   get 'settings/edit', to: 'user_settings#edit', as: 'user_settings_edit'
   patch 'settings', to: 'user_settings#update'
+
+  get 'home', to: 'home#index'
 end
 
 

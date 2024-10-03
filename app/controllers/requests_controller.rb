@@ -5,7 +5,7 @@ class RequestsController < ApplicationController
     if current_user.student.present?
       @requests = CourseRequest.where(student_id: current_user.student.id)
     else
-      @requests = [] # Maneja el caso donde no hay estudiante
+      @requests = []
     end
   end
 
