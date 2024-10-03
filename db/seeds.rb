@@ -37,4 +37,8 @@ end
 Student.find_or_create_by!(user_id: student_user.id)
 
 course_type = CourseType.find_or_create_by!(name: "Maths", description: "Mathematics courses")
-Course.find_or_create_by!(title: "Maths 101", description: "bla", start_date: Date.today, end_date: Date.tomorrow, course_type: course_type, teacher: teacher)
+course1 = Course.find_or_create_by!(title: "Maths 101", description: "bla", start_date: Date.today, end_date: Date.tomorrow, course_type: course_type, teacher: teacher)
+course2 = Course.find_or_create_by!(title: "Maths 201", description: "ble", start_date: Date.today, end_date: Date.tomorrow, course_type: course_type, teacher: teacher)
+
+Enrollment.find_or_create_by!(student: student_user.student, course: course1, enrollment_date: Date.today)
+Enrollment.find_or_create_by!(student: student_user.student, course: course2, enrollment_date: Date.today)
