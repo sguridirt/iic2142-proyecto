@@ -8,6 +8,26 @@
     </div>
   </div>
 
+  <!-- Sección de Tests -->
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h3>Tests</h3>
+      <ul class="list-group">
+        <% @course.evaluations.each do |evaluation| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>
+              <strong><%= evaluation.name %></strong> <!-- Muestra el nombre de la evaluación -->
+              <br>
+              <small>Duración: <%= evaluation.duration %> minutos</small> <!-- Muestra la duración de la evaluación -->
+              <br>
+              <small>Día: <%= evaluation.start_date.strftime('%d/%m/%Y') %></small> <!-- Muestra la fecha de inicio de la evaluación -->
+            </span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
 
   <div class="row mt-4">
     <div class="col-md-12">

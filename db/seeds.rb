@@ -60,3 +60,27 @@ material5 = Material.find_or_create_by!(name: "Advanced Calculus Document", desc
 material6 = Material.find_or_create_by!(name: "Calculus Textbook", description: "Advanced calculus textbook", material_type: material_type2, course: course2)
 material7 = Material.find_or_create_by!(name: "Introduction to Derivatives Video", description: "Video explaining basic derivatives", material_type: material_type3, course: course2)
 material8 = Material.find_or_create_by!(name: "Advanced Calculus Presentations", description: "Slides covering advanced calculus concepts", material_type: material_type4, course: course2)
+
+
+evaluation_type1 = EvaluationType.find_or_create_by!(name: "Quiz", description: "A short quiz")
+evaluation_type2 = EvaluationType.find_or_create_by!(name: "Final Exam", description: "End of course final exam")
+
+evaluation1 = Evaluation.find_or_create_by!(name: "Algebra Quiz", start_date: Date.today, duration: 60, course: course1, evaluation_type: evaluation_type1)
+evaluation2 = Evaluation.find_or_create_by!(name: "Linear Algebra Final Exam", start_date: Date.today + 1.week, duration: 120, course: course1, evaluation_type: evaluation_type2)
+evaluation3 = Evaluation.find_or_create_by!(name: "Calculus Quiz", start_date: Date.today, duration: 60, course: course2, evaluation_type: evaluation_type1)
+evaluation4 = Evaluation.find_or_create_by!(name: "Advanced Calculus Final Exam", start_date: Date.today + 1.week, duration: 120, course: course2, evaluation_type: evaluation_type2)
+
+question1_eval1 = EvaluationQuestion.create!(content: { question: "What is 2 + 2?", options: ["3", "4", "5"], correct_answer: "4" }, evaluation: evaluation1)
+question2_eval1 = EvaluationQuestion.create!(content: { question: "What is the derivative of x^2?", options: ["2x", "x^2", "2"], correct_answer: "2x" }, evaluation: evaluation1)
+question1_eval2 = EvaluationQuestion.create!(content: { question: "Define a vector space.", options: ["A set of points", "A set with two operations", "A linear equation"], correct_answer: "A set with two operations" }, evaluation: evaluation2)
+question2_eval2 = EvaluationQuestion.create!(content: { question: "What is a basis in linear algebra?", options: ["Set of vectors", "A scalar", "A number"], correct_answer: "Set of vectors" }, evaluation: evaluation2)
+question1_eval3 = EvaluationQuestion.create!(content: { question: "What is the integral of x?", options: ["x", "x^2/2", "1/x"], correct_answer: "x^2/2" }, evaluation: evaluation3)
+question1_eval4 = EvaluationQuestion.create!(content: { question: "What is the limit of 1/x as x approaches infinity?", options: ["0", "Infinity", "1"], correct_answer: "0" }, evaluation: evaluation4)
+
+answer1 = EvaluationAnswer.find_or_create_by!(content: "4", points: 10, evaluation_status: 1, evaluation_question: question1_eval1, student: student_user.student)
+answer2 = EvaluationAnswer.find_or_create_by!(content: "2x", points: 10, evaluation_status: 1, evaluation_question: question2_eval1, student: student_user.student)
+
+answer3 = EvaluationAnswer.find_or_create_by!(content: "A set with two operations", points: 10, evaluation_status: 1, evaluation_question: question1_eval2, student: student_user.student)
+answer4 = EvaluationAnswer.find_or_create_by!(content: "Set of vectors", points: 10, evaluation_status: 1, evaluation_question: question2_eval2, student: student_user.student)
+answer5 = EvaluationAnswer.find_or_create_by!(content: "x^2/2", points: 10, evaluation_status: 1, evaluation_question: question1_eval3, student: student_user.student)
+answer6 = EvaluationAnswer.find_or_create_by!(content: "0", points: 10, evaluation_status: 1, evaluation_question: question1_eval4, student: student_user.student)
