@@ -6,6 +6,7 @@ class EvaluationsController < ApplicationController
     @evaluation = Evaluation.new
     @evaluation.evaluation_questions.build
     @teacher_courses = current_user.teacher.courses
+    @evaluation.course_id = params[:course_id] if params[:course_id].present?
   end
 
   def create
