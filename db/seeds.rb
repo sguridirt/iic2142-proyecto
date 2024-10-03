@@ -40,5 +40,23 @@ course_type = CourseType.find_or_create_by!(name: "Maths", description: "Mathema
 course1 = Course.find_or_create_by!(title: "Maths 101", description: "bla", start_date: Date.today, end_date: Date.tomorrow, course_type: course_type, teacher: teacher)
 course2 = Course.find_or_create_by!(title: "Maths 201", description: "ble", start_date: Date.today, end_date: Date.tomorrow, course_type: course_type, teacher: teacher)
 
+
 Enrollment.find_or_create_by!(student: student_user.student, course: course1, enrollment_date: Date.today)
 Enrollment.find_or_create_by!(student: student_user.student, course: course2, enrollment_date: Date.today)
+
+
+material_type1 = MaterialType.find_or_create_by!(name: "Document", description: "A document type material")
+material_type2 = MaterialType.find_or_create_by!(name: "Book", description: "A book used in the course")
+material_type3 = MaterialType.find_or_create_by!(name: "Video", description: "A video resource")
+material_type4 = MaterialType.find_or_create_by!(name: "Presentation", description: "Slide presentations for the course")
+
+material1 = Material.find_or_create_by!(name: "Introduction to Algebra", description: "Basic algebraic concepts", material_type: material_type1, course: course1)
+material2 = Material.find_or_create_by!(name: "Linear Algebra Book", description: "A comprehensive guide to linear algebra", material_type: material_type2, course: course1)
+material3 = Material.find_or_create_by!(name: "Algebraic Structures Video", description: "An in-depth look at algebraic structures", material_type: material_type3, course: course1)
+material4 = Material.find_or_create_by!(name: "Introduction to Algebra Slides", description: "Slides for the first week of Algebra", material_type: material_type4, course: course1)
+
+
+material5 = Material.find_or_create_by!(name: "Advanced Calculus Document", description: "A document covering advanced calculus topics", material_type: material_type1, course: course2)
+material6 = Material.find_or_create_by!(name: "Calculus Textbook", description: "Advanced calculus textbook", material_type: material_type2, course: course2)
+material7 = Material.find_or_create_by!(name: "Introduction to Derivatives Video", description: "Video explaining basic derivatives", material_type: material_type3, course: course2)
+material8 = Material.find_or_create_by!(name: "Advanced Calculus Presentations", description: "Slides covering advanced calculus concepts", material_type: material_type4, course: course2)
