@@ -9,8 +9,13 @@
   <% end %>
 </div>
 <div class="return-home">
-  <%= link_to "✖", root_path, class: "close-button", title: "Volver a la página principal" %>
+  <% if !user_signed_in? %>
+    <%= link_to "✖", root_path, class: "close-button", title: "Volver a la página principal" %>
+  <% else %>
+    <%= link_to "✖", home_path, class: "close-button", title: "Ir a la página principal" %>
+  <% end %>
 </div>
+
 
 <table class="table">
   <thead>

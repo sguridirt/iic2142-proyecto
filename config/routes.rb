@@ -12,7 +12,16 @@ Rails.application.routes.draw do
   end
 
   resources :requests, only: [:index, :create, :destroy] 
+  
+  resources :requests do
+    member do
+      post 'approve', to: 'requests#approve'
+      post 'reject', to: 'requests#reject'
+    end
+  end
+  
 
+  get '/teacher_requests', to: 'requests#teacher_requests'
   get 'settings', to: 'user_settings#show', as: 'user_settings'
   get 'settings/edit', to: 'user_settings#edit', as: 'user_settings_edit'
   patch 'settings', to: 'user_settings#update'
