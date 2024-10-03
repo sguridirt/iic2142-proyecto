@@ -84,3 +84,8 @@ answer3 = EvaluationAnswer.find_or_create_by!(content: "A set with two operation
 answer4 = EvaluationAnswer.find_or_create_by!(content: "Set of vectors", points: 10, evaluation_status: 1, evaluation_question: question2_eval2, student: student_user.student)
 answer5 = EvaluationAnswer.find_or_create_by!(content: "x^2/2", points: 10, evaluation_status: 1, evaluation_question: question1_eval3, student: student_user.student)
 answer6 = EvaluationAnswer.find_or_create_by!(content: "0", points: 10, evaluation_status: 1, evaluation_question: question1_eval4, student: student_user.student)
+
+CourseRequestStatus.create(name: "pending", description: "Pending approval")
+CourseRequestStatus.create(name: "accepted", description: "Request accepted")
+CourseRequestStatus.create(name: "rejected", description: "Request rejected")
+
