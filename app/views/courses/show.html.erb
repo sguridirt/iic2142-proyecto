@@ -1,0 +1,46 @@
+<section class="container-fluid px-2">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="mb-2"><%= @course.title %></h1>
+      <p class="mb-1"><strong>Profesor:</strong> <%= @course.teacher.user.name %></p>
+      <p class="mb-1"><strong>Horario:</strong> <%= @course.start_date %> - <%= @course.end_date %></p>
+      <p class="mb-1"><strong>Descripción:</strong> <%= @course.description %></p>
+    </div>
+  </div>
+
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h3>Contenido</h3>
+      <ul class="list-group">
+        <% if @course.materials.any? %>
+          <% @course.materials.each do |material| %>
+            <li class="list-group-item">
+              <input type="checkbox"> <%= material.name %>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">No materials available for this course.</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h3>Personas</h3>
+      <ul class="list-group">
+        <% if @course.students.any? %>
+          <% @course.students.each_with_index do |student, index| %>
+            <li class="list-group-item">
+              <%= index + 1 %>. <%= student.user.name %>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">No students enrolled in this course.</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</section>
