@@ -8,43 +8,52 @@
     </div>
   </div>
 
-  <!-- Sección de Tests -->
-  <div class="row mt-4">
+
+    <div class="row mt-4">
     <div class="col-md-12">
-      <h3>Tests</h3>
-      <ul class="list-group">
+        <h3>Tests</h3>
+        <ul class="list-group">
         <% @course.evaluations.each do |evaluation| %>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <span>
-              <strong><%= evaluation.name %></strong> <!-- Muestra el nombre de la evaluación -->
-              <br>
-              <small>Duración: <%= evaluation.duration %> minutos</small> <!-- Muestra la duración de la evaluación -->
-              <br>
-              <small>Día: <%= evaluation.start_date.strftime('%d/%m/%Y') %></small> <!-- Muestra la fecha de inicio de la evaluación -->
-            </span>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-
-
-  <div class="row mt-4">
-    <div class="col-md-12">
-      <h3>Contenido</h3>
-      <ul class="list-group">
-        <% if @course.materials.any? %>
-          <% @course.materials.each do |material| %>
-            <li class="list-group-item">
-              <input type="checkbox"> <%= material.name %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <!-- Información de la evaluación -->
+            <div>
+                <strong><%= evaluation.name %></strong>
+                <br>
+                <small>Duración: <%= evaluation.duration %> minutos</small>
+                <br>
+                <small>Día: <%= evaluation.start_date.strftime('%d/%m/%Y') %></small>
+            </div>
+            
+            <!-- Botón de realizar alineado a la derecha -->
+            <a href="#" class="btn btn-primary">Realizar</a>
             </li>
-          <% end %>
-        <% else %>
-          <li class="list-group-item">No materials available for this course.</li>
         <% end %>
-      </ul>
+        </ul>
     </div>
-  </div>
+    </div>
+
+
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+        <h3>Contenido</h3>
+        <ul class="list-group">
+            <% if @course.materials.any? %>
+            <% @course.materials.each_with_index do |material, index| %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                <!-- Contenido enumerado -->
+                <span><%= index + 1 %>. <%= material.name %></span>
+    
+                <!-- Botón Ver a la derecha -->
+                <a href="#" class="btn btn-primary btn-sm">Ver</a>
+                </li>
+            <% end %>
+            <% else %>
+            <li class="list-group-item">No hay material disponible en este curso.</li>
+            <% end %>
+        </ul>
+        </div>
+    </div>
 
 
   <div class="row mt-4">
@@ -58,7 +67,7 @@
             </li>
           <% end %>
         <% else %>
-          <li class="list-group-item">No students enrolled in this course.</li>
+          <li class="list-group-item">No hay ningún estudiante inscrito en el curso.</li>
         <% end %>
       </ul>
     </div>
