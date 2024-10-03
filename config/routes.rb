@@ -27,6 +27,13 @@ Rails.application.routes.draw do
   patch 'settings', to: 'user_settings#update'
 
   get 'home', to: 'home#index'
+
+  resources :courses do
+    member do
+      get 'upload_material'
+      post 'process_upload_material'
+    end
+  end
 end
 
 
