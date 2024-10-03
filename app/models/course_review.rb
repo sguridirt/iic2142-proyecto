@@ -1,2 +1,0 @@
-class CourseReview < ApplicationRecord
-end
