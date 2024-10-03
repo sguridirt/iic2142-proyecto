@@ -18,7 +18,7 @@
 
         <div class="form-group mb-3">
             <%= form.label :course_id, "Curso" %>
-            <%= form.collection_select :course_id, Course.all, :id, :title, class: "form-control" %>
+            <%= form.collection_select :course_id, @teacher_courses, :id, :title, class: "form-control" %>
         </div>
 
         <div class="form-group mb-3">
@@ -32,7 +32,7 @@
                 <div class="form-group mb-3 question-field">
                     <%= question_form.label :content, "Contenido pregunta" %>
                     <%= question_form.text_area :content, class: "form-control" %>
-                    <a href="#" class="remove_question">Eliminar</a>
+                    <a href=" " class="remove_question">Eliminar</a>
                 </div>
             <% end %>
         </div>

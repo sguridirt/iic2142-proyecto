@@ -1,11 +1,16 @@
 class EvaluationsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_teacher!, only: [:new, :create]
+
   def new
     @evaluation = Evaluation.new
     @evaluation.evaluation_questions.build
+    @teacher_courses = current_user.teacher.courses
   end
 
   def create
     @evaluation = Evaluation.new(filtered_evaluation_params)
+    @teacher_courses = current_user.teacher.courses
     if @evaluation.save
       Rails.logger.info "Evaluation created successfully."
       redirect_to course_path(@evaluation.course_id), notice: "Evaluación creada exitosamente."
@@ -21,6 +26,12 @@ class EvaluationsController < ApplicationController
   end
 
   private
+
+  def ensure_teacher!
+    unless current_user.teacher?
+      redirect_to home_path, alert: "Debes ser profesor para realizar esta acción."
+    end
+  end
 
   def evaluation_params
     params.require(:evaluation).permit(:name, :start_date, :duration, :course_id, :evaluation_type_id, 
