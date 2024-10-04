@@ -24,7 +24,13 @@
                 <li class="nav-item">
                   <%= link_to "Ver Solicitudes", requests_path, class: "nav-link" %>
                 </li>
+              <% elsif current_user.user_role_id == UserRole.find_by(name: "Teacher")&.id %>
+                <li class="nav-item">
+                  <%= link_to "Solicitudes de mis cursos", teacher_requests_path, class: "nav-link" %>
+                </li>
               <% end %>
+
+              
               <li class="nav-item">
                 <%= link_to "Mi perfil", user_settings_path, class: "nav-link" %>
               </li>

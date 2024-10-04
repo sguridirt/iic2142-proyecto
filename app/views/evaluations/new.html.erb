@@ -1,0 +1,45 @@
+<section class="px-2">
+    <h1>Crea una nueva evaluación</h1>
+    <%= form_with model: @evaluation, local: true do |form| %>
+        <div class="form-group mb-3">
+            <%= form.label :name, "Nombre evaluación" %>
+            <%= form.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="form-group mb-3">
+            <%= form.label :start_date, "Fecha inicio" %>
+            <%= form.date_field :start_date, class: "form-control" %>
+        </div>
+
+        <div class="form-group mb-3">
+            <%= form.label :duration, "Duración (minutes)" %>
+            <%= form.number_field :duration, class: "form-control" %>
+        </div>
+
+        <div class="form-group mb-3">
+            <%= form.label :course_id, "Curso" %>
+            <%= form.collection_select :course_id, @teacher_courses, :id, :title, class: "form-control" %>
+        </div>
+
+        <div class="form-group mb-3">
+            <%= form.label :evaluation_type_id, "Tipo de evaluación" %>
+            <%= form.collection_select :evaluation_type_id, EvaluationType.all, :id, :name, class: "form-control" %>
+        </div>
+
+        <h3>Questions</h3>
+        <div id="questions">
+            <%= form.fields_for :evaluation_questions do |question_form| %>
+                <div class="form-group mb-3 question-field">
+                    <%= question_form.label :content, "Contenido pregunta" %>
+                    <%= question_form.text_area :content, class: "form-control" %>
+                    <a href=" " class="remove_question">Eliminar</a>
+                </div>
+            <% end %>
+        </div>
+        <%= link_to 'Add Question', '', id: 'add_question', class: 'btn btn-secondary mb-5' %>
+        
+        <div class="form-group">
+            <%= form.submit "Crear evaluación", class: "btn btn-primary" %>
+        </div>
+    <% end %>
+</section>
