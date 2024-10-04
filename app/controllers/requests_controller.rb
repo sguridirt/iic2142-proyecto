@@ -23,8 +23,19 @@ class RequestsController < ApplicationController
   
   def approve
     request = CourseRequest.find(params[:id])
-    request.update(course_request_status: CourseRequestStatus.find_by(name: "accepted"))
-    redirect_to teacher_requests_path, notice: "Solicitud aprobada."
+  
+
+    if request.update(course_request_status: CourseRequestStatus.find_by(name: "accepted"))
+      
+      Enrollment.create(
+        student_id: request.student_id,  
+        course_id: request.course_id,    
+        enrollment_date: Date.today      
+      )
+      redirect_to teacher_requests_path, notice: "Solicitud aprobada y estudiante inscrito en el curso."
+    else
+      redirect_to teacher_requests_path, alert: "Error al aprobar la solicitud."
+    end
   end
 
   def reject
