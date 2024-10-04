@@ -36,9 +36,15 @@ student_user = User.find_or_create_by!(email: "student@student.com", name: "Dore
 end
 Student.find_or_create_by!(user_id: student_user.id)
 
-course_type = CourseType.find_or_create_by!(name: "Maths", description: "Mathematics courses")
-course1 = Course.find_or_create_by!(title: "Maths 101", description: "bla", start_date: Date.today, end_date: Date.tomorrow, course_type: course_type, teacher: teacher)
-course2 = Course.find_or_create_by!(title: "Maths 201", description: "ble", start_date: Date.today, end_date: Date.tomorrow, course_type: course_type, teacher: teacher)
+course_type1 = CourseType.find_or_create_by!(name: "Online asíncrono", description: "Cápsulas de videos, pruebas online")
+course_type2 = CourseType.find_or_create_by!(name: "Online sincronizado", description: "Videoconferencias, pruebas online")
+course_type3 = CourseType.find_or_create_by!(name: "Mixto", description: "Videoconferencias, pruebas presenciales")
+course_type4 = CourseType.find_or_create_by!(name: "Presencial", description: "Clases y pruebas presenciales")
+
+course1 = Course.find_or_create_by!(title: "Maths 101", description: "bla", start_date: Date.today, end_date: Date.tomorrow, course_type: course_type1, teacher: teacher)
+course2 = Course.find_or_create_by!(title: "Maths 201", description: "ble", start_date: Date.today, end_date: Date.tomorrow, course_type: course_type2, teacher: teacher)
+course3 = Course.find_or_create_by!(title: "Language 101", description: "bli", start_date: Date.today, end_date: Date.tomorrow, course_type: course_type3, teacher: teacher)
+course4 = Course.find_or_create_by!(title: "Language 201", description: "blo", start_date: Date.today, end_date: Date.tomorrow, course_type: course_type4, teacher: teacher)
 
 
 Enrollment.find_or_create_by!(student: student_user.student, course: course1, enrollment_date: Date.today)
@@ -55,12 +61,12 @@ material2 = Material.find_or_create_by!(name: "Linear Algebra Book", description
 material3 = Material.find_or_create_by!(name: "Algebraic Structures Video", description: "An in-depth look at algebraic structures", material_type: material_type3, course: course1)
 material4 = Material.find_or_create_by!(name: "Introduction to Algebra Slides", description: "Slides for the first week of Algebra", material_type: material_type4, course: course1)
 
-
 material5 = Material.find_or_create_by!(name: "Advanced Calculus Document", description: "A document covering advanced calculus topics", material_type: material_type1, course: course2)
 material6 = Material.find_or_create_by!(name: "Calculus Textbook", description: "Advanced calculus textbook", material_type: material_type2, course: course2)
 material7 = Material.find_or_create_by!(name: "Introduction to Derivatives Video", description: "Video explaining basic derivatives", material_type: material_type3, course: course2)
 material8 = Material.find_or_create_by!(name: "Advanced Calculus Presentations", description: "Slides covering advanced calculus concepts", material_type: material_type4, course: course2)
 
+material9 = Material.find_or_create_by!(name: "Videos de Fails", description: "Videos de fails", material_type: material_type3, course: course4)
 
 evaluation_type1 = EvaluationType.find_or_create_by!(name: "Quiz", description: "A short quiz")
 evaluation_type2 = EvaluationType.find_or_create_by!(name: "Final Exam", description: "End of course final exam")
@@ -69,6 +75,7 @@ evaluation1 = Evaluation.find_or_create_by!(name: "Algebra Quiz", start_date: Da
 evaluation2 = Evaluation.find_or_create_by!(name: "Linear Algebra Final Exam", start_date: Date.today + 1.week, duration: 120, course: course1, evaluation_type: evaluation_type2)
 evaluation3 = Evaluation.find_or_create_by!(name: "Calculus Quiz", start_date: Date.today, duration: 60, course: course2, evaluation_type: evaluation_type1)
 evaluation4 = Evaluation.find_or_create_by!(name: "Advanced Calculus Final Exam", start_date: Date.today + 1.week, duration: 120, course: course2, evaluation_type: evaluation_type2)
+evaluation5 = Evaluation.find_or_create_by!(name: "Advanced Calculus Final Exam", start_date: Date.today + 1.week, duration: 120, course: course3, evaluation_type: evaluation_type2)
 
 question1_eval1 = EvaluationQuestion.create!(content: { question: "What is 2 + 2?", options: ["3", "4", "5"], correct_answer: "4" }, evaluation: evaluation1)
 question2_eval1 = EvaluationQuestion.create!(content: { question: "What is the derivative of x^2?", options: ["2x", "x^2", "2"], correct_answer: "2x" }, evaluation: evaluation1)
