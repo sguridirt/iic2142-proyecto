@@ -35,3 +35,5 @@
 *.docx
 .env
 node_modules
+
+/config/master.key
