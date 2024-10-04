@@ -1,2 +1,0 @@
-class ClassReview < ApplicationRecord
-end
