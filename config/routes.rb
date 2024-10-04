@@ -19,8 +19,11 @@ Rails.application.routes.draw do
       post 'reject', to: 'requests#reject'
     end
   end
-  
 
+  resources :evaluations, only: [:new, :create, :destroy, :show] do
+    resources :evaluation_questions, only: [:new, :create]
+  end
+  
   get '/teacher_requests', to: 'requests#teacher_requests'
   get 'settings', to: 'user_settings#show', as: 'user_settings'
   get 'settings/edit', to: 'user_settings#edit', as: 'user_settings_edit'
