@@ -141,9 +141,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_03_142611) do
     t.integer "evaluation_status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "evaluation_question_id"
+    t.integer "evaluation_question_id"
     t.bigint "student_id"
-    t.index ["evaluation_question_id"], name: "index_evaluation_answers_on_evaluation_question_id"
     t.index ["student_id"], name: "index_evaluation_answers_on_student_id"
   end
 
@@ -168,9 +167,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_03_142611) do
     t.integer "duration", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "course_id"
+    t.integer "course_id"
     t.bigint "evaluation_type_id"
-    t.index ["course_id"], name: "index_evaluations_on_course_id"
     t.index ["evaluation_type_id"], name: "index_evaluations_on_evaluation_type_id"
   end
 
@@ -187,7 +185,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_03_142611) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "material_type_id", null: false
-    t.bigint "course_id", null: false
+    t.integer "course_id"
     t.index ["course_id"], name: "index_materials_on_course_id"
     t.index ["material_type_id"], name: "index_materials_on_material_type_id"
   end
