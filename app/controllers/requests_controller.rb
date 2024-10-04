@@ -1,7 +1,6 @@
 class RequestsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_course_request, only: [:destroy]
-  
   def index
     if current_user.student.present?
       @requests = CourseRequest.where(student_id: current_user.student.id)
