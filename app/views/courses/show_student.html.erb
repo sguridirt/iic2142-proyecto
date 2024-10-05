@@ -23,7 +23,7 @@
                 <small>Día: <%= evaluation.start_date.strftime('%d/%m/%Y') %></small>
             </div>
             
-            <% if current_user.student?%>
+            <% if current_user&.student?%>
               <% if current_user.student.enrolled_in_course? @course %>
                 <%= link_to 'Realizar', evaluation_path(evaluation), class: 'btn btn-outline-secondary' %>
               <% end%>
