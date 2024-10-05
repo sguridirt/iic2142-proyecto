@@ -48,9 +48,6 @@ class CoursesController < ApplicationController
     end
   end
 
-
-
-
   def new
     @course = Course.new
     @course_types = CourseType.all
@@ -73,7 +70,7 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
-    if current_user.teacher?
+    if current_user&.teacher?
       render 'show_teacher'
     else
       render 'show_student'
