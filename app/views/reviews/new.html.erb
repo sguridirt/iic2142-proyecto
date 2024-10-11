@@ -1,0 +1,69 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h1 class="text-center">Nueva Reseña</h1>
+        </div>
+
+        <div class="card-body">
+          <%= form_with(model: @review, local: true, class: "form-horizontal") do |form| %>
+
+            <% if @review.errors.any? %>
+              <div id="error_explanation" class="alert alert-danger">
+                <h2><%= pluralize(@review.errors.count, "error") %> impidieron que se guardara la reseña:</h2>
+                <ul>
+                  <% @review.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :title, "Título", class: "form-label" %>
+              <%= form.text_field :title, required: true, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :content, "Contenido", class: "form-label" %>
+              <%= form.text_area :content, required: true, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :rating, "Puntuación (1-10)", class: "form-label" %>
+              <%= form.number_field :rating, in: 1..10, required: true, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :review_type, "Tipo de Reseña", class: "form-label" %>
+              <%= form.select :review_type, [['Curso', 'course'], ['Profesor', 'teacher']], { prompt: "Elegir Reseña" }, { class: "form-control", onchange: 'updateReviewOptions(this.value)' } %>
+            </div>
+
+            <div id="review_course" class="mb-3" style="display: none;">
+              <%= form.label :course_id, "Seleccionar Curso", class: "form-label" %>
+              <%= form.collection_select :course_id, current_user.student.courses, :id, :title, { prompt: "Seleccione un curso" }, { required: true, class: "form-control" } %>
+            </div>
+
+            <div id="review_teacher" class="mb-3" style="display: none;">
+              <%= form.label :teacher_id, "Seleccionar Profesor", class: "form-label" %>
+              <%= form.collection_select :teacher_id, Teacher.all, :id, ->(teacher) { teacher.user.name }, { prompt: "Seleccione un profesor" }, { required: true, class: "form-control" } %>
+            </div>
+
+            <div class="text-center">
+              <%= form.submit "Enviar Reseña", class: "btn btn-primary btn-lg mt-3" %>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateReviewOptions(selectedType) {
+    document.getElementById('review_course').style.display = selectedType === 'course' ? 'block' : 'none';
+    document.getElementById('review_teacher').style.display = selectedType === 'teacher' ? 'block' : 'none';
+  }
+</script>

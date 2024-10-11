@@ -37,7 +37,11 @@ Rails.application.routes.draw do
       post 'process_upload_material'
     end
   end
+
+  resources :reviews, only: [:new, :create]
+  
 end
+
 
 
 
