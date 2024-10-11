@@ -1,0 +1,52 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h1 class="text-center">Nueva Reseña de Profesor</h1>
+        </div>
+
+        <div class="card-body">
+          <%= form_with(model: @teacher_review, local: true, class: "form-horizontal") do |form| %>
+
+            <% if @teacher_review.errors.any? %>
+              <div id="error_explanation" class="alert alert-danger">
+                <h2><%= pluralize(@teacher_review.errors.count, "error") %> impidieron que se guardara la reseña:</h2>
+                <ul>
+                  <% @teacher_review.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :title, "Título", class: "form-label" %>
+              <%= form.text_field :title, required: true, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :comment, "Contenido", class: "form-label" %>
+              <%= form.text_area :comment, required: true, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :rating, "Puntuación (1-10)", class: "form-label" %>
+              <%= form.number_field :rating, in: 1..10, required: true, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :teacher_id, "Seleccionar Profesor", class: "form-label" %>
+              <%= form.collection_select :teacher_id, Teacher.all, :id, ->(teacher) { teacher.user.name }, { prompt: "Seleccione un profesor" }, { required: true, class: "form-control" } %>
+            </div>
+
+            <div class="text-center">
+              <%= form.submit "Enviar Reseña", class: "btn btn-primary btn-lg mt-3" %>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

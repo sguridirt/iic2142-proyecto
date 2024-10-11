@@ -40,6 +40,8 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [:new, :create]
   
+  resources :teacher_reviews, only: [:new, :create]
+  resources :course_reviews, only: [:new, :create]
 end
 
 
