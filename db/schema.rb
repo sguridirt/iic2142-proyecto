@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_11_142018) do
+
+ActiveRecord::Schema[7.0].define(version: 2024_10_11_141230) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -145,8 +147,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_11_142018) do
     t.integer "evaluation_status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "evaluation_question_id"
+    t.bigint "evaluation_question_id"
     t.bigint "student_id"
+    t.index ["evaluation_question_id"], name: "index_evaluation_answers_on_evaluation_question_id"
     t.index ["student_id"], name: "index_evaluation_answers_on_student_id"
   end
 
@@ -171,8 +174,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_11_142018) do
     t.integer "duration", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "course_id"
+    t.bigint "course_id"
     t.bigint "evaluation_type_id"
+    t.index ["course_id"], name: "index_evaluations_on_course_id"
     t.index ["evaluation_type_id"], name: "index_evaluations_on_evaluation_type_id"
   end
 
@@ -189,7 +193,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_11_142018) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "material_type_id", null: false
-    t.integer "course_id"
+    t.bigint "course_id", null: false
     t.index ["course_id"], name: "index_materials_on_course_id"
     t.index ["material_type_id"], name: "index_materials_on_material_type_id"
   end
