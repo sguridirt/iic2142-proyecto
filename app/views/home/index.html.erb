@@ -18,7 +18,7 @@
             <% if current_user.teacher.present? %>
                 <%= link_to "Crear evaluación", new_evaluation_path, :class => "btn btn-outline-secondary w-100 mb-2 fluid" %>
                 <%= link_to "Crear curso", new_course_path, :class => "btn btn-outline-secondary w-100 mb-2 fluid" %>
-                <%= link_to "Ver Reseñas", new_course_path, :class => "btn btn-outline-secondary w-100 mb-2 fluid" %>
+                <%= link_to "Ver Reseñas", reviews_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %>
             <% end%>
 
             <% if current_user.student.present? %>

@@ -38,7 +38,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reviews, only: [:new, :create]
+  resources :reviews, only: [:view]
+  get 'reviews', to: 'reviews#view'
+
   
   resources :teacher_reviews, only: [:new, :create]
   resources :course_reviews, only: [:new, :create]
