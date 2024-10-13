@@ -1,0 +1,38 @@
+<div class="mx-5 mb-3">
+  <h1 class="mb-4">Gestión de Usuarios</h1> 
+  <div class="d-flex justify-content-end">
+     <%= link_to 'Agregar Usuario', new_admin_user_path, class: 'btn btn-success' %>
+  </div>
+</div>
+
+<div class="table-responsive mx-5">
+  <table class="table table-bordered" style="border-collapse: collapse;">
+    <thead class="thead-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Teléfono</th>
+        <th>Tipo de Usuario</th>
+        <th class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td style="border: none;"><%= user.name %></td>
+          <td style="border: none;"><%= user.email %></td>
+          <td style="border: none;"><%= user.phone %></td>
+          <td style="border: none;"><%= user.user_role.name %></td>
+          <td class="text-center" style="border: none;">
+            <button class="btn btn-sm btn-outline-primary">
+              <i class="bi bi-pencil"></i> Editar
+            </button>
+            <button class="btn btn-sm btn-outline-danger">
+              <i class="bi bi-trash"></i> Eliminar
+            </button>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
