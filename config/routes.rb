@@ -37,7 +37,15 @@ Rails.application.routes.draw do
       post 'process_upload_material'
     end
   end
+
+  resources :reviews, only: [:view]
+  get 'reviews', to: 'reviews#view'
+
+  
+  resources :teacher_reviews, only: [:new, :create]
+  resources :course_reviews, only: [:new, :create]
 end
+
 
 
 
