@@ -24,8 +24,12 @@
             <% if current_user.student.present? %>
                 <%= link_to "Realizar reseña de Profesor", new_teacher_review_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %>
                 <%= link_to "Realizar reseña de Curso", new_course_review_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %>
-
             <% end %>
+
+            <% if current_user.admin.present? %>
+                <%= link_to "Administrar Usuarios", admin_view_users_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %>
+            <% end %>
+
 
         </div>
     </div>
