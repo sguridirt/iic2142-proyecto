@@ -1,2 +1,4 @@
 class TeacherReview < ApplicationRecord
-end
+    belongs_to :student 
+    belongs_to :teacher 
+  end

@@ -1,2 +1,4 @@
 class CourseReview < ApplicationRecord
-end
+    belongs_to :student
+    belongs_to :course
+  end

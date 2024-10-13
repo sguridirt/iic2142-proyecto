@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_03_142611) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_11_141230) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -103,6 +103,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_03_142611) do
     t.integer "rating", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "student_id", null: false
+    t.bigint "course_id", null: false
+    t.index ["course_id"], name: "index_course_reviews_on_course_id"
+    t.index ["student_id"], name: "index_course_reviews_on_student_id"
   end
 
   create_table "course_types", force: :cascade do |t|
@@ -141,8 +145,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_03_142611) do
     t.integer "evaluation_status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "evaluation_question_id"
+    t.bigint "evaluation_question_id"
     t.bigint "student_id"
+    t.index ["evaluation_question_id"], name: "index_evaluation_answers_on_evaluation_question_id"
     t.index ["student_id"], name: "index_evaluation_answers_on_student_id"
   end
 
@@ -167,8 +172,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_03_142611) do
     t.integer "duration", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "course_id"
+    t.bigint "course_id"
     t.bigint "evaluation_type_id"
+    t.index ["course_id"], name: "index_evaluations_on_course_id"
     t.index ["evaluation_type_id"], name: "index_evaluations_on_evaluation_type_id"
   end
 
@@ -185,7 +191,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_03_142611) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "material_type_id", null: false
-    t.integer "course_id"
+    t.bigint "course_id", null: false
     t.index ["course_id"], name: "index_materials_on_course_id"
     t.index ["material_type_id"], name: "index_materials_on_material_type_id"
   end
@@ -203,6 +209,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_03_142611) do
     t.integer "rating", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "student_id", null: false
+    t.bigint "teacher_id", null: false
+    t.index ["student_id"], name: "index_teacher_reviews_on_student_id"
+    t.index ["teacher_id"], name: "index_teacher_reviews_on_teacher_id"
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -247,6 +257,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_03_142611) do
   add_foreign_key "course_requests", "course_request_statuses"
   add_foreign_key "course_requests", "courses"
   add_foreign_key "course_requests", "students"
+  add_foreign_key "course_reviews", "courses"
+  add_foreign_key "course_reviews", "students"
   add_foreign_key "courses", "course_types"
   add_foreign_key "courses", "teachers"
   add_foreign_key "enrollments", "courses"
@@ -259,6 +271,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_03_142611) do
   add_foreign_key "materials", "courses"
   add_foreign_key "materials", "material_types"
   add_foreign_key "students", "users", on_delete: :cascade
+  add_foreign_key "teacher_reviews", "students"
+  add_foreign_key "teacher_reviews", "teachers"
   add_foreign_key "teachers", "users", on_delete: :cascade
   add_foreign_key "users", "user_roles"
 end
