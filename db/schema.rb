@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_11_142018) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_11_141230) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -196,18 +196,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_11_142018) do
     t.index ["material_type_id"], name: "index_materials_on_material_type_id"
   end
 
-  create_table "reviews", force: :cascade do |t|
-    t.string "reviewable_type", null: false
-    t.bigint "reviewable_id", null: false
-    t.integer "rating"
-    t.text "content"
-    t.bigint "student_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable"
-    t.index ["student_id"], name: "index_reviews_on_student_id"
-  end
-
   create_table "students", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -282,7 +270,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_11_142018) do
   add_foreign_key "evaluations", "evaluation_types"
   add_foreign_key "materials", "courses"
   add_foreign_key "materials", "material_types"
-  add_foreign_key "reviews", "students"
   add_foreign_key "students", "users", on_delete: :cascade
   add_foreign_key "teacher_reviews", "students"
   add_foreign_key "teacher_reviews", "teachers"
