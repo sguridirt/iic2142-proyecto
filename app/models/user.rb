@@ -41,4 +41,8 @@ class User < ApplicationRecord
     user_role.name == "Student"
   end
 
+  def admin?
+    user_role.name == 'Admin' # Suponiendo que el nombre del rol de administrador es 'Admin'
+  end
+
 end

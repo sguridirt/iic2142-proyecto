@@ -45,9 +45,15 @@ Rails.application.routes.draw do
   resources :teacher_reviews, only: [:new, :create]
   resources :course_reviews, only: [:new, :create]
 
-  get 'admin/view_users', to: 'admin#view_users'
+  # Rutas para la administración de usuarios
+  get 'admin/view_users', to: 'admin#view_users', as: 'admin_view_users'
+  get 'admin/users/new', to: 'admin#new', as: 'new_admin_user'
+  post 'admin/users', to: 'admin#create', as: 'admin_users'
+  
 
   
+
+
   
 
 end
