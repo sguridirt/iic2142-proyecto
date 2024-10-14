@@ -1,7 +1,7 @@
 <div class="mx-5 mb-3">
   <h1 class="mb-4">Gestión de Usuarios</h1> 
   <div class="d-flex justify-content-end">
-     <%= link_to 'Agregar Usuario', new_admin_user_path, class: 'btn btn-success' %>
+     <%= link_to 'Agregar Usuario', admin_new_user_path, class: 'btn btn-success' %>
   </div>
 </div>
 
@@ -24,12 +24,12 @@
           <td style="border: none;"><%= user.phone %></td>
           <td style="border: none;"><%= user.user_role.name %></td>
           <td class="text-center" style="border: none;">
-            <button class="btn btn-sm btn-outline-primary">
+            <%= link_to admin_edit_user_path(user), class: 'btn btn-sm btn-outline-primary' do %>
               <i class="bi bi-pencil"></i> Editar
-            </button>
-            <button class="btn btn-sm btn-outline-danger">
+            <% end %>
+            <%= link_to admin_destroy_user_path(user), method: :delete, data: { confirm: '¿Estás seguro?' }, class: 'btn btn-sm btn-outline-danger' do %>
               <i class="bi bi-trash"></i> Eliminar
-            </button>
+            <% end %>
           </td>
         </tr>
       <% end %>
