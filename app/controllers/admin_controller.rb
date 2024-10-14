@@ -6,13 +6,13 @@ class AdminController < ApplicationController
     @users = User.all
   end
 
-  def new
+  def new_user
     @user = User.new
     @user.user_role_id = UserRole.find_by(name: "Student").id
     render :add_user
   end
 
-  def create
+  def create_user
     @user = User.new(user_params)
     if @user.save
       redirect_to admin_view_users_path, notice: 'Usuario creado exitosamente.'
