@@ -27,7 +27,7 @@
             <%= link_to admin_edit_user_path(user), class: 'btn btn-sm btn-outline-primary' do %>
               <i class="bi bi-pencil"></i> Editar
             <% end %>
-            <%= link_to admin_destroy_user_path(user), method: :delete, data: { confirm: '¿Estás seguro?' }, class: 'btn btn-sm btn-outline-danger' do %>
+            <%= link_to admin_destroy_user_path(user), method: :delete, data: { "turbo-method": :delete, confirm: '¿Estás seguro?' }, class: 'btn btn-sm btn-outline-danger' do %>
               <i class="bi bi-trash"></i> Eliminar
             <% end %>
           </td>

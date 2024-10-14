@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_user, only: [:edit_user, :update_user]
+  before_action :set_user, only: [:edit_user, :update_user, :destroy_user]
 
   def view_users
     @users = User.all
@@ -33,6 +33,11 @@ class AdminController < ApplicationController
       logger.info "Error al actualizar el usuario: #{@user.errors.full_messages}"
       render :edit_user
     end
+  end
+
+  def destroy_user
+    @user.destroy
+    redirect_to admin_view_users_path, notice: 'Usuario eliminado exitosamente.'
   end
 
   private
