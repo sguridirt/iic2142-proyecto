@@ -23,6 +23,15 @@ Rails.application.routes.draw do
   resources :evaluations, only: [:new, :create, :destroy, :show] do
     resources :evaluation_questions, only: [:new, :create]
   end
+
+  resources :evaluations do
+    member do
+      get 'show_student', to: 'evaluations#show_student'
+      post 'submit_answers', to: 'evaluations#submit_answers'
+    end
+  end
+  
+  
   
   get '/teacher_requests', to: 'requests#teacher_requests'
   get 'settings', to: 'user_settings#show', as: 'user_settings'
@@ -47,8 +56,8 @@ Rails.application.routes.draw do
 
   # Rutas para la administración de usuarios
   get 'admin/view_users', to: 'admin#view_users', as: 'admin_view_users'
-  get 'admin/users/new', to: 'admin#new', as: 'new_admin_user'
-  post 'admin/users', to: 'admin#create', as: 'admin_users'
+  get 'admin/users/new', to: 'admin#new_user', as: 'new_admin_user'
+  post 'admin/users', to: 'admin#create_user', as: 'admin_users'
   
 
   
