@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   resources :course_reviews, only: [:new, :create]
 
   get 'admin/view_users', to: 'admin#view_users', as: 'admin_view_users'
-  get 'admin/users/new', to: 'admin#new_user', as: 'new_admin_user'
+  get 'admin/users/new', to: 'admin#new_user', as: 'admin_new_user'
   post 'admin/users', to: 'admin#create_user', as: 'admin_users'
   get 'admin/users/:id/edit', to: 'admin#edit_user', as: 'admin_edit_user'
   patch 'admin/users/:id', to: 'admin#update_user', as: 'admin_user'
