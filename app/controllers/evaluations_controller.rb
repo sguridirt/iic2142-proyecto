@@ -7,7 +7,7 @@ class EvaluationsController < ApplicationController
   def show
     @course = @evaluation.course
     @questions = @evaluation.evaluation_questions
-    render 'show_teacher' # Cambiar la vista que se renderiza a show_teacher
+    render 'show_teacher'
   end
 
 
@@ -41,7 +41,6 @@ class EvaluationsController < ApplicationController
     @course = @evaluation.course
     @questions = @evaluation.evaluation_questions
   
-    # Verificar si el estudiante ha completado todas las preguntas de la evaluación (estado 1)
     if current_user.student.evaluation_answers.joins(:evaluation_question)
                     .where(evaluation_questions: { evaluation_id: @evaluation.id })
                     .exists?(evaluation_status: 1)

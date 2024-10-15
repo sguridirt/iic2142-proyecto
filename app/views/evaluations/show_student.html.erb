@@ -15,7 +15,6 @@
       <h3 class="mb-2">Preguntas</h3>
       
       <%= form_with url: evaluation_answers_path, local: true do |form| %>
-        <!-- Campo oculto para enviar el evaluation_id -->
         <%= form.hidden_field :evaluation_id, value: @evaluation.id %>
         
         <% @evaluation.evaluation_questions.each_with_index do |question, index| %>
