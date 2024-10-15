@@ -1,14 +1,12 @@
 function initializeTimer(duration) {
-  const durationInSeconds = duration * 60; // Convertir minutos a segundos
+  const durationInSeconds = duration * 60; 
 
-  // Función para formatear el tiempo en mm:ss
   function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   }
 
-  // Función para enviar el formulario automáticamente
   function submitForm() {
     const form = document.querySelector('form');
     form.submit();
@@ -20,7 +18,7 @@ function initializeTimer(duration) {
   const interval = setInterval(() => {
     countdownElement.innerText = formatTime(timeRemaining);
 
-    // Cuando el tiempo se acaba
+
     if (timeRemaining <= 0) {
       clearInterval(interval);
       submitForm(); // Enviar el formulario automáticamente
@@ -30,12 +28,12 @@ function initializeTimer(duration) {
   }, 1000);
 }
 
-// Inicializar el temporizador cuando se cargue la página
+
 document.addEventListener('turbo:load', () => {
   const countdownElement = document.getElementById('countdown');
   
   if (countdownElement) {
-    const duration = parseInt(countdownElement.dataset.duration); // Obtener la duración desde el dataset
-    initializeTimer(duration); // Iniciar el temporizador con la duración
+    const duration = parseInt(countdownElement.dataset.duration); 
+    initializeTimer(duration); 
   }
 });

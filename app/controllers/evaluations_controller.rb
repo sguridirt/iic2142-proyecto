@@ -3,14 +3,14 @@ class EvaluationsController < ApplicationController
   before_action :ensure_teacher!, only: [:new, :create, :destroy]
   before_action :set_evaluation, only: [:show, :show_student, :destroy]
 
-  # Acción para mostrar la evaluación (se renderiza la vista para el profesor)
+
   def show
     @course = @evaluation.course
     @questions = @evaluation.evaluation_questions
     render 'show_teacher' # Cambiar la vista que se renderiza a show_teacher
   end
 
-  # Acción para crear una nueva evaluación
+
   def new
     @evaluation = Evaluation.new
     @evaluation.evaluation_questions.build
@@ -29,7 +29,7 @@ class EvaluationsController < ApplicationController
     end
   end
 
-  # Acción para eliminar una evaluación
+
   def destroy
     @evaluation.destroy
     redirect_to course_path(@evaluation.course), notice: "Evaluación eliminada."
@@ -40,7 +40,18 @@ class EvaluationsController < ApplicationController
   def show_student
     @course = @evaluation.course
     @questions = @evaluation.evaluation_questions
+  
+    # Verificar si el estudiante ha completado todas las preguntas de la evaluación (estado 1)
+    if current_user.student.evaluation_answers.joins(:evaluation_question)
+                    .where(evaluation_questions: { evaluation_id: @evaluation.id })
+                    .exists?(evaluation_status: 1)
+      redirect_to course_path(@course), alert: "Ya has realizado esta evaluación."
+    else
+      render 'show_student'
+    end
   end
+  
+  
 
   private
 
@@ -53,7 +64,7 @@ class EvaluationsController < ApplicationController
                                        evaluation_questions_attributes: [:id, :content, :_destroy])
   end
 
-  # Verificación para asegurar que el usuario es un profesor
+
   def ensure_teacher!
     unless current_user.teacher?
       redirect_to root_path, alert: "Debes ser profesor para realizar esta acción."
