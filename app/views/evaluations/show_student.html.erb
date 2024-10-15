@@ -1,0 +1,35 @@
+<section class="container-fluid px-2">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="mb-2"><%= @evaluation.name %></h1>
+      <p><strong>Duración:</strong> <%= @evaluation.duration %> minutos</p>
+      <p><strong>Fecha:</strong> <%= @evaluation.start_date.strftime('%d/%m/%Y') %></p>
+      <div>
+        <p id="timer" class="text-danger"><strong>Tiempo restante:</strong> <span id="countdown" data-duration="<%= @evaluation.duration %>"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h3 class="mb-2">Preguntas</h3>
+      
+      <%= form_with url: evaluation_answers_path, local: true do |form| %>
+        <%= form.hidden_field :evaluation_id, value: @evaluation.id %>
+        
+        <% @evaluation.evaluation_questions.each_with_index do |question, index| %>
+          <div class="form-group mb-3">
+            <label><strong>Pregunta <%= index + 1 %>:</strong> <%= question.content %></label>
+            <%= form.hidden_field :evaluation_question_id, value: question.id, name: "answers[#{question.id}][evaluation_question_id]" %>
+            <%= form.hidden_field :student_id, value: current_user.student.id, name: "answers[#{question.id}][student_id]" %>
+            <%= form.text_area :content, name: "answers[#{question.id}][content]", rows: 3, class: "form-control", placeholder: "Escribe tu respuesta aquí" %>
+          </div>
+        <% end %>
+        
+        <div class="form-group">
+          <%= form.submit "Guardar y Salir", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
