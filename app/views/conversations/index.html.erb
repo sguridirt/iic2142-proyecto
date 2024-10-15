@@ -1,0 +1,13 @@
+<div class="px-2">
+  <h3 class="mb-4">Your Conversations</h3>
+  <ul class="list-group">
+    <% @conversations.each do |conversation| %>
+      <li class="list-group-item">
+        <i class="bi bi-chat-dots"></i>
+        <%= link_to conversation_path(conversation), class: "text-primary" do %>
+          <%= conversation.conversation_participants.map(&:user).map { |user| user == current_user ? "Tú" : user.name }.join(", ") %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
