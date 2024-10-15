@@ -3,6 +3,10 @@ class User < ApplicationRecord
   has_one :student
   has_one :teacher
   has_one :admin
+
+  has_many :conversation_participants
+  has_many :conversations, through: :conversation_participants
+  has_many :messages, class_name: 'ConversationMessage', foreign_key: 'sender_id'
   
   has_one_attached :avatar
 
@@ -29,6 +33,7 @@ class User < ApplicationRecord
       Teacher.create(user_id: id)
     end
   end
+  
   def avatar_thumbnail
     return self.avatar.variant(resize_to_fill: [300, 300], processor: :mini_magick).processed if avatar.attached?
   end
