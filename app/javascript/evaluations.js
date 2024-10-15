@@ -1,39 +1,65 @@
-function initializeTimer(duration) {
-  const durationInSeconds = duration * 60; 
+document.addEventListener('turbo:load', () => {
+  
+  // Inicializar el temporizador
+  const initTimer = () => {
+    const countdownElement = document.getElementById('countdown');
+    if (countdownElement) {
+      let duration = parseInt(countdownElement.dataset.duration) * 60; // Convertir duración de minutos a segundos
+      const form = document.querySelector('form'); // Selecciona el formulario de las respuestas
 
-  function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-  }
+      const timerInterval = setInterval(() => {
+        if (duration <= 0) {
+          clearInterval(timerInterval);
+          countdownElement.textContent = '¡Tiempo agotado!';
 
-  function submitForm() {
-    const form = document.querySelector('form');
-    form.submit();
-  }
+          // Enviar el formulario automáticamente cuando el tiempo se acabe
+          if (form) {
+            form.submit();
+          }
 
-  let timeRemaining = durationInSeconds;
-  const countdownElement = document.getElementById('countdown');
+        } else {
+          const minutes = Math.floor(duration / 60);
+          const seconds = duration % 60;
+          countdownElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+          duration--;
+        }
+      }, 1000); // Actualizar cada segundo
+    }
+  };
 
-  const interval = setInterval(() => {
-    countdownElement.innerText = formatTime(timeRemaining);
+  // Inicializar la funcionalidad de agregar y eliminar preguntas
+  const initQuestions = () => {
+    const addQuestionLink = document.getElementById('add_question');
+    const questionsContainer = document.getElementById('questions');
+    let questionIndex = document.querySelectorAll('.question-field').length;
 
+    if (addQuestionLink) {
+      addQuestionLink.addEventListener('click', (e) => {
+        e.preventDefault();
 
-    if (timeRemaining <= 0) {
-      clearInterval(interval);
-      submitForm(); // Enviar el formulario automáticamente
+        const newQuestion = document.createElement('div');
+        newQuestion.classList.add('form-group', 'mb-3', 'question-field');
+        newQuestion.innerHTML = `
+          <label for="evaluation_evaluation_questions_attributes_${questionIndex}_content">Contenido pregunta</label>
+          <textarea name="evaluation[evaluation_questions_attributes][${questionIndex}][content]" id="evaluation_evaluation_questions_attributes_${questionIndex}_content" class="form-control"></textarea>
+          <input type="hidden" name="evaluation[evaluation_questions_attributes][${questionIndex}][_destroy]" value="false">
+          <a href="#" class="remove_question">Eliminar</a>
+        `;
+        questionsContainer.appendChild(newQuestion);
+        questionIndex++;
+      });
     }
 
-    timeRemaining--;
-  }, 1000);
-}
+    questionsContainer.addEventListener('click', (e) => {
+      if (e.target.classList.contains('remove_question')) {
+        e.preventDefault();
+        e.target.closest('.question-field').remove();
+      }
+    });
+  };
 
+  // Llamar las funciones separadamente
+  initTimer();      // Inicializar el temporizador
+  initQuestions();  // Inicializar la funcionalidad de las preguntas
 
-document.addEventListener('turbo:load', () => {
-  const countdownElement = document.getElementById('countdown');
-  
-  if (countdownElement) {
-    const duration = parseInt(countdownElement.dataset.duration); 
-    initializeTimer(duration); 
-  }
 });
