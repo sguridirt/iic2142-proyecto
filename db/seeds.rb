@@ -40,7 +40,6 @@ student_user = User.find_or_create_by(email: "student@student.com", name: "Doren
   user.password = "salero"
   user.password_confirmation = "salero"
   user.user_role_id = UserRole.find_by(name: 'Student').id
-end
 student = Student.find_or_create_by(user_id: student_user.id)
 
 puts "Creando el tipo de curso..."
@@ -100,32 +99,25 @@ evaluation3 = Evaluation.find_or_create_by(name: "Calculus Quiz", start_date: Da
 evaluation4 = Evaluation.find_or_create_by(name: "Advanced Calculus Final Exam", start_date: Date.today + 1.week, duration: 120, course: course2, evaluation_type: evaluation_type2)
 evaluation5 = Evaluation.find_or_create_by(name: "Advanced Calculus Final Exam", start_date: Date.today + 1.week, duration: 120, course: course3, evaluation_type: evaluation_type2)
 
-# question1_eval1 = EvaluationQuestion.find_or_create_by(content: { question: "What is 2 + 2?", options: ["3", "4", "5"], correct_answer: "4" }, evaluation: evaluation1)
-# question2_eval1 = EvaluationQuestion.find_or_create_by(content: { question: "What is the derivative of x^2?", options: ["2x", "x^2", "2"], correct_answer: "2x" }, evaluation: evaluation1)
-# question1_eval2 = EvaluationQuestion.find_or_create_by(content: { question: "Define a vector space.", options: ["A set of points", "A set with two operations", "A linear equation"], correct_answer: "A set with two operations" }, evaluation: evaluation2)
-# question2_eval2 = EvaluationQuestion.find_or_create_by(content: { question: "What is a basis in linear algebra?", options: ["Set of vectors", "A scalar", "A number"], correct_answer: "Set of vectors" }, evaluation: evaluation2)
-# question1_eval3 = EvaluationQuestion.find_or_create_by(content: { question: "What is the integral of x?", options: ["x", "x^2/2", "1/x"], correct_answer: "x^2/2" }, evaluation: evaluation3)
-# question1_eval4 = EvaluationQuestion.find_or_create_by(content: { question: "What is the limit of 1/x as x approaches infinity?", options: ["0", "Infinity", "1"], correct_answer: "0" }, evaluation: evaluation4)
+question1_eval1 = EvaluationQuestion.find_or_create_by(content: "What is 2 + 2?", evaluation: evaluation1)
+question2_eval1 = EvaluationQuestion.find_or_create_by(content: "What is the derivative of x^2?", evaluation: evaluation1)
+question1_eval2 = EvaluationQuestion.find_or_create_by(content: "Define a vector space.", evaluation: evaluation2)
+question2_eval2 = EvaluationQuestion.find_or_create_by(content: "What is a basis in linear algebra?", evaluation: evaluation2)
+question1_eval3 = EvaluationQuestion.find_or_create_by(content: "What is the integral of x?", evaluation: evaluation3)
+question1_eval4 = EvaluationQuestion.find_or_create_by(content: "What is the limit of 1/x as x approaches infinity?", evaluation: evaluation4)
 
-# answer1 = EvaluationAnswer.find_or_create_by(content: "4", points: 10, evaluation_status: 1, evaluation_question: question1_eval1, student: student_user.student)
-# answer2 = EvaluationAnswer.find_or_create_by(content: "2x", points: 10, evaluation_status: 1, evaluation_question: question2_eval1, student: student_user.student)
-
-# answer3 = EvaluationAnswer.find_or_create_by(content: "A set with two operations", points: 10, evaluation_status: 1, evaluation_question: question1_eval2, student: student_user.student)
-# answer4 = EvaluationAnswer.find_or_create_by(content: "Set of vectors", points: 10, evaluation_status: 1, evaluation_question: question2_eval2, student: student_user.student)
-# answer5 = EvaluationAnswer.find_or_create_by(content: "x^2/2", points: 10, evaluation_status: 1, evaluation_question: question1_eval3, student: student_user.student)
-# answer6 = EvaluationAnswer.find_or_create_by(content: "0", points: 10, evaluation_status: 1, evaluation_question: question1_eval4, student: student_user.student)
+# answer1 = EvaluationAnswer.find_or_create_by(content: "4", points: 0, evaluation_status: 0, evaluation_question: question1_eval1, student: student_user.student)
+# answer2 = EvaluationAnswer.find_or_create_by(content: "2x", points: 0, evaluation_status: 0, evaluation_question: question2_eval1, student: student_user.student)
+answer3 = EvaluationAnswer.find_or_create_by(content: "A set with two operations", points: 0, evaluation_status: 1, evaluation_question: question1_eval2, student: student_user.student)
+answer4 = EvaluationAnswer.find_or_create_by(content: "Set of vectors", points: 0, evaluation_status: 1, evaluation_question: question2_eval2, student: student_user.student)
+# answer5 = EvaluationAnswer.find_or_create_by(content: "x^2/2", points: 0, evaluation_status: 0, evaluation_question: question1_eval3, student: student_user.student)
+# answer6 = EvaluationAnswer.find_or_create_by(content: "0", points: 0, evaluation_status: 0, evaluation_question: question1_eval4, student: student_user.student)
+#Estatus 0 = No respondido
+#Estatus 1 = Pregunta respondida
 
 
 CourseRequestStatus.find_or_create_by(name: "pending", description: "Pending approval")
 CourseRequestStatus.find_or_create_by(name: "accepted", description: "Request accepted")
 CourseRequestStatus.find_or_create_by(name: "rejected", description: "Request rejected")
-
-puts "Creando conversaciones..."
-conversation1 = Conversation.find_or_create_by(is_group: false)
-conversation2 = Conversation.find_or_create_by(is_group: true)
-
-ConversationParticipant.find_or_create_by(user_id: student_user.id, conversation: conversation1)
-ConversationParticipant.find_or_create_by(user_id: teacher_user.id, conversation: conversation1)
-ConversationParticipant.find_or_create_by(user_id: student_user.id, conversation: conversation2)
 
 

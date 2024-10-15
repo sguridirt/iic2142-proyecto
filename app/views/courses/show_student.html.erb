@@ -23,11 +23,16 @@
                 <small>Día: <%= evaluation.start_date.strftime('%d/%m/%Y') %></small>
             </div>
             
-            <% if current_user&.student?%>
-              <% if current_user.student.enrolled_in_course? @course %>
-                <%= link_to 'Realizar', evaluation_path(evaluation), class: 'btn btn-outline-secondary' %>
-              <% end%>
-            <% end%>
+            <% if current_user&.student? %>
+            <% evaluation_answer = current_user.student.evaluation_answers.joins(:evaluation_question)
+                                .where(evaluation_questions: { evaluation_id: evaluation.id })
+                                .find_by(evaluation_status: 1) %>
+            <% if evaluation_answer %>
+              <span class="text-muted">Evaluación completada</span>
+            <% else %>
+              <%= link_to 'Realizar', show_student_evaluation_path(evaluation), class: 'btn btn-outline-secondary' %>
+            <% end %>
+          <% end %>          
             </li>
         <% end %>
         </ul>
