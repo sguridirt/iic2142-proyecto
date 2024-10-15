@@ -1,6 +1,15 @@
 class EvaluationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_teacher!, only: [:new, :create]
+  before_action :ensure_teacher!, only: [:new, :create, :destroy]
+  before_action :set_evaluation, only: [:show, :show_student, :destroy]
+
+
+  def show
+    @course = @evaluation.course
+    @questions = @evaluation.evaluation_questions
+    render 'show_teacher'
+  end
+
 
   def new
     @evaluation = Evaluation.new
@@ -10,40 +19,54 @@ class EvaluationsController < ApplicationController
   end
 
   def create
-    @evaluation = Evaluation.new(filtered_evaluation_params)
-    @teacher_courses = current_user.teacher.courses
+    @evaluation = Evaluation.new(evaluation_params)
     if @evaluation.save
-      Rails.logger.info "Evaluation created successfully."
-      redirect_to course_path(@evaluation.course_id), notice: "Evaluación creada exitosamente."
+      redirect_to course_path(@evaluation.course), notice: "Evaluación creada exitosamente."
     else
-      Rails.logger.error "Failed to create evaluation: #{@evaluation.errors.full_messages.join(", ")}"
-      flash.now[:alert] = "No se pudo crear la evaluación: #{@evaluation.errors.full_messages.join(", ")}"
+      @teacher_courses = current_user.teacher.courses
+      flash.now[:alert] = "No se pudo crear la evaluación."
       render :new, status: :unprocessable_entity
     end
   end
 
-  def show
-    @evaluation = Evaluation.find(params[:id])
+
+  def destroy
+    @evaluation.destroy
+    redirect_to course_path(@evaluation.course), notice: "Evaluación eliminada."
   end
 
   private
 
-  def ensure_teacher!
-    unless current_user.teacher?
-      redirect_to home_path, alert: "Debes ser profesor para realizar esta acción."
+  def show_student
+    @course = @evaluation.course
+    @questions = @evaluation.evaluation_questions
+  
+    if current_user.student.evaluation_answers.joins(:evaluation_question)
+                    .where(evaluation_questions: { evaluation_id: @evaluation.id })
+                    .exists?(evaluation_status: 1)
+      redirect_to course_path(@course), alert: "Ya has realizado esta evaluación."
+    else
+      render 'show_student'
     end
+  end
+  
+  
+
+  private
+
+  def set_evaluation
+    @evaluation = Evaluation.find(params[:id])
   end
 
   def evaluation_params
     params.require(:evaluation).permit(:name, :start_date, :duration, :course_id, :evaluation_type_id, 
-                                       evaluation_questions_attributes: [:content])
+                                       evaluation_questions_attributes: [:id, :content, :_destroy])
   end
 
-  def filtered_evaluation_params
-    params = evaluation_params
-    if params[:evaluation_questions_attributes]
-      params[:evaluation_questions_attributes].reject! { |_, question| question[:content].blank? }
+
+  def ensure_teacher!
+    unless current_user.teacher?
+      redirect_to root_path, alert: "Debes ser profesor para realizar esta acción."
     end
-    params
   end
 end

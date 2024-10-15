@@ -26,18 +26,19 @@
             <%= form.collection_select :evaluation_type_id, EvaluationType.all, :id, :name, class: "form-control" %>
         </div>
 
-        <h3>Questions</h3>
+        <h3>Preguntas</h3>
         <div id="questions">
             <%= form.fields_for :evaluation_questions do |question_form| %>
                 <div class="form-group mb-3 question-field">
                     <%= question_form.label :content, "Contenido pregunta" %>
                     <%= question_form.text_area :content, class: "form-control" %>
-                    <a href=" " class="remove_question">Eliminar</a>
+                    <%= question_form.hidden_field :_destroy %>
+                    <a href="#" class="remove_question">Eliminar</a>
                 </div>
             <% end %>
         </div>
-        <%= link_to 'Add Question', '', id: 'add_question', class: 'btn btn-secondary mb-5' %>
-        
+        <%= link_to 'Añadir pregunta', '', id: 'add_question', class: 'btn btn-secondary mb-5' %>
+
         <div class="form-group">
             <%= form.submit "Crear evaluación", class: "btn btn-primary" %>
         </div>
