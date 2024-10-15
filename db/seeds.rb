@@ -40,6 +40,7 @@ student_user = User.find_or_create_by(email: "student@student.com", name: "Doren
   user.password = "salero"
   user.password_confirmation = "salero"
   user.user_role_id = UserRole.find_by(name: 'Student').id
+end
 student = Student.find_or_create_by(user_id: student_user.id)
 
 puts "Creando el tipo de curso..."
