@@ -7,7 +7,10 @@
         </div>
 
         <div class="card-body">
-          <%= form_with(model: @user, url: user_settings_path, method: :patch, html: { multipart: true }, class: "form-horizontal") do |f| %>
+          <!-- Mostrar errores aquí -->
+          <%= render 'devise/shared/update_profile_errors', object: @user %>
+
+          <%= form_with(model: @user, url: user_settings_path, method: :patch, html: { multipart: true, data: { turbo: false } }, class: "form-horizontal") do |f| %>
 
             <div class="mb-3">
               <%= f.label :name, "Nombre", class: "form-label" %>
