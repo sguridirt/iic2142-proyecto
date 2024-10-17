@@ -1,5 +1,5 @@
-<section class="container-fluid px-2">
-  <div class="row">
+<section class="container-fluid p-4">
+  <div class="row mb-4">
     <div class="col-md-12">
       <h1 class="mb-2"><%= @course.title %></h1>
       <p class="mb-1"><strong>Profesor:</strong> <%= @course.teacher.user.name %></p>
@@ -9,13 +9,12 @@
   </div>
 
 
-  <div class="row mt-4">
+  <div class="row mb-4">
     <div class="col-md-12">
-    <div class="d-flex justify-content-between align-items-center mb-2">
-    <h3 class="mb-0">Tests</h3>
-    <%= link_to 'Crear Evaluación', new_evaluation_path(course_id: @course.id), class: 'btn btn-secondary' %>
-  </div>
-  
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h3 class="mb-0">Tests</h3>
+        <%= link_to 'Crear Evaluación', new_evaluation_path(course_id: @course.id), class: 'btn btn-outline-secondary' %>
+      </div>
       <ul class="list-group">
         <% @course.evaluations.each do |evaluation| %>
           <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -27,8 +26,9 @@
               <small>Día: <%= evaluation.start_date.strftime('%d/%m/%Y') %></small>
             </div>
             <div class="d-flex">
-              <%= link_to 'Ver', evaluation_path(evaluation), class: 'btn btn-primary btn-sm me-2' %>
-              <a href="#" class="btn btn-danger btn-sm">Eliminar</a>
+              <%= link_to 'Ver preguntas', evaluation_path(evaluation), class: 'btn btn-outline-primary btn-sm me-2' %>
+              <a href="" class='btn btn-outline-primary btn-sm me-2'>Calificar respuestas</a>
+              <a href="#" class="btn btn-outline-danger btn-sm">Eliminar</a>
             </div>
           </li>
         <% end %>
@@ -36,32 +36,34 @@
     </div>
   </div>
 
-  <div class="row mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-2">
-        <h3 class="mb-0">Contenido</h3>
-        <%= link_to "Subir Material", upload_material_course_path(@course), class: "btn btn-success" %>
-    </div>
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+          <h3 class="mb-0">Contenido</h3>
+          <%= link_to "Subir Material", upload_material_course_path(@course), class: "btn btn-outline-secondary" %>
+      </div>
 
-      <ul class="list-group">
-        <% if @course.materials.any? %>
-          <% @course.materials.each_with_index do |material, index| %>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span><%= index + 1 %>. <%= material.name %></span>
-              <div class="d-flex">
-                <a href="#" class="btn btn-primary btn-sm me-2">Ver</a>
-                <a href="#" class="btn btn-danger btn-sm">Eliminar</a>
-              </div>
-            </li>
+        <ul class="list-group">
+          <% if @course.materials.any? %>
+            <% @course.materials.each_with_index do |material, index| %>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><%= index + 1 %>. <%= material.name %></span>
+                <div class="d-flex">
+                  <a href="#" class="btn btn-outline-primary btn-sm me-2">Ver</a>
+                  <a href="#" class="btn btn-outline-danger btn-sm">Eliminar</a>
+                </div>
+              </li>
+            <% end %>
+          <% else %>
+            <li class="list-group-item">No hay material disponible en este curso.</li>
           <% end %>
-        <% else %>
-          <li class="list-group-item">No hay material disponible en este curso.</li>
-        <% end %>
-      </ul>
+        </ul>
+      </div>
     </div>
   </div>
 
 
-  <div class="row mt-4">
+  <div class="row">
     <div class="col-md-12">
       <h3>Personas</h3>
       <ul class="list-group">
