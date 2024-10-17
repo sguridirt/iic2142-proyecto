@@ -31,15 +31,7 @@ Rails.application.routes.draw do
     end
   end
   
-  
-  
   resources :evaluation_answers, only: [:create]
-
-  resources :evaluations do
-    member do
-      get 'show_student'  # Esto conecta con la vista show_student
-    end
-  end
   
 
   get '/teacher_requests', to: 'requests#teacher_requests'
