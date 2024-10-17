@@ -1,6 +1,6 @@
 class EvaluationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_teacher!, only: [:new, :create, :destroy]
+  before_action :ensure_teacher!, only: [:new, :create, :show_teacher, :destroy]
   before_action :set_evaluation, only: [:show_teacher, :show_student, :destroy]
 
 
