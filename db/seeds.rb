@@ -122,7 +122,7 @@ CourseRequestStatus.find_or_create_by(name: "accepted", description: "Request ac
 CourseRequestStatus.find_or_create_by(name: "rejected", description: "Request rejected")
 
 puts "Creando conversaciones..."
-conversation1 = Conversation.find_or_create_by(is_group: false)
+conversation1 = Conversation.find_or_create_by(is_group: true)
 conversation2 = Conversation.find_or_create_by(is_group: true)
 ConversationParticipant.find_or_create_by(user_id: student_user.id, conversation: conversation1)
 ConversationParticipant.find_or_create_by(user_id: teacher_user.id, conversation: conversation1)
