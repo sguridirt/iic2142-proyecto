@@ -1,5 +1,6 @@
 <div class="px-2">
   <h3 class="mb-4">Your Conversations</h3>
+  <%= link_to "Nueva conversación", new_conversation_path, class: "btn btn-primary mb-4 "%>
   <ul class="list-group">
     <% @conversations.each do |conversation| %>
       <li class="list-group-item">

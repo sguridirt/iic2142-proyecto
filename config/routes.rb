@@ -70,7 +70,7 @@ Rails.application.routes.draw do
   patch 'admin/users/:id', to: 'admin#update_user', as: 'admin_user'
   delete 'admin/users/:id', to: 'admin#destroy_user', as: 'admin_destroy_user'
 
-  resources :conversations, only: [:index, :show] do
+  resources :conversations, only: [:index, :show, :new, :create, :destroy] do
     member do
       post 'create_message', to: 'conversations#create_message'
     end
