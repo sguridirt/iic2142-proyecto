@@ -30,7 +30,7 @@
             <% if evaluation_answer %>
               <span class="text-muted">Evaluación completada</span>
             <% else %>
-              <%= link_to 'Realizar', show_student_evaluation_path(evaluation), class: 'btn btn-outline-secondary' %>
+              <%= link_to 'Realizar', evaluation_path(evaluation), class: 'btn btn-outline-secondary' %>
             <% end %>
           <% end %>          
             </li>

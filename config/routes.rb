@@ -20,13 +20,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :evaluations, only: [:new, :create, :destroy] do
+  resources :evaluations, only: [:new, :create, :show, :destroy] do
     resources :evaluation_questions, only: [:new, :create]
-  
-    member do
-      get 'show_student', to: 'evaluations#show_student'
-      get 'show_teacher', to: 'evaluations#show_teacher'
-    end
   end
   
   resources :evaluation_answers, only: [:create]

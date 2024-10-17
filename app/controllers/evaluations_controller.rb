@@ -1,7 +1,7 @@
 class EvaluationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_teacher!, only: [:new, :create, :show_teacher, :destroy]
-  before_action :set_evaluation, only: [:show_teacher, :show_student, :destroy]
+  before_action :ensure_teacher!, only: [:new, :create, :destroy]
+  before_action :set_evaluation, only: [:show, :destroy]
 
 
   def new
@@ -22,19 +22,19 @@ class EvaluationsController < ApplicationController
     end
   end
 
-  def show_teacher
+  def show
     @course = @evaluation.course
     @questions = @evaluation.evaluation_questions
-  end
 
-  def show_student
-    @course = @evaluation.course
-    @questions = @evaluation.evaluation_questions
-  
-    if current_user.student.evaluation_answers.joins(:evaluation_question)
-                   .where(evaluation_questions: { evaluation_id: @evaluation.id })
-                   .exists?(evaluation_status: 1)
-      redirect_to course_path(@course), alert: "Ya has realizado esta evaluación."
+    if current_user.teacher?
+      render :show_teacher
+    else
+      if current_user.student.evaluation_answers.joins(:evaluation_question)
+                     .where(evaluation_questions: { evaluation_id: @evaluation.id })
+                     .exists?(evaluation_status: 1)
+        redirect_to course_path(@course), alert: "Ya has realizado esta evaluación."
+      end
+      render :show_student
     end
   end
 
@@ -53,7 +53,6 @@ class EvaluationsController < ApplicationController
     params.require(:evaluation).permit(:name, :start_date, :duration, :course_id, :evaluation_type_id, 
                                        evaluation_questions_attributes: [:id, :content, :max_points, :_destroy])
   end
-
 
   def ensure_teacher!
     unless current_user.teacher?
