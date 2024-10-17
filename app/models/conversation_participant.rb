@@ -1,6 +1,7 @@
 class ConversationParticipant < ApplicationRecord
   belongs_to :user
   belongs_to :conversation
+  has_many :conversation_messages, foreign_key: 'sender_id'
 
   before_create :set_joined_date
 
