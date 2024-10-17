@@ -49,10 +49,6 @@ class EvaluationsController < ApplicationController
       render 'show_student'
     end
   end
-  
-  
-
-  private
 
   def set_evaluation
     @evaluation = Evaluation.find(params[:id])
