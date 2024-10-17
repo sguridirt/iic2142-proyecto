@@ -1,6 +1,5 @@
 document.addEventListener('turbo:load', () => {
   
-  // Inicializar el temporizador
   const initTimer = () => {
     const countdownElement = document.getElementById('countdown');
     if (countdownElement) {
@@ -39,10 +38,15 @@ document.addEventListener('turbo:load', () => {
         const newQuestion = document.createElement('div');
         newQuestion.classList.add('form-group', 'mb-3', 'question-field');
         newQuestion.innerHTML = `
-          <label for="evaluation_evaluation_questions_attributes_${questionIndex}_content">Contenido pregunta</label>
-          <textarea name="evaluation[evaluation_questions_attributes][${questionIndex}][content]" id="evaluation_evaluation_questions_attributes_${questionIndex}_content" class="form-control"></textarea>
-          <input type="hidden" name="evaluation[evaluation_questions_attributes][${questionIndex}][_destroy]" value="false">
-          <a href="#" class="remove_question">Eliminar</a>
+          <div class="form-group mb-3 question-field card p-3">
+              <span class="fw-bold mb-4">Pregunta</span>
+              <label for="evaluation_evaluation_questions_attributes_${questionIndex}_content">Enunciado</label>
+              <textarea class="form-control" name="evaluation[evaluation_questions_attributes][${questionIndex}][content]" id="evaluation_evaluation_questions_attributes_${questionIndex}_content"></textarea>
+              <input autocomplete="off" type="hidden" value="false" name="evaluation[evaluation_questions_attributes][${questionIndex}][_destroy]" id="evaluation_evaluation_questions_attributes_${questionIndex}__destroy">
+              <label for="evaluation_evaluation_questions_attributes_${questionIndex}_max_points">Puntaje máximo</label>
+              <input class="form-control mb-4" type="number" name="evaluation[evaluation_questions_attributes][${questionIndex}][max_points]" id="evaluation_evaluation_questions_attributes_${questionIndex}_max_points">
+              <button class="remove_question btn btn-small btn-outline-danger">Eliminar</button>
+          </div>
         `;
         questionsContainer.appendChild(newQuestion);
         questionIndex++;

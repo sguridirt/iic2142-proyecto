@@ -42,8 +42,8 @@ class EvaluationsController < ApplicationController
     @questions = @evaluation.evaluation_questions
   
     if current_user.student.evaluation_answers.joins(:evaluation_question)
-                    .where(evaluation_questions: { evaluation_id: @evaluation.id })
-                    .exists?(evaluation_status: 1)
+                   .where(evaluation_questions: { evaluation_id: @evaluation.id })
+                   .exists?(evaluation_status: 1)
       redirect_to course_path(@course), alert: "Ya has realizado esta evaluación."
     else
       render 'show_student'
@@ -60,7 +60,7 @@ class EvaluationsController < ApplicationController
 
   def evaluation_params
     params.require(:evaluation).permit(:name, :start_date, :duration, :course_id, :evaluation_type_id, 
-                                       evaluation_questions_attributes: [:id, :content, :_destroy])
+                                       evaluation_questions_attributes: [:id, :content, :max_points, :_destroy])
   end
 
 
