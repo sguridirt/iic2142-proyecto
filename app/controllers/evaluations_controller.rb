@@ -1,14 +1,7 @@
 class EvaluationsController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_teacher!, only: [:new, :create, :destroy]
-  before_action :set_evaluation, only: [:show, :show_student, :destroy]
-
-
-  def show
-    @course = @evaluation.course
-    @questions = @evaluation.evaluation_questions
-    render 'show_teacher'
-  end
+  before_action :set_evaluation, only: [:show_teacher, :show_student, :destroy]
 
 
   def new
@@ -29,13 +22,10 @@ class EvaluationsController < ApplicationController
     end
   end
 
-
-  def destroy
-    @evaluation.destroy
-    redirect_to course_path(@evaluation.course), notice: "Evaluación eliminada."
+  def show_teacher
+    @course = @evaluation.course
+    @questions = @evaluation.evaluation_questions
   end
-
-  private
 
   def show_student
     @course = @evaluation.course
@@ -45,10 +35,15 @@ class EvaluationsController < ApplicationController
                    .where(evaluation_questions: { evaluation_id: @evaluation.id })
                    .exists?(evaluation_status: 1)
       redirect_to course_path(@course), alert: "Ya has realizado esta evaluación."
-    else
-      render 'show_student'
     end
   end
+
+  def destroy
+    @evaluation.destroy
+    redirect_to course_path(@evaluation.course), notice: "Evaluación eliminada."
+  end
+
+  private
 
   def set_evaluation
     @evaluation = Evaluation.find(params[:id])

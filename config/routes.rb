@@ -20,19 +20,16 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :evaluations, only: [:new, :create, :destroy, :show] do
+  resources :evaluations, only: [:new, :create, :destroy] do
     resources :evaluation_questions, only: [:new, :create]
-  end
-
-  resources :evaluations do
+  
     member do
       get 'show_student', to: 'evaluations#show_student'
-      post 'submit_answers', to: 'evaluations#submit_answers'
+      get 'show_teacher', to: 'evaluations#show_teacher'
     end
   end
   
   resources :evaluation_answers, only: [:create]
-  
 
   get '/teacher_requests', to: 'requests#teacher_requests'
   get 'settings', to: 'user_settings#show', as: 'user_settings'
@@ -51,7 +48,6 @@ Rails.application.routes.draw do
   resources :reviews, only: [:view]
   get 'reviews', to: 'reviews#view'
 
-  
   resources :teacher_reviews, only: [:new, :create]
   resources :course_reviews, only: [:new, :create]
 
