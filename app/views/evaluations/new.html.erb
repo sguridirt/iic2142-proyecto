@@ -35,7 +35,7 @@
                     <%= question_form.text_area :content, class: "form-control" %>
                     <%= question_form.hidden_field :_destroy %>
                     <%= question_form.label :max_points, "Puntaje máximo" %>
-                    <%= question_form.number_field :max_points, class: "form-control mb-4" %>
+                    <%= question_form.number_field :max_points, class: "form-control mb-4", min: 0 %>
                     <button class="remove_question btn btn-small btn-outline-danger">Eliminar</button>
                 </div>
                 

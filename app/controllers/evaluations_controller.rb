@@ -31,7 +31,7 @@ class EvaluationsController < ApplicationController
     else
       if current_user.student.evaluation_answers.joins(:evaluation_question)
                      .where(evaluation_questions: { evaluation_id: @evaluation.id })
-                     .exists?(evaluation_status: 1)
+                     .exists?(evaluation_status: [1, 2])
         redirect_to course_path(@course), alert: "Ya has realizado esta evaluación."
       end
       render :show_student
@@ -44,25 +44,22 @@ class EvaluationsController < ApplicationController
   end
 
   def grade_answers
-    @answers = @evaluation.evaluation_answers.where(evaluation_status: 1)
     @students = @evaluation.students
+    
+    @answers = @evaluation.evaluation_answers
     @student = Student.find(params[:student_id])
     @total_points = @answers.sum(:points)
     @max_points = @evaluation.evaluation_questions.sum(:max_points)
   end
 
   def update_grades
-    # puts "POTO"
-    # TODO: Implementar
     params[:answers].each do |answer_id, answer_data|
       answer = EvaluationAnswer.find(answer_id)
-      answer.update(points: answer_data[:points])
+      answer.update(points: answer_data[:points], evaluation_status: 2)
     end
 
-    puts params[:student_id]
-
     redirect_to grade_answers_evaluation_path(@evaluation, student_id: params[:student_id]), 
-                notice: "Notas actualizadas."
+                notice: "Puntos asignados."
   end
 
   private
