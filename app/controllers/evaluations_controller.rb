@@ -1,7 +1,7 @@
 class EvaluationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_teacher!, only: [:new, :create, :destroy]
-  before_action :set_evaluation, only: [:show, :destroy]
+  before_action :ensure_teacher!, only: [:new, :create, :destroy, :grade_answers]
+  before_action :set_evaluation, only: [:show, :destroy, :grade_answers, :update_grades]
 
 
   def new
@@ -41,6 +41,28 @@ class EvaluationsController < ApplicationController
   def destroy
     @evaluation.destroy
     redirect_to course_path(@evaluation.course), notice: "Evaluación eliminada."
+  end
+
+  def grade_answers
+    @answers = @evaluation.evaluation_answers.where(evaluation_status: 1)
+    @students = @evaluation.students
+    @student = Student.find(params[:student_id])
+    @total_points = @answers.sum(:points)
+    @max_points = @evaluation.evaluation_questions.sum(:max_points)
+  end
+
+  def update_grades
+    # puts "POTO"
+    # TODO: Implementar
+    params[:answers].each do |answer_id, answer_data|
+      answer = EvaluationAnswer.find(answer_id)
+      answer.update(points: answer_data[:points])
+    end
+
+    puts params[:student_id]
+
+    redirect_to grade_answers_evaluation_path(@evaluation, student_id: params[:student_id]), 
+                notice: "Notas actualizadas."
   end
 
   private

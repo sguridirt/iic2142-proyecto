@@ -27,7 +27,11 @@
             </div>
             <div class="d-flex">
               <%= link_to 'Ver preguntas', evaluation_path(evaluation), class: 'btn btn-outline-primary btn-sm me-2' %>
-              <a href="" class='btn btn-outline-primary btn-sm me-2'>Calificar respuestas</a>
+              <% if evaluation.evaluation_answers.any? %>
+                <%= link_to 'Calificar respuestas', grade_answers_evaluation_path(evaluation, student_id: evaluation.students.first&.id), class: 'btn btn-outline-primary btn-sm me-2' %>
+              <% else %>
+                <button class= "btn btn-outline-primary btn-sm me-2" disabled>Calificar respuestas</button>
+              <% end %>
               <a href="#" class="btn btn-outline-danger btn-sm">Eliminar</a>
             </div>
           </li>
