@@ -20,24 +20,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :evaluations, only: [:new, :create, :destroy, :show] do
+  resources :evaluations, only: [:new, :create, :show, :destroy] do
     resources :evaluation_questions, only: [:new, :create]
-  end
-
-  resources :evaluations do
+    resources :evaluation_answers, only: [:create]
     member do
-      get 'show_student', to: 'evaluations#show_student'
-      post 'submit_answers', to: 'evaluations#submit_answers'
-    end
-  end
-  
-  
-  
-  resources :evaluation_answers, only: [:create]
-
-  resources :evaluations do
-    member do
-      get 'show_student'  # Esto conecta con la vista show_student
+      get 'grade_answers/:student_id', to: 'evaluations#grade_answers', as: 'grade_answers'
+      patch 'update_grades/:student_id', to: 'evaluations#update_grades', as: 'update_grades'
     end
   end
   
@@ -59,7 +47,6 @@ Rails.application.routes.draw do
   resources :reviews, only: [:view]
   get 'reviews', to: 'reviews#view'
 
-  
   resources :teacher_reviews, only: [:new, :create]
   resources :course_reviews, only: [:new, :create]
 

@@ -14,8 +14,7 @@
     <div class="col-md-12">
       <h3 class="mb-2">Preguntas</h3>
       
-      <%= form_with url: evaluation_answers_path, local: true do |form| %>
-        <%= form.hidden_field :evaluation_id, value: @evaluation.id %>
+      <%= form_with url: evaluation_evaluation_answers_path(@evaluation), local: true do |form| %>
         
         <% @evaluation.evaluation_questions.each_with_index do |question, index| %>
           <div class="form-group mb-3">
@@ -27,7 +26,7 @@
         <% end %>
         
         <div class="form-group">
-          <%= form.submit "Guardar y Salir", class: "btn btn-primary" %>
+          <%= form.submit "Entregar", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>

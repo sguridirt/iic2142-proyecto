@@ -16,7 +16,7 @@
         <% if @questions.any? %>
           <% @questions.each_with_index do |question, index| %>
             <li class="list-group-item">
-              <strong>Pregunta <%= index + 1 %>:</strong> <%= question.content %>
+              <strong>Pregunta <%= index + 1 %>:</strong> <%= question.content %> (<strong>Puntaje máximo </strong>: <%= question.max_points %>)
             </li>
           <% end %>
         <% else %>

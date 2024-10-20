@@ -67,7 +67,6 @@ class CoursesController < ApplicationController
     end
   end
   
-
   def show
     @course = Course.find(params[:id])
     if current_user&.teacher?
@@ -76,7 +75,6 @@ class CoursesController < ApplicationController
       render 'show_student'
     end
   end
-
 
   def upload_material
     @course = Course.find(params[:id])
@@ -100,9 +98,6 @@ class CoursesController < ApplicationController
   def material_params
     params.require(:material).permit(:name, :description, :material_type_id, :course_id)
   end
-  
-
-  private
 
   def course_params
     params.require(:course).permit(:title, :description, :course_type_id, :start_date, :end_date)

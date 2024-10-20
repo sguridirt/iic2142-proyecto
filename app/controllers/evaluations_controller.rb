@@ -1,14 +1,7 @@
 class EvaluationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_teacher!, only: [:new, :create, :destroy]
-  before_action :set_evaluation, only: [:show, :show_student, :destroy]
-
-
-  def show
-    @course = @evaluation.course
-    @questions = @evaluation.evaluation_questions
-    render 'show_teacher'
-  end
+  before_action :ensure_teacher!, only: [:new, :create, :destroy, :grade_answers]
+  before_action :set_evaluation, only: [:show, :destroy, :grade_answers, :update_grades]
 
 
   def new
@@ -29,28 +22,45 @@ class EvaluationsController < ApplicationController
     end
   end
 
+  def show
+    @course = @evaluation.course
+    @questions = @evaluation.evaluation_questions
+
+    if current_user.teacher?
+      render :show_teacher
+    else
+      if current_user.student.evaluation_answers.joins(:evaluation_question)
+                     .where(evaluation_questions: { evaluation_id: @evaluation.id })
+                     .exists?(evaluation_status: [1, 2])
+        redirect_to course_path(@course), alert: "Ya has realizado esta evaluación."
+      end
+      render :show_student
+    end
+  end
 
   def destroy
     @evaluation.destroy
     redirect_to course_path(@evaluation.course), notice: "Evaluación eliminada."
   end
 
-  private
-
-  def show_student
-    @course = @evaluation.course
-    @questions = @evaluation.evaluation_questions
-  
-    if current_user.student.evaluation_answers.joins(:evaluation_question)
-                    .where(evaluation_questions: { evaluation_id: @evaluation.id })
-                    .exists?(evaluation_status: 1)
-      redirect_to course_path(@course), alert: "Ya has realizado esta evaluación."
-    else
-      render 'show_student'
-    end
+  def grade_answers
+    @students = @evaluation.students
+    
+    @answers = @evaluation.evaluation_answers
+    @student = Student.find(params[:student_id])
+    @total_points = @answers.sum(:points)
+    @max_points = @evaluation.evaluation_questions.sum(:max_points)
   end
-  
-  
+
+  def update_grades
+    params[:answers].each do |answer_id, answer_data|
+      answer = EvaluationAnswer.find(answer_id)
+      answer.update(points: answer_data[:points], evaluation_status: 2)
+    end
+
+    redirect_to grade_answers_evaluation_path(@evaluation, student_id: params[:student_id]), 
+                notice: "Puntos asignados."
+  end
 
   private
 
@@ -60,9 +70,8 @@ class EvaluationsController < ApplicationController
 
   def evaluation_params
     params.require(:evaluation).permit(:name, :start_date, :duration, :course_id, :evaluation_type_id, 
-                                       evaluation_questions_attributes: [:id, :content, :_destroy])
+                                       evaluation_questions_attributes: [:id, :content, :max_points, :_destroy])
   end
-
 
   def ensure_teacher!
     unless current_user.teacher?

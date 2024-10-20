@@ -29,11 +29,14 @@
         <h3>Preguntas</h3>
         <div id="questions">
             <%= form.fields_for :evaluation_questions do |question_form| %>
-                <div class="form-group mb-3 question-field">
-                    <%= question_form.label :content, "Contenido pregunta" %>
+                <div class="form-group mb-3 question-field card p-3">
+                    <span class="fw-bold mb-4">Pregunta</span>
+                    <%= question_form.label :content, "Enunciado" %>
                     <%= question_form.text_area :content, class: "form-control" %>
                     <%= question_form.hidden_field :_destroy %>
-                    <a href="#" class="remove_question">Eliminar</a>
+                    <%= question_form.label :max_points, "Puntaje máximo" %>
+                    <%= question_form.number_field :max_points, class: "form-control mb-4", min: 0 %>
+                    <button class="remove_question btn btn-small btn-outline-danger">Eliminar</button>
                 </div>
             <% end %>
         </div>
