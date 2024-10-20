@@ -23,6 +23,10 @@ Rails.application.routes.draw do
   resources :evaluations, only: [:new, :create, :show, :destroy] do
     resources :evaluation_questions, only: [:new, :create]
     resources :evaluation_answers, only: [:create]
+    member do
+      get 'grade_answers/:student_id', to: 'evaluations#grade_answers', as: 'grade_answers'
+      patch 'update_grades/:student_id', to: 'evaluations#update_grades', as: 'update_grades'
+    end
   end
   
 
