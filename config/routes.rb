@@ -22,9 +22,9 @@ Rails.application.routes.draw do
 
   resources :evaluations, only: [:new, :create, :show, :destroy] do
     resources :evaluation_questions, only: [:new, :create]
+    resources :evaluation_answers, only: [:create]
   end
   
-  resources :evaluation_answers, only: [:create]
 
   get '/teacher_requests', to: 'requests#teacher_requests'
   get 'settings', to: 'user_settings#show', as: 'user_settings'
