@@ -1,6 +1,6 @@
 class EvaluationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_teacher!, only: [:new, :create, :destroy, :grade_answers]
+  before_action :ensure_teacher_or_admin!, only: [:new, :create, :destroy, :grade_answers]
   before_action :set_evaluation, only: [:show, :destroy, :grade_answers, :update_grades]
 
 
@@ -25,13 +25,13 @@ class EvaluationsController < ApplicationController
   def show
     @course = @evaluation.course
     @questions = @evaluation.evaluation_questions
-
-    if current_user.teacher?
-      render :show_teacher
+  
+    if current_user.teacher? || current_user.admin?
+      render :show_teacher 
     else
       if current_user.student.evaluation_answers.joins(:evaluation_question)
-                     .where(evaluation_questions: { evaluation_id: @evaluation.id })
-                     .exists?(evaluation_status: [1, 2])
+                       .where(evaluation_questions: { evaluation_id: @evaluation.id })
+                       .exists?(evaluation_status: [1, 2])
         redirect_to course_path(@course), alert: "Ya has realizado esta evaluación."
       end
       render :show_student
@@ -73,8 +73,8 @@ class EvaluationsController < ApplicationController
                                        evaluation_questions_attributes: [:id, :content, :max_points, :_destroy])
   end
 
-  def ensure_teacher!
-    unless current_user.teacher?
+  def ensure_teacher_or_admin!
+    unless current_user.teacher? || current_user.admin?
       redirect_to root_path, alert: "Debes ser profesor para realizar esta acción."
     end
   end
