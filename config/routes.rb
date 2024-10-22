@@ -49,6 +49,7 @@ Rails.application.routes.draw do
 
   resources :teacher_reviews, only: [:new, :create]
   resources :course_reviews, only: [:new, :create]
+  resources :materials, only: [:destroy]
 
   get 'admin/view_users', to: 'admin#view_users', as: 'admin_view_users'
   get 'admin/users/new', to: 'admin#new_user', as: 'admin_new_user'
@@ -56,6 +57,10 @@ Rails.application.routes.draw do
   get 'admin/users/:id/edit', to: 'admin#edit_user', as: 'admin_edit_user'
   patch 'admin/users/:id', to: 'admin#update_user', as: 'admin_user'
   delete 'admin/users/:id', to: 'admin#destroy_user', as: 'admin_destroy_user'
+  get 'admin/teacher_reviews', to: 'admin#teacher_reviews', as: 'admin_teacher_reviews'
+  delete 'admin/teacher_reviews/:id', to: 'admin#destroy_teacher_review', as: 'admin_destroy_teacher_review'
+  get 'admin/course_reviews', to: 'admin#course_reviews', as: 'admin_course_reviews'
+  delete 'admin/course_reviews/:id', to: 'admin#destroy_course_review', as: 'admin_destroy_course_review'
 
   resources :conversations, only: [:index, :show, :new, :create, :destroy] do
     member do

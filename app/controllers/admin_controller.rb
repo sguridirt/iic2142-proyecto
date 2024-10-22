@@ -25,6 +25,7 @@ class AdminController < ApplicationController
   def edit_user
     # This action is needed to render the edit form
   end
+
   
   def update_user
     if @user.update(user_update_params)
@@ -38,6 +39,26 @@ class AdminController < ApplicationController
   def destroy_user
     @user.destroy
     redirect_to admin_view_users_path, notice: 'Usuario eliminado exitosamente.'
+  end
+
+  def teacher_reviews
+    @teacher_reviews = TeacherReview.includes(:student, :teacher).all
+  end
+
+  def destroy_teacher_review
+    @teacher_review = TeacherReview.find(params[:id])
+    @teacher_review.destroy
+    redirect_to admin_teacher_reviews_path, notice: 'Reseña eliminada exitosamente.'
+  end
+
+  def course_reviews
+    @course_reviews = CourseReview.includes(:student, :course).all
+  end
+
+  def destroy_course_review
+    @course_review = CourseReview.find(params[:id])
+    @course_review.destroy
+    redirect_to admin_course_reviews_path, notice: 'Reseña de curso eliminada exitosamente.'
   end
 
   private

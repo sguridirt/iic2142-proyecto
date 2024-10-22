@@ -1,4 +1,7 @@
 class CoursesController < ApplicationController
+  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  
   def index
     if params[:query].present?
       @courses = Course.joins(:teacher)
@@ -71,6 +74,8 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     if current_user&.teacher?
       render 'show_teacher'
+    elsif current_user&.admin?
+      render 'show_admin'
     else
       render 'show_student'
     end
@@ -93,6 +98,11 @@ class CoursesController < ApplicationController
     end
   end
 
+  def destroy
+    @course.destroy
+    redirect_to courses_path, notice: 'Curso eliminado exitosamente.'
+  end
+
   private
 
   def material_params
@@ -101,6 +111,10 @@ class CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:title, :description, :course_type_id, :start_date, :end_date)
+  end
+
+  def set_course
+    @course = Course.find(params[:id])
   end
 
 end

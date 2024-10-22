@@ -1,0 +1,30 @@
+<section class="container-fluid px-2">
+  <h1>Gestionar Reseñas de Cursos</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Comentario</th>
+        <th>Calificación</th>
+        <th>Estudiante</th>
+        <th>Curso</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @course_reviews.each do |review| %>
+        <tr>
+          <td><%= review.title %></td>
+          <td><%= review.comment %></td>
+          <td><%= review.rating %></td>
+          <td><%= review.student.user.name %></td>
+          <td><%= review.course.title %></td>
+          <td>
+            <%= button_to 'Eliminar', admin_destroy_course_review_path(review), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar esta reseña?' }, class: 'btn btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
