@@ -34,9 +34,13 @@ class User < ApplicationRecord
     end
   end
   
+  # def avatar_thumbnail
+  #   return self.avatar.variant(resize_to_fill: [300, 300], processor: :mini_magick).processed if avatar.attached?
+  # end
   def avatar_thumbnail
-    return self.avatar.variant(resize_to_fill: [300, 300], processor: :mini_magick).processed if avatar.attached?
+    return self.avatar.variant(resize_to_fill: [300, 300]).processed if avatar.attached?
   end
+  
 
   def teacher?
     user_role.name == "Teacher"

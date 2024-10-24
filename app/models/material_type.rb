@@ -1,2 +1,7 @@
 class MaterialType < ApplicationRecord
-end
+    has_many :materials
+  
+    validates :name, presence: true, uniqueness: true
+    validates :description, presence: true
+  end
+  
