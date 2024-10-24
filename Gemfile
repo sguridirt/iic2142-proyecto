@@ -77,4 +77,5 @@ gem 'bootstrap'
 gem 'sassc-rails'
 gem 'devise'
 gem 'simplecov', require: false, group: :test
+gem 'image_processing', '~> 1.2'
 
