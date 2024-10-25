@@ -1,0 +1,7 @@
+quiz:
+  name: "Quiz"
+  description: "A short quiz"
+
+final_exam:
+  name: "Final Exam"
+  description: "End of course final exam"

@@ -1,0 +1,11 @@
+participant1:
+  user: student_user
+  conversation: conversation1
+
+participant2:
+  user: teacher_user
+  conversation: conversation1
+
+participant3:
+  user: student_user
+  conversation: conversation2

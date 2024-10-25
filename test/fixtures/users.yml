@@ -1,0 +1,20 @@
+admin_user:
+  email: "admin@admin.com"
+  name: "Ulloa"
+  phone: "+56900000001"
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'salero') %>
+  user_role: admin
+
+teacher_user:
+  email: "teacher@teacher.com"
+  name: "Profe Rod"
+  phone: "+56900000002"
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'salero') %>
+  user_role: teacher
+
+student_user:
+  email: "student@student.com"
+  name: "Doren"
+  phone: "+56900000003"
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'salero') %>
+  user_role: student

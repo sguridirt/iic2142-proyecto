@@ -1,0 +1,53 @@
+material1:
+  name: "Introduction to Algebra"
+  description: "Basic algebraic concepts"
+  material_type: document
+  course: maths_101
+
+material2:
+  name: "Linear Algebra Book"
+  description: "A comprehensive guide to linear algebra"
+  material_type: book
+  course: maths_101
+
+material3:
+  name: "Algebraic Structures Video"
+  description: "An in-depth look at algebraic structures"
+  material_type: video
+  course: maths_101
+
+material4:
+  name: "Introduction to Algebra Slides"
+  description: "Slides for the first week of Algebra"
+  material_type: presentation
+  course: maths_101
+
+material5:
+  name: "Advanced Calculus Document"
+  description: "A document covering advanced calculus topics"
+  material_type: document
+  course: maths_201
+
+material6:
+  name: "Calculus Textbook"
+  description: "Advanced calculus textbook"
+  material_type: book
+  course: maths_201
+
+material7:
+  name: "Introduction to Derivatives Video"
+  description: "Video explaining basic derivatives"
+  material_type: video
+  course: maths_201
+
+material8:
+  name: "Advanced Calculus Presentations"
+  description: "Slides covering advanced calculus concepts"
+  material_type: presentation
+  course: maths_201
+
+material9:
+  name: "Videos de Fails"
+  description: "Videos de fails"
+  material_type: video
+  course: language_201
