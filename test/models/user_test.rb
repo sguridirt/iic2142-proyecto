@@ -124,7 +124,66 @@ class UserTest < ActiveSupport::TestCase
     )
     assert @admin.avatar.attached?
     assert_not_nil @admin.avatar_thumbnail
+  end
+
+# Add these tests inside your UserTest class
+
+test "should attach and process avatar" do
+  @admin.avatar.attach(
+    io: File.open(Rails.root.join('test/fixtures/files/avatar.jpg')),
+    filename: 'avatar.jpg',
+    content_type: 'image/jpeg'
+  )
+  
+  # Tests avatar_thumbnail method when avatar is attached
+  assert_not_nil @admin.avatar_thumbnail
+  
+  # Tests avatar_thumbnail method when no avatar is attached
+  user_without_avatar = User.create(
+    name: "No Avatar User",
+    email: "no_avatar@test.com",
+    password: "password123",
+    phone: "+56900000006",
+    user_role: user_roles(:admin)
+  )
+  assert_nil user_without_avatar.avatar_thumbnail
 end
+
+  test "assign_user_role callback creates correct role records" do
+    # Test Student role assignment
+    new_student = User.create(
+      name: "New Student",
+      email: "new_student2@test.com",
+      password: "password123",
+      phone: "+56900000007",
+      user_role: user_roles(:student)
+    )
+    assert_not_nil new_student.student
+    assert_nil new_student.teacher
+    
+    # Test Teacher role assignment
+    new_teacher = User.create(
+      name: "New Teacher",
+      email: "new_teacher2@test.com",
+      password: "password123",
+      phone: "+56900000008",
+      user_role: user_roles(:teacher)
+    )
+    assert_not_nil new_teacher.teacher
+    assert_nil new_teacher.student
+    
+    # Test Admin role assignment (should not create additional records)
+    new_admin = User.create(
+      name: "New Admin",
+      email: "new_admin@test.com",
+      password: "password123",
+      phone: "+56900000009",
+      user_role: user_roles(:admin)
+    )
+    assert_nil new_admin.teacher
+    assert_nil new_admin.student
+  end
+
 
   
 
