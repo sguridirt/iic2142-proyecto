@@ -30,8 +30,8 @@ class EvaluationsController < ApplicationController
       render :show_teacher 
     else
       if current_user.student.evaluation_answers.joins(:evaluation_question)
-                       .where(evaluation_questions: { evaluation_id: @evaluation.id })
-                       .exists?(evaluation_status: [1, 2])
+                     .where(evaluation_questions: { evaluation_id: @evaluation.id })
+                     .exists?(evaluation_status: [1, 2])
         redirect_to course_path(@course), alert: "Ya has realizado esta evaluación."
       end
       render :show_student
@@ -45,9 +45,10 @@ class EvaluationsController < ApplicationController
 
   def grade_answers
     @students = @evaluation.students
+    Rails.logger.debug @students.inspect
     
     @answers = @evaluation.evaluation_answers
-    @student = Student.find(params[:student_id])
+    @current_student = Student.find(params[:student_id])
     @total_points = @answers.sum(:points)
     @max_points = @evaluation.evaluation_questions.sum(:max_points)
   end
