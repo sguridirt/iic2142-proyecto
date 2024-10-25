@@ -2,10 +2,7 @@ require "test_helper"
 
 class MaterialTypeTest < ActiveSupport::TestCase
   def setup
-    @material_type = MaterialType.new(
-      name: "Video",
-      description: "A video resource"
-    )
+    @material_type = material_types(:video)
   end
 
   test "should be valid with valid attributes" do
@@ -25,8 +22,10 @@ class MaterialTypeTest < ActiveSupport::TestCase
   end
 
   test "should have unique name" do
-    duplicate_material_type = @material_type.dup
-    @material_type.save
+    duplicate_material_type = MaterialType.new(
+      name: material_types(:video).name,
+      description: "Another video resource"
+    )
     assert_not duplicate_material_type.valid?
     assert_includes duplicate_material_type.errors[:name], "has already been taken"
   end
@@ -36,7 +35,11 @@ class MaterialTypeTest < ActiveSupport::TestCase
   end
 
   test "should save successfully" do
-    assert @material_type.save
+    new_material_type = MaterialType.new(
+      name: "Quiz",
+      description: "A quiz resource"
+    )
+    assert new_material_type.save
   end
 
   test "should not save with empty name" do
@@ -50,12 +53,12 @@ class MaterialTypeTest < ActiveSupport::TestCase
   end
 
   test "should be able to update attributes" do
-    @material_type.save
-    assert @material_type.update(name: "Document", description: "A document resource")
+    assert @material_type.update(name: "Updated Video", description: "An updated video resource")
   end
 
   test "should be able to destroy" do
-    @material_type.save
-    assert @material_type.destroy
+    new_material_type = MaterialType.create!(name: "Temporary", description: "Temporary type")
+    assert new_material_type.destroy
   end
+  
 end

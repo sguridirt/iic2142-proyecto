@@ -2,60 +2,7 @@ require "test_helper"
 
 class CourseReviewTest < ActiveSupport::TestCase
   def setup
-    @teacher_role = UserRole.create!(
-      name: 'Teacher',
-      description: 'A user who can create and manage courses.'
-    )
-    
-    @teacher_user = User.create!(
-      email: "test_teacher@test.com",
-      name: "Test Teacher",
-      phone: "+56900000097",
-      password: "password123",
-      password_confirmation: "password123",
-      user_role: @teacher_role
-    )
-    
-    @teacher = Teacher.create!(user: @teacher_user)
-    
-    @course_type = CourseType.create!(
-      name: "Test Type",
-      description: "Test Description"
-    )
-    
-    # Create student
-    @student_role = UserRole.create!(
-      name: 'Student',
-      description: 'A user who can enroll in courses.'
-    )
-    
-    @student_user = User.create!(
-      email: "test_student@test.com",
-      name: "Test Student",
-      phone: "+56900000098",
-      password: "password123",
-      password_confirmation: "password123",
-      user_role: @student_role
-    )
-    
-    @student = Student.create!(user: @student_user)
-    
-    @course = Course.create!(
-      title: "Test Course",
-      description: "Test Description",
-      start_date: Date.today,
-      end_date: Date.today + 30.days,
-      teacher: @teacher,
-      course_type: @course_type
-    )
-    
-    @course_review = CourseReview.new(
-      title: "Great Course",
-      comment: "Really enjoyed it",
-      rating: 5,
-      student: @student,
-      course: @course
-    )
+    @course_review = course_reviews(:course_review1)
   end
 
   test "should be valid with valid attributes" do
@@ -68,5 +15,25 @@ class CourseReviewTest < ActiveSupport::TestCase
 
   test "should belong to course" do
     assert_respond_to @course_review, :course
+  end
+
+  test "should have correct rating" do
+    assert_equal 5, @course_review.rating
+  end
+
+  test "should have correct title" do
+    assert_equal "Excellent Course", @course_review.title
+  end
+
+  test "should have correct comment" do
+    assert_equal "Highly recommend!", @course_review.comment
+  end
+
+  test "should be associated with correct course" do
+    assert_equal courses(:maths_101), @course_review.course
+  end
+
+  test "should be associated with correct student" do
+    assert_equal students(:student), @course_review.student
   end
 end
