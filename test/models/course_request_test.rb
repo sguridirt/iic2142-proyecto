@@ -2,65 +2,7 @@ require "test_helper"
 
 class CourseRequestTest < ActiveSupport::TestCase
   def setup
-    @teacher_role = UserRole.create!(
-      name: 'Teacher',
-      description: 'A user who can create and manage courses.'
-    )
-    
-    @teacher_user = User.create!(
-      email: "test_teacher@test.com",
-      name: "Test Teacher",
-      phone: "+56900000097",
-      password: "password123",
-      password_confirmation: "password123",
-      user_role: @teacher_role
-    )
-    
-    @teacher = Teacher.create!(user: @teacher_user)
-    
-    @course_type = CourseType.create!(
-      name: "Test Type",
-      description: "Test Description"
-    )
-    
-    @student_role = UserRole.create!(
-      name: 'Student',
-      description: 'A user who can enroll in courses.'
-    )
-    
-    @student_user = User.create!(
-      email: "test_student@test.com",
-      name: "Test Student",
-      phone: "+56900000098",
-      password: "password123",
-      password_confirmation: "password123",
-      user_role: @student_role
-    )
-    
-    @student = Student.create!(user: @student_user)
-    
-    @course = Course.create!(
-      title: "Test Course",
-      description: "Test Description",
-      start_date: Date.today,
-      end_date: Date.today + 30.days,
-      teacher: @teacher,
-      course_type: @course_type
-    )
-    
-    @status = CourseRequestStatus.create!(
-      name: "pending",
-      description: "Request is pending approval"
-    )
-    
-    @course_request = CourseRequest.new(
-      description: "I want to join this course",
-      start_date: Date.today,
-      end_date: Date.today + 30.days,
-      student: @student,
-      course: @course,
-      course_request_status: @status
-    )
+    @course_request = course_requests(:request1)
   end
 
   test "should be valid with valid attributes" do
@@ -82,5 +24,17 @@ class CourseRequestTest < ActiveSupport::TestCase
   test "should require description" do
     @course_request.description = nil
     assert_not @course_request.valid?
+  end
+
+  test "should have correct student association" do
+    assert_equal students(:student), @course_request.student
+  end
+
+  test "should have correct course association" do
+    assert_equal courses(:maths_101), @course_request.course
+  end
+
+  test "should have correct status" do
+    assert_equal course_request_statuses(:pending), @course_request.course_request_status
   end
 end
