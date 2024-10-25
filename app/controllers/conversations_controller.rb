@@ -52,7 +52,8 @@ class ConversationsController < ApplicationController
         redirect_to conversation_path(@conversation), alert: 'No se ha podido enviar el mensaje.'
       end
     else
-      redirect_to conversation_path(@conversation), alert: 'No se ha podido enviar el mensaje. El usuario no es un participante de esta conversación.'
+      redirect_to conversation_path(@conversation), 
+                  alert: 'No se ha podido enviar el mensaje. El usuario no es un participante de esta conversación.'
     end
   end
 
@@ -72,7 +73,7 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.find(params[:id])
     
     rescue ActiveRecord::RecordNotFound
-    redirect_to conversations_path, alert: 'La conversación no existe o ha sido eliminada.'
+      redirect_to conversations_path, alert: 'La conversación no existe o ha sido eliminada.'
   end
 
   def conversation_params
