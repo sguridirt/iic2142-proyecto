@@ -1,7 +1,9 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+enrollment1:
+  student: student
+  course: maths_101
+  enrollment_date: <%= Date.today %>
 
-one:
-  enrollmentDate: 2024-09-30
-
-two:
-  enrollmentDate: 2024-09-30
+enrollment2:
+  student: student
+  course: maths_201
+  enrollment_date: <%= Date.today %>

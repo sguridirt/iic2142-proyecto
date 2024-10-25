@@ -1,0 +1,91 @@
+<section class="container-fluid px-2">
+
+  <div class="row">
+    <%= link_to 'Volver al curso', course_path(@evaluation.course) %>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="mb-2"><%= @evaluation.name %> - Respuestas de <%= @current_student.user.name %></h1>
+      <p><strong>Curso:</strong> <%= @evaluation.course.title %></p>
+      <p><strong>Estudiante:</strong> <%= @current_student.user.name %></p>
+      <p><strong>Puntos:</strong> <%= @total_points %> de un total de <%= @max_points %> puntos</p>
+    </div>
+  </div>
+
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h3>Respuestas</h3>
+      <%= form_with url: update_grades_evaluation_path(@evaluation, student_id: @current_student.id), method: :patch, local: true do |form| %>
+        <ul class="list-group">
+          <% @answers.each do |answer| %>
+            <li class="list-group-item">
+              <strong>Pregunta:</strong> <%= answer.evaluation_question.content %><br>
+              <strong>Respuesta:</strong> <%= answer.content %><br>
+              <strong>Puntos:</strong>
+              <% if answer.evaluation_question.max_points.present? %>
+                <%= form.number_field :points, value: answer.points, name: "answers[#{answer.id}][points]", class: "form-control d-inline w-auto", max: answer.evaluation_question.max_points %>
+                <span> de <%= answer.evaluation_question.max_points %> puntos</span>
+              <% else %>
+                <%= form.number_field :points, value: answer.points, name: "answers[#{answer.id}][points]", class: "form-control d-inline w-auto" %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <div class="form-group mt-3">
+          <%= form.submit "Guardar calificaciones", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12 d-flex justify-content-center align-items-center flex-column">
+      <h4>Navegación: respuestas por alumno</h4>
+      <p>Total de estudiantes que han respondido: <%= @students.count %></p>
+      <% if @students.count > 0 %>
+        <ul class="pagination">
+          <% current_index = @students.index(@current_student) %>
+          <% previous_student = current_index > 0 ? @students[current_index - 1] : nil %>
+          <% next_student = current_index < @students.size - 1 ? @students[current_index + 1] : nil %>
+
+          <% if previous_student %>
+            <li class="page-item">
+              <%= link_to grade_answers_evaluation_path(@evaluation, student_id: previous_student.id), class: "page-link" do %>
+                <i class="bi bi-arrow-left"></i>
+              <% end %>
+            </li>
+          <% else %>
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                <i class="bi bi-arrow-left"></i>
+              </a>
+            </li>
+          <% end %>
+
+          <% @students.each do |student| %>
+            <li class="page-item <%= 'active' if student == @student %>">
+              <%= link_to student.user.name, grade_answers_evaluation_path(@evaluation, student_id: student.id), class: "page-link" %>
+            </li>
+          <% end %>
+
+          <% if next_student %>
+            <li class="page-item">
+              <%= link_to grade_answers_evaluation_path(@evaluation, student_id: next_student.id), class: "page-link" do %>
+                <i class="bi bi-arrow-right"></i>
+              <% end %>
+            </li>
+          <% else %>
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</section>

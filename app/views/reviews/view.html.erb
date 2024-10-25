@@ -1,0 +1,48 @@
+<section class="container-fluid px-2">
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h3>Reseñas de Profesor</h3>
+      <ul class="list-group">
+        <% if @teacher_reviews.any? %>
+          <% @teacher_reviews.each do |review| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div style="text-align: justify;">
+                <strong><%= review.title %></strong>
+                <br>
+                <small><%= review.comment %></small>
+              </div>
+              <span class="badge bg-primary rounded-pill"><%= review.rating %>/10</span>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">No hay reseñas de profesor disponibles.</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h3>Reseñas de Cursos</h3>
+      <ul class="list-group">
+        <% if @course_reviews.any? %>
+          <% @course_reviews.each do |review| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div style="text-align: justify;">
+                <strong><%= review.title %></strong>
+                <br>
+                <small><%= review.comment %></small>
+              </div>
+              <div class="d-flex align-items-center">
+                <span class="me-3" style="min-width: 100px; text-align: right;"><%= Course.find(review.course_id).title %></span> <!-- Nombre del curso alineado -->
+                <span class="badge bg-primary rounded-pill"><%= review.rating %>/10</span>
+              </div>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">No hay reseñas de cursos disponibles.</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</section>

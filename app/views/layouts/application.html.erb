@@ -8,6 +8,8 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
   </head>
 
   <body>
@@ -24,6 +26,9 @@
               <%= link_to "Busca cursos", courses_path, class: "nav-link" %>
             </li>
             <% if current_user %>
+              <li class="nav-item">
+                <%= link_to "Chat", conversations_path, class: "nav-link" %>
+              </li>
               <% if current_user.user_role_id == UserRole.find_by(name: "Student")&.id %>
                 <li class="nav-item">
                   <%= link_to "Ver Solicitudes", requests_path, class: "nav-link" %>

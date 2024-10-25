@@ -4,8 +4,13 @@ class Course < ApplicationRecord
   has_many :enrollments
   has_many :students, through: :enrollments
   has_many :materials, foreign_key: :course_id
-  has_many :evaluations, foreign_key: :course_id, dependent: :destroy 
+  has_many :evaluations, foreign_key: :course_id, dependent: :destroy
+  has_many :course_requests, dependent: :destroy
 
+  validates :title, presence: true
+  validates :description, presence: true
+  validates :start_date, presence: true
+  validates :end_date, presence: true
 
   validate :end_date_after_start_date
 
@@ -17,4 +22,3 @@ class Course < ApplicationRecord
     end
   end
 end
-

@@ -1,9 +1,7 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+quiz:
+  name: "Quiz"
+  description: "A short quiz"
 
-one:
-  name: MyString
-  description: MyString
-
-two:
-  name: MyString
-  description: MyString
+final_exam:
+  name: "Final Exam"
+  description: "End of course final exam"

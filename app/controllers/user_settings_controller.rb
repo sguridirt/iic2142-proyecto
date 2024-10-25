@@ -15,7 +15,7 @@ class UserSettingsController < ApplicationController
     if @user.update(user_params)
       redirect_to user_settings_path, notice: 'Perfil actualizado exitosamente.'
     else
-      render :update, notice: 'No se ha actualizado exitosamente.'
+      render :update, formats: :html, status: :unprocessable_entity
     end
   end
 
@@ -29,5 +29,3 @@ class UserSettingsController < ApplicationController
     end
   end
 end
-
-

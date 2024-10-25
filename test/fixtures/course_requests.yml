@@ -1,0 +1,15 @@
+request1:
+  description: "I want to join this course"
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 30.days %>
+  student: student
+  course: maths_101
+  course_request_status: pending
+
+request2:
+  description: "Interested in enrolling"
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 30.days %>
+  student: student
+  course: maths_201
+  course_request_status: pending

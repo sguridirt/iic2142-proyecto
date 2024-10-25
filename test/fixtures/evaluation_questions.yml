@@ -1,11 +1,29 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+question1_eval1:
+  content: "What is 2 + 2?"
+  evaluation: evaluation1
+  max_points: 10
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+question2_eval1:
+  content: "What is the derivative of x^2?"
+  evaluation: evaluation1
+  max_points: 10
+
+question1_eval2:
+  content: "Define a vector space."
+  evaluation: evaluation2
+  max_points: 10
+
+question2_eval2:
+  content: "What is a basis in linear algebra?"
+  evaluation: evaluation2
+  max_points: 10
+
+question1_eval3:
+  content: "What is the integral of x?"
+  evaluation: evaluation3
+  max_points: 10
+
+question1_eval4:
+  content: "What is the limit of 1/x as x approaches infinity?"
+  evaluation: evaluation4
+  max_points: 10

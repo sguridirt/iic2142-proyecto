@@ -3,6 +3,9 @@ class Evaluation < ApplicationRecord
   belongs_to :evaluation_type
   has_many :evaluation_questions, dependent: :destroy
   accepts_nested_attributes_for :evaluation_questions, allow_destroy: true
+  
+  has_many :evaluation_answers, through: :evaluation_questions
+  has_many :students, -> { distinct }, through: :evaluation_answers
 
   validates :name, presence: true
   validates :start_date, presence: true

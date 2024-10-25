@@ -1,0 +1,28 @@
+<section class="container-fluid px-2">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="mb-2"><%= @evaluation.name %></h1>
+      <p><strong>Curso:</strong> <%= @course.title %></p>
+      <p><strong>Profesor:</strong> <%= @course.teacher.user.name %></p>
+      <p><strong>Duración:</strong> <%= @evaluation.duration %> minutos</p>
+      <p><strong>Fecha de inicio:</strong> <%= @evaluation.start_date.strftime('%d/%m/%Y') %></p>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h3>Preguntas</h3>
+      <ul class="list-group">
+        <% if @questions.any? %>
+          <% @questions.each_with_index do |question, index| %>
+            <li class="list-group-item">
+              <strong>Pregunta <%= index + 1 %>:</strong> <%= question.content %> (<strong>Puntaje máximo </strong>: <%= question.max_points %>)
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">No hay preguntas disponibles para esta evaluación.</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</section>

@@ -1,11 +1,20 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+teacher_review1:
+  teacher: teacher
+  student: student
+  rating: 5
+  title: "Excellent Teacher"
+  comment: "Highly recommend!"
 
-one:
-  title: MyString
-  comment: MyString
-  rating: 1
+teacher_review2:
+  teacher: teacher
+  student: student
+  rating: 4
+  title: "Great Teacher"
+  comment: "Good teacher!"
 
-two:
-  title: MyString
-  comment: MyString
-  rating: 1
+teacher_review3:
+  teacher: teacher
+  student: student
+  rating: 3
+  title: "Good Teacher"
+  comment: "Average teacher."

@@ -23,12 +23,28 @@
                 <small>Día: <%= evaluation.start_date.strftime('%d/%m/%Y') %></small>
             </div>
             
-            <% if current_user&.student?%>
-              <% if current_user.student.enrolled_in_course? @course %>
-                <%= link_to 'Realizar', evaluation_path(evaluation), class: 'btn btn-outline-secondary' %>
-              <% end%>
-            <% end%>
-            </li>
+            <div class="d-flex align-items-center">
+              <% if current_user&.student? %>
+                <% evaluation_answer = current_user.student.evaluation_answers.joins(:evaluation_question)
+                                    .where(evaluation_questions: { evaluation_id: evaluation.id })
+                                    .find_by(evaluation_status: [1, 2]) %>
+                <% if evaluation_answer %>
+                  <span class="text-muted">Evaluación completada</span>
+                  <% max_points = evaluation.evaluation_questions.sum(:max_points) %>
+                  <% if current_user.student.evaluation_answers.joins(:evaluation_question)
+                            .where(evaluation_questions: { evaluation_id: evaluation.id })
+                            .all? { |answer| answer.evaluation_status == 2 } %>
+                    <% student_points = evaluation.evaluation_answers.sum(:points) %>
+                    <span class="badge bg-primary rounded-pill ms-2"><%= student_points %> / <%= max_points %></span>
+                  <% else %>
+                    <span class="badge bg-primary rounded-pill ms-2" title="No todas las respuestas han sido calificadas aún"> ?? / <%= max_points %></span>
+                  <% end %>
+                <% else %>
+                  <%= link_to 'Realizar', evaluation_path(evaluation), class: 'btn btn-outline-secondary' %>
+                <% end %>
+              <% end %>          
+            </div>
+          </li>
         <% end %>
         </ul>
     </div>
@@ -46,7 +62,7 @@
 
                 <span><%= index + 1 %>. <%= material.name %></span>
     
-                <a href="#" class="btn btn-primary btn-sm">Ver</a>
+                <a href="<%= material_path(material) %>" class="btn btn-outline-primary btn-sm me-2">Ver</a>
                 </li>
             <% end %>
             <% else %>

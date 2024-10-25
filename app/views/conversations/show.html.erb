@@ -1,0 +1,75 @@
+
+
+<div class="container">
+  <div class="row justify-content-center mt-4">
+    <div class="col-12 col-md-8 col-lg-6 d-flex justify-content-between align-items-baseline mb-3">
+      <h2 class="text-center fw-bold">Conversación #<%= @conversation.id %></h2>
+      <%= link_to 'Volver a conversaciones', conversations_path, class: 'text-primary' %>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <%= form_with(url: request.fullpath, method: :get, local: true) do %>
+        <button type="submit" class="btn btn-outline-secondary mb-3 w-100">
+          <i class="bi bi-arrow-clockwise"></i> Recargar mensajes
+        </button>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-4">
+    <div class="col-12 col-md-8 col-lg-6">
+      <h3 class="mb-3">Mensajes</h3>
+      <div class="card py-4 px-3" style="max-height: 350px; overflow-y: auto;">
+        <ul class="list-unstyled">
+          <% @messages.order(created_at: :desc).each do |message| %>
+            <li class="mb-2">
+              <% if message_sent_by_current_user?(message) %>
+                <div class="d-flex justify-content-end flex-column align-items-end">
+                  <div class="ps-5 pe-3 py-1 bg-primary text-white text-end rounded">
+                    <%= message.content %>
+                  </div>
+                  <div class="text-end text-muted" style="font-size: 0.8rem;">
+                    <%= message.created_at.strftime("%d %b %Y %H:%M") %>
+                  </div>
+                </div>
+              <% else %>
+                <div class="d-flex justify-content-start flex-column align-items-start">
+                  <div class="text-start text-muted fw-bold" style="font-size: 0.9rem;">
+                    <%= message.sender.user.name %>
+                  </div>
+                  <div class="pe-5 ps-3 py-1 bg-light text-dark text-start rounded">
+                    <%= message.content %>
+                  </div>
+                  <div class="text-start text-muted" style="font-size: 0.8rem;">
+                    <%= message.created_at.strftime("%d %b %Y %H:%M") %>
+                  </div>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center my-4">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card py-4 px-3">
+        <h3 class="mb-3">Nuevo mensaje</h3>
+        <%= form_with(model: [@conversation, @conversation.messages.build], url: create_message_conversation_path(@conversation), local: true) do |form| %>
+          <div class="mb-3">
+            <%= form.label :content, class: "form-label" %>
+            <%= form.text_area :content, class: "form-control", rows: 3, required: true %>
+          </div>
+          <div class="mb-3">
+            <%= form.submit 'Enviar', class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <%= link_to 'Eliminar conversación', conversation_path(@conversation), data: { turbo_method: :delete, confirm: '¿Estás seguro?' }, class: 'btn btn-outline-danger mt-3' %>
+  </div>
+</div>

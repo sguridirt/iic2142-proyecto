@@ -1,11 +1,34 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+evaluation1:
+  name: "Algebra Quiz"
+  start_date: <%= Date.today %>
+  duration: 60
+  course: maths_101
+  evaluation_type: quiz
 
-one:
-  name: MyString
-  startDate: 2024-09-30
-  duration: 1
+evaluation2:
+  name: "Linear Algebra Final Exam"
+  start_date: <%= Date.today + 1.week %>
+  duration: 120
+  course: maths_101
+  evaluation_type: final_exam
 
-two:
-  name: MyString
-  startDate: 2024-09-30
-  duration: 1
+evaluation3:
+  name: "Calculus Quiz"
+  start_date: <%= Date.today %>
+  duration: 60
+  course: maths_201
+  evaluation_type: quiz
+
+evaluation4:
+  name: "Advanced Calculus Final Exam"
+  start_date: <%= Date.today + 1.week %>
+  duration: 120
+  course: maths_201
+  evaluation_type: final_exam
+
+evaluation5:
+  name: "Advanced Calculus Final Exam"
+  start_date: <%= Date.today + 1.week %>
+  duration: 120
+  course: language_101
+  evaluation_type: final_exam

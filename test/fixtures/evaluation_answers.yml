@@ -1,13 +1,13 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+answer3:
+  content: "A set with two operations"
+  points: 0
+  evaluation_status: 1
+  evaluation_question: question1_eval2
+  student: student
 
-one:
-  content: MyString
-  points: 1
-  status: MyString
-  integer: MyString
-
-two:
-  content: MyString
-  points: 1
-  status: MyString
-  integer: MyString
+answer4:
+  content: "Set of vectors"
+  points: 0
+  evaluation_status: 1
+  evaluation_question: question2_eval2
+  student: student

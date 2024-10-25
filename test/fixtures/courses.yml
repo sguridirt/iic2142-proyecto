@@ -1,13 +1,31 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+maths_101:
+  title: "Maths 101"
+  description: "bla"
+  start_date: <%= Date.today %>
+  end_date: <%= Date.tomorrow %>
+  course_type: online_asynchronous
+  teacher: teacher
 
-one:
-  title: MyString
-  description: MyString
-  startDate: 2024-09-30
-  endDate: 2024-09-30
+maths_201:
+  title: "Maths 201"
+  description: "ble"
+  start_date: <%= Date.today %>
+  end_date: <%= Date.tomorrow %>
+  course_type: online_synchronized
+  teacher: teacher
 
-two:
-  title: MyString
-  description: MyString
-  startDate: 2024-09-30
-  endDate: 2024-09-30
+language_101:
+  title: "Language 101"
+  description: "bli"
+  start_date: <%= Date.today %>
+  end_date: <%= Date.tomorrow %>
+  course_type: mixed
+  teacher: teacher
+
+language_201:
+  title: "Language 201"
+  description: "blo"
+  start_date: <%= Date.today %>
+  end_date: <%= Date.tomorrow %>
+  course_type: in_person
+  teacher: teacher

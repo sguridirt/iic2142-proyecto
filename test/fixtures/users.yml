@@ -1,13 +1,20 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+admin_user:
+  email: "admin@admin.com"
+  name: "Ulloa"
+  phone: "+56900000001"
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'salero') %>
+  user_role: admin
 
-one:
-  name: MyString
-  phone: MyString
-  email: MyString
-  profilePictureURL: MyString
+teacher_user:
+  email: "teacher@teacher.com"
+  name: "Profe Rod"
+  phone: "+56900000002"
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'salero') %>
+  user_role: teacher
 
-two:
-  name: MyString
-  phone: MyString
-  email: MyString
-  profilePictureURL: MyString
+student_user:
+  email: "student@student.com"
+  name: "Doren"
+  phone: "+56900000003"
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'salero') %>
+  user_role: student

@@ -18,8 +18,21 @@
             <% if current_user.teacher.present? %>
                 <%= link_to "Crear evaluación", new_evaluation_path, :class => "btn btn-outline-secondary w-100 mb-2 fluid" %>
                 <%= link_to "Crear curso", new_course_path, :class => "btn btn-outline-secondary w-100 mb-2 fluid" %>
+                <%= link_to "Ver Reseñas", reviews_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %>
             <% end%>
-            
+
+            <% if current_user.student.present? %>
+                <%= link_to "Realizar reseña de Profesor", new_teacher_review_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %>
+                <%= link_to "Realizar reseña de Curso", new_course_review_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %>
+            <% end %>
+
+            <% if current_user.admin.present? %>
+                <%= link_to "Administrar Usuarios", admin_view_users_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %>
+                <%= link_to "Gestionar Reseñas de Profesores", admin_teacher_reviews_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %> <!-- Botón para gestionar reseñas -->
+                <%= link_to "Gestionar Reseñas de Cursos", admin_course_reviews_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %> <!-- Botón para gestionar reseñas de cursos -->
+            <% end %>
+
+
         </div>
     </div>
     

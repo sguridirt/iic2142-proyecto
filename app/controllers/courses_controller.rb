@@ -1,4 +1,7 @@
 class CoursesController < ApplicationController
+  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  
   def index
     if params[:query].present?
       @courses = Course.joins(:teacher)
@@ -67,45 +70,31 @@ class CoursesController < ApplicationController
     end
   end
   
-
   def show
     @course = Course.find(params[:id])
     if current_user&.teacher?
       render 'show_teacher'
+    elsif current_user&.admin?
+      render 'show_admin'
     else
       render 'show_student'
     end
   end
 
-
-  def upload_material
-    @course = Course.find(params[:id])
-  end
-
-  def process_upload_material
-    @course = Course.find(params[:id])
-    material = @course.materials.build(material_params)
   
-    if material.save
-      Rails.logger.info "Material guardado correctamente en el curso #{@course.title} con ID: #{@course.id}"
-      redirect_to @course, notice: 'Material subido exitosamente.'
-    else
-      Rails.logger.error "Error al guardar el material: #{material.errors.full_messages.join(', ')}"
-      render :upload_material, alert: material.errors.full_messages.join(', ')
-    end
+  def destroy
+    @course.destroy
+    redirect_to courses_path, notice: 'Curso eliminado exitosamente.'
   end
 
   private
-
-  def material_params
-    params.require(:material).permit(:name, :description, :material_type_id, :course_id)
-  end
   
-
-  private
-
   def course_params
     params.require(:course).permit(:title, :description, :course_type_id, :start_date, :end_date)
+  end
+
+  def set_course
+    @course = Course.find(params[:id])
   end
 
 end
