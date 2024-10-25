@@ -1,7 +1,7 @@
 class Teacher < ApplicationRecord
   belongs_to :user
-  has_many :courses
-  has_many :teacher_reviews
+  has_many :courses, dependent: :destroy
+  has_many :teacher_reviews, dependent: :destroy
   
 end
 
