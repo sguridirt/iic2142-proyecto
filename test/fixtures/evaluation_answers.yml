@@ -1,0 +1,13 @@
+answer3:
+  content: "A set with two operations"
+  points: 0
+  evaluation_status: 1
+  evaluation_question: question1_eval2
+  student: student
+
+answer4:
+  content: "Set of vectors"
+  points: 0
+  evaluation_status: 1
+  evaluation_question: question2_eval2
+  student: student

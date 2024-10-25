@@ -1,0 +1,11 @@
+student:
+  name: "Student"
+  description: "A user who can enroll in courses and participate as a student."
+
+teacher:
+  name: "Teacher"
+  description: "A user who can create and manage courses for students."
+
+admin:
+  name: "Admin"
+  description: "A user who can create and manage courses, conversations and users."

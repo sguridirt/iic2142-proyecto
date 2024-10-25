@@ -1,0 +1,11 @@
+pending:
+  name: "pending"
+  description: "Pending approval"
+
+accepted:
+  name: "accepted"
+  description: "Request accepted"
+
+rejected:
+  name: "rejected"
+  description: "Request rejected"

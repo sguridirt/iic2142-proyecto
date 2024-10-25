@@ -1,0 +1,34 @@
+evaluation1:
+  name: "Algebra Quiz"
+  start_date: <%= Date.today %>
+  duration: 60
+  course: maths_101
+  evaluation_type: quiz
+
+evaluation2:
+  name: "Linear Algebra Final Exam"
+  start_date: <%= Date.today + 1.week %>
+  duration: 120
+  course: maths_101
+  evaluation_type: final_exam
+
+evaluation3:
+  name: "Calculus Quiz"
+  start_date: <%= Date.today %>
+  duration: 60
+  course: maths_201
+  evaluation_type: quiz
+
+evaluation4:
+  name: "Advanced Calculus Final Exam"
+  start_date: <%= Date.today + 1.week %>
+  duration: 120
+  course: maths_201
+  evaluation_type: final_exam
+
+evaluation5:
+  name: "Advanced Calculus Final Exam"
+  start_date: <%= Date.today + 1.week %>
+  duration: 120
+  course: language_101
+  evaluation_type: final_exam

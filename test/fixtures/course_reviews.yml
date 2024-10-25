@@ -1,0 +1,27 @@
+course_review1:
+  course: maths_101
+  student: student
+  rating: 5
+  title: "Excellent Course"
+  comment: "Highly recommend!"
+
+course_review2:
+  course: maths_201
+  student: student
+  rating: 4
+  title: "Great Course"
+  comment: "Good course!"
+
+course_review3:
+  course: language_101
+  student: student
+  rating: 10
+  title: "Good Course"
+  comment: "Average course."
+
+course_review4:
+  course: language_201
+  student: student
+  rating: 2
+  title: "Bad Course"
+  comment: "Poor course."

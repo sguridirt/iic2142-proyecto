@@ -1,0 +1,9 @@
+enrollment1:
+  student: student
+  course: maths_101
+  enrollment_date: <%= Date.today %>
+
+enrollment2:
+  student: student
+  course: maths_201
+  enrollment_date: <%= Date.today %>

@@ -1,0 +1,15 @@
+document:
+  name: "Document"
+  description: "A document type material"
+
+book:
+  name: "Book"
+  description: "A book used in the course"
+
+video:
+  name: "Video"
+  description: "A video resource"
+
+presentation:
+  name: "Presentation"
+  description: "Slide presentations for the course"

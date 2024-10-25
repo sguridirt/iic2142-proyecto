@@ -1,0 +1,29 @@
+question1_eval1:
+  content: "What is 2 + 2?"
+  evaluation: evaluation1
+  max_points: 10
+
+question2_eval1:
+  content: "What is the derivative of x^2?"
+  evaluation: evaluation1
+  max_points: 10
+
+question1_eval2:
+  content: "Define a vector space."
+  evaluation: evaluation2
+  max_points: 10
+
+question2_eval2:
+  content: "What is a basis in linear algebra?"
+  evaluation: evaluation2
+  max_points: 10
+
+question1_eval3:
+  content: "What is the integral of x?"
+  evaluation: evaluation3
+  max_points: 10
+
+question1_eval4:
+  content: "What is the limit of 1/x as x approaches infinity?"
+  evaluation: evaluation4
+  max_points: 10

@@ -1,0 +1,15 @@
+online_asynchronous:
+  name: "Online asíncrono"
+  description: "Cápsulas de videos, pruebas online"
+
+online_synchronized:
+  name: "Online sincronizado"
+  description: "Videoconferencias, pruebas online"
+
+mixed:
+  name: "Mixto"
+  description: "Videoconferencias, pruebas presenciales"
+
+in_person:
+  name: "Presencial"
+  description: "Clases y pruebas presenciales"
