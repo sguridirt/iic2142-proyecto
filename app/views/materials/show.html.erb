@@ -11,20 +11,22 @@
         </div>
       </div>
 
-      <% if @material.document.attached? %>
+      <% if @material.documents.attached? %>
         <div class="card mb-4">
           <div class="card-body">
-            <h5 class="card-title">Documento</h5>
+            <h5 class="card-title">Documentos</h5>
             <ol class="list-group list-group-numbered">
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span class="me-auto ms-3"><%= @material.document.filename.to_s %></span>
-                <div class="d-flex gap-2">
-                  <%= link_to "Ver", rails_blob_path(@material.document, disposition: "inline"), 
-                      class: "btn btn-outline-primary btn-sm", target: "_blank" %>
-                  <%= link_to "Descargar", rails_blob_path(@material.document, disposition: "attachment"), 
-                      class: "btn btn-outline-success btn-sm" %>
-                </div>
-              </li>
+              <% @material.documents.each do |doc| %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span class="me-auto ms-3"><%= doc.filename.to_s %></span>
+                  <div class="d-flex gap-2">
+                    <%= link_to "Ver", rails_blob_path(doc, disposition: "inline"), 
+                        class: "btn btn-outline-primary btn-sm", target: "_blank" %>
+                    <%= link_to "Descargar", rails_blob_path(doc, disposition: "attachment"), 
+                        class: "btn btn-outline-success btn-sm" %>
+                  </div>
+                </li>
+              <% end %>
             </ol>
           </div>
         </div>
