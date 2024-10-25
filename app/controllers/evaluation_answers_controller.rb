@@ -5,6 +5,11 @@ class EvaluationAnswersController < ApplicationController
     evaluation = Evaluation.find(params[:evaluation_id])
     course = evaluation.course
     
+    if params[:answers].blank?
+      flash[:alert] = 'No se proporcionaron respuestas.'
+      redirect_to course_path(course) and return
+    end
+
     params[:answers].each do |question_id, answer_data|
       content = answer_data[:content].presence || "no se respondió"
 
