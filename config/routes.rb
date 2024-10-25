@@ -38,9 +38,11 @@ Rails.application.routes.draw do
   get 'home', to: 'home#index'
 
   resources :courses do
-    member do
-      get 'upload_material'
-      post 'process_upload_material'
+    resources :materials do
+      collection do
+        get 'upload'
+        post 'process_upload'
+      end
     end
   end
 
