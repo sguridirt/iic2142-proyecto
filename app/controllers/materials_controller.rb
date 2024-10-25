@@ -22,6 +22,16 @@ class MaterialsController < ApplicationController
     @course = @material.course
   end
 
+  def create
+    @material = @course.materials.build(material_params)
+    
+    if @material.save
+      redirect_to course_path(@course), notice: 'Material subido exitosamente.'
+    else
+      render :upload, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     course = @material.course
     @material.destroy
