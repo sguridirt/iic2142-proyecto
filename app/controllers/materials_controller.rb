@@ -49,6 +49,7 @@ class MaterialsController < ApplicationController
   end
 
   def material_params
-    params.require(:material).permit(:name, :description, :material_type_id, :document)
+    params.require(:material).permit(:name, :description, :material_type_id, documents: [])
   end
+  
 end
