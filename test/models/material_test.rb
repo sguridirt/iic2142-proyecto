@@ -2,13 +2,15 @@ require "test_helper"
 
 class MaterialTest < ActiveSupport::TestCase
   def setup
+    @user_role = UserRole.find_or_create_by(name: "Teacher", description: "A teacher")
+
     @teacher_user = User.create!(
       email: "teacher@test.com",
       name: "Test Teacher",
       phone: "+56900000002",
       password: "password",
       password_confirmation: "password",
-      user_role_id: UserRole.find_or_create_by(name: 'Teacher').id
+      user_role_id: @user_role.id
     )
     
     @teacher = Teacher.create!(user_id: @teacher_user.id)

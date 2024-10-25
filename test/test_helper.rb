@@ -1,5 +1,4 @@
-require 'simplecov' 
-SimpleCov.start
+require_relative "simplecov_helper"
 
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
