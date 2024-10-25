@@ -17,6 +17,7 @@ class User < ApplicationRecord
 
   after_create :assign_user_role
 
+  validates :name, presence: true
   validates :email,
             format: { with: Devise.email_regexp },
             presence: true,
