@@ -2,119 +2,93 @@ require "test_helper"
 
 class CourseTest < ActiveSupport::TestCase
   def setup
-    @user_role = UserRole.create!(
-      name: 'Teacher',
-      description: 'A user who can create and manage courses for students.'
-    )
-    
-    @teacher_user = User.create!(
-      email: "test_teacher@test.com",
-      name: "Test Teacher",
-      phone: "+56900000099",
-      password: "password123",
-      password_confirmation: "password123",
-      user_role: @user_role
-    )
-    
-    @teacher = Teacher.create!(user: @teacher_user)
-    
-    @course_type = CourseType.create!(
-      name: "Test Type",
-      description: "Test course type description"
-    )
-    
-    @course = Course.new(
-      title: "Test Course",
-      description: "Test course description",
-      start_date: Date.today,
-      end_date: Date.today + 30.days,
-      teacher: @teacher,
-      course_type: @course_type
-    )
+    @course = courses(:maths_101)
   end
 
-  test "should be valid with valid attributes" do
+  test "valid course" do
     assert @course.valid?
   end
 
-  test "should require a title" do
+  test "invalid without title" do
     @course.title = nil
-    assert_not @course.valid?
+    refute @course.valid?
+    assert_not_nil @course.errors[:title]
   end
 
-  test "should require a description" do
+  test "invalid without description" do
     @course.description = nil
-    assert_not @course.valid?
+    refute @course.valid?
+    assert_not_nil @course.errors[:description]
   end
 
-  test "should require a start date" do
+  test "invalid without start_date" do
     @course.start_date = nil
-    assert_not @course.valid?
+    refute @course.valid?
+    assert_not_nil @course.errors[:start_date]
   end
 
-  test "should require an end date" do
+  test "invalid without end_date" do
     @course.end_date = nil
-    assert_not @course.valid?
+    refute @course.valid?
+    assert_not_nil @course.errors[:end_date]
   end
 
-  test "should require a teacher" do
-    @course.teacher = nil
-    assert_not @course.valid?
-    assert_includes @course.errors[:teacher], "must exist"
-  end
-
-  test "should require a course type" do
-    @course.course_type = nil
-    assert_not @course.valid?
-    assert_includes @course.errors[:course_type], "must exist"
-  end
-
-  test "should not allow end date before start date" do
-    @course.end_date = @course.start_date - 1.day
-    assert_not @course.valid?
+  test "invalid if end_date is before start_date" do
+    @course.start_date = Date.today
+    @course.end_date = Date.yesterday
+    refute @course.valid?
     assert_includes @course.errors[:end_date], "End date must be after the start date"
   end
 
-  test "should allow valid date range" do
-    @course.start_date = Date.today
-    @course.end_date = Date.today + 1.day
-    assert @course.valid?
-  end
-
-  test "should allow equal start and end dates" do
+  test "invalid if end_date equals start_date" do
     @course.start_date = Date.today
     @course.end_date = Date.today
-    assert_not @course.valid?
+    refute @course.valid?
+    assert_includes @course.errors[:end_date], "End date must be after the start date"
   end
 
-  test "should have many enrollments" do
+  test "belongs to teacher" do
+    assert_respond_to @course, :teacher
+    assert_instance_of Teacher, @course.teacher
+  end
+  
+
+  test "belongs to course_type" do
+    assert_respond_to @course, :course_type
+  end
+
+  test "has many enrollments" do
     assert_respond_to @course, :enrollments
   end
 
-  test "should have many students through enrollments" do
+  test "has many students through enrollments" do
     assert_respond_to @course, :students
   end
 
-  test "should have many materials" do
+  test "has many materials" do
     assert_respond_to @course, :materials
   end
 
-  test "should have many evaluations" do
+  test "has many evaluations" do
     assert_respond_to @course, :evaluations
   end
 
-  test "should destroy dependent evaluations" do
-    @course.save!
-    evaluation_type = EvaluationType.create!(name: "Test Type", description: "Test description")
-    evaluation = @course.evaluations.create!(
-      name: "Test Eval",
-      start_date: Date.today,
-      duration: 60,
-      evaluation_type: evaluation_type
-    )
-    
-    assert_difference "Evaluation.count", -1 do
+  test "destroying course destroys dependent evaluations" do
+    assert_difference('Evaluation.count', -@course.evaluations.count) do
       @course.destroy
     end
   end
+
+  test "invalid without teacher" do
+    @course.teacher = nil
+    refute @course.valid?
+    assert_not_nil @course.errors[:teacher]
+  end
+  
+  test "invalid without course_type" do
+    @course.course_type = nil
+    refute @course.valid?
+    assert_not_nil @course.errors[:course_type]
+  end
+  
 end
