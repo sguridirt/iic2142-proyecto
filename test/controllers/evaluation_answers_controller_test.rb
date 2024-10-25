@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EvaluationAnswerControllerTest < ActionDispatch::IntegrationTest
+class EvaluationAnswersControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   def setup
