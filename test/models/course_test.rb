@@ -90,5 +90,18 @@ class CourseTest < ActiveSupport::TestCase
     refute @course.valid?
     assert_not_nil @course.errors[:course_type]
   end
+
+  test "destroying course destroys dependent records" do
+    evaluation_count = @course.evaluations.count
+    course_request_count = @course.course_requests.count
+    
+    assert_difference('Evaluation.count', -evaluation_count) do
+      assert_difference('CourseRequest.count', -course_request_count) do
+        @course.destroy
+      end
+    end
+  end
+  
+  
   
 end
