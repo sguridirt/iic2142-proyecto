@@ -1,0 +1,40 @@
+<section class="container-fluid p-4">
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h1 class="mb-3"><%= @material.name %></h1>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <p class="card-text"><strong>Curso:</strong> <%= @material.course.title %></p>
+          <p class="card-text"><strong>Tipo:</strong> <%= @material.material_type.name %></p>
+          <p class="card-text"><strong>Descripción:</strong> <%= @material.description %></p>
+        </div>
+      </div>
+
+      <% if @material.documents.attached? %>
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Documentos</h5>
+            <ol class="list-group list-group-numbered">
+              <% @material.documents.each do |doc| %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span class="me-auto ms-3"><%= doc.filename.to_s %></span>
+                  <div class="d-flex gap-2">
+                    <%= link_to "Ver", rails_blob_path(doc, disposition: "inline"), 
+                        class: "btn btn-outline-primary btn-sm", target: "_blank" %>
+                    <%= link_to "Descargar", rails_blob_path(doc, disposition: "attachment"), 
+                        class: "btn btn-outline-success btn-sm" %>
+                  </div>
+                </li>
+              <% end %>
+            </ol>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="d-flex justify-content-end">
+        <%= link_to "Volver al curso", course_path(@material.course), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</section>

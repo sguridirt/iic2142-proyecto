@@ -1,10 +1,13 @@
 <div class="container mt-5">
   <h1>Subir Material</h1>
-  <%= form_with(model: [@course, @course.materials.build], url: process_upload_material_course_path(@course), local: true) do |f| %> 
+  
+  <%= render 'materials/material_errors', object: @material %>
+  
+  <%= form_with(model: [@course, @material], local: true, multipart: true) do |f| %> 
     <div class="form-group">
       <%= f.label :name, "Nombre" %>
       <%= f.text_field :name, class: "form-control", placeholder: "Nombre del material" %>
-     </div>
+    </div>
 
     <div class="form-group mt-3">
       <%= f.label :description, "Descripción" %>
@@ -17,9 +20,12 @@
     </div>
   
     <div class="form-group mt-3">
-      <%= f.label :pdf_files, "Archivos PDF" %>
-      <%= f.file_field :pdf_files, multiple: true, accept: 'application/pdf', class: "form-control" %>
+      <%= f.label :documents, "Archivos" %>
+      <%= f.file_field :documents, multiple: true, class: "form-control" %>
+      <small class="text-muted">Puedes seleccionar múltiples archivos</small>
     </div>
+
+    <%= f.hidden_field :course_id, value: @course.id %>
 
     <div class="mt-4 d-flex justify-content-between">
       <%= link_to "Volver", course_path(@course), class: "btn btn-secondary" %> 
