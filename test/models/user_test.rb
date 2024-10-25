@@ -128,26 +128,26 @@ class UserTest < ActiveSupport::TestCase
 
 # Add these tests inside your UserTest class
 
-test "should attach and process avatar" do
-  @admin.avatar.attach(
-    io: File.open(Rails.root.join('test/fixtures/files/avatar.jpg')),
-    filename: 'avatar.jpg',
-    content_type: 'image/jpeg'
-  )
-  
-  # Tests avatar_thumbnail method when avatar is attached
-  assert_not_nil @admin.avatar_thumbnail
-  
-  # Tests avatar_thumbnail method when no avatar is attached
-  user_without_avatar = User.create(
-    name: "No Avatar User",
-    email: "no_avatar@test.com",
-    password: "password123",
-    phone: "+56900000006",
-    user_role: user_roles(:admin)
-  )
-  assert_nil user_without_avatar.avatar_thumbnail
-end
+  test "should attach and process avatar" do
+    @admin.avatar.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/avatar.jpg')),
+      filename: 'avatar.jpg',
+      content_type: 'image/jpeg'
+    )
+    
+    # Tests avatar_thumbnail method when avatar is attached
+    assert_not_nil @admin.avatar_thumbnail
+    
+    # Tests avatar_thumbnail method when no avatar is attached
+    user_without_avatar = User.create(
+      name: "No Avatar User",
+      email: "no_avatar@test.com",
+      password: "password123",
+      phone: "+56900000006",
+      user_role: user_roles(:admin)
+    )
+    assert_nil user_without_avatar.avatar_thumbnail
+  end
 
   test "assign_user_role callback creates correct role records" do
     # Test Student role assignment
