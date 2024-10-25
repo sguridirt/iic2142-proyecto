@@ -38,9 +38,11 @@ Rails.application.routes.draw do
   get 'home', to: 'home#index'
 
   resources :courses do
-    member do
-      get 'upload_material'
-      post 'process_upload_material'
+    resources :materials do
+      collection do
+        get 'upload'
+        post 'process_upload'
+      end
     end
   end
 
@@ -49,7 +51,7 @@ Rails.application.routes.draw do
 
   resources :teacher_reviews, only: [:new, :create]
   resources :course_reviews, only: [:new, :create]
-  resources :materials, only: [:destroy]
+  resources :materials, only: [:destroy, :show]
 
   get 'admin/view_users', to: 'admin#view_users', as: 'admin_view_users'
   get 'admin/users/new', to: 'admin#new_user', as: 'admin_new_user'

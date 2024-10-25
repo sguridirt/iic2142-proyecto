@@ -1,10 +1,9 @@
 class Material < ApplicationRecord
-  belongs_to :course, foreign_key: :course_id
-  belongs_to :material_type 
-  has_many_attached :pdf_files
+  belongs_to :course
+  belongs_to :material_type
+  has_many_attached :documents
 
-  validates :name, presence: true
-  validates :description, presence: true
-  validates :material_type, presence: true
-  validates :course_id, presence: true 
+  validates :name, presence: { message: "no puede estar en blanco" }
+  validates :description, presence: { message: "no puede estar en blanco" }
+  validates :material_type_id, presence: { message: "no puede estar en blanco" }
 end
