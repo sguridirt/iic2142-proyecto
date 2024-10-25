@@ -1,7 +1,7 @@
 class Material < ApplicationRecord
   belongs_to :course, foreign_key: :course_id
   belongs_to :material_type 
-  has_many_attached :pdf_files
+  has_many_attached :document
 
   validates :name, presence: true
   validates :description, presence: true
