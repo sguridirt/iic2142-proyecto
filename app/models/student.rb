@@ -1,7 +1,7 @@
 class Student < ApplicationRecord
   belongs_to :user
-  has_many :course_requests
-  has_many :enrollments
+  has_many :course_requests, dependent: :destroy
+  has_many :enrollments, dependent: :destroy
   has_many :courses, through: :enrollments
   has_many :evaluation_answers, dependent: :destroy
 
