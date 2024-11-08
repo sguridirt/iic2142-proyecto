@@ -3,8 +3,9 @@
     <div class="col-md-12">
       <h3>Reseñas de Profesor</h3>
       <ul class="list-group">
-        <% if @teacher_reviews.any? %>
-          <% @teacher_reviews.each do |review| %>
+        <% filtered_teacher_reviews = current_user.teacher? ? @teacher_reviews.where(teacher: current_user.teacher) : @teacher_reviews %>
+        <% if filtered_teacher_reviews.any? %>
+          <% filtered_teacher_reviews.each do |review| %>
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <div style="text-align: justify;">
                 <strong><%= review.title %></strong>
@@ -25,8 +26,9 @@
     <div class="col-md-12">
       <h3>Reseñas de Cursos</h3>
       <ul class="list-group">
-        <% if @course_reviews.any? %>
-          <% @course_reviews.each do |review| %>
+        <% filtered_course_reviews = current_user.teacher? ? @course_reviews.where(course: current_user.teacher.courses) : @course_reviews %>
+        <% if filtered_course_reviews.any? %>
+          <% filtered_course_reviews.each do |review| %>
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <div style="text-align: justify;">
                 <strong><%= review.title %></strong>
@@ -34,7 +36,7 @@
                 <small><%= review.comment %></small>
               </div>
               <div class="d-flex align-items-center">
-                <span class="me-3" style="min-width: 100px; text-align: right;"><%= Course.find(review.course_id).title %></span> <!-- Nombre del curso alineado -->
+                <span class="me-3" style="min-width: 100px; text-align: right;"><%= Course.find(review.course_id).title %></span>
                 <span class="badge bg-primary rounded-pill"><%= review.rating %>/10</span>
               </div>
             </li>
