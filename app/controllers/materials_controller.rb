@@ -22,6 +22,24 @@ class MaterialsController < ApplicationController
     @course = @material.course
   end
 
+  def edit
+    @course = Course.find(params[:course_id])
+    @material = @course.materials.find(params[:id])
+  end
+  
+  
+  def update
+    @course = Course.find(params[:course_id])
+    @material = @course.materials.find(params[:id])
+  
+    if @material.update(material_params)
+      redirect_to course_path(@course), notice: 'Material actualizado exitosamente.'
+    else
+      render :edit, alert: 'No se pudo actualizar el material.'
+    end
+  end
+  
+
   def create
     @material = @course.materials.build(material_params)
     
