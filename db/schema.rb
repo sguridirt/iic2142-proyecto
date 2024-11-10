@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_21_170703) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_10_201401) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -151,6 +151,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_21_170703) do
     t.index ["student_id"], name: "index_evaluation_answers_on_student_id"
   end
 
+  create_table "evaluation_feedbacks", force: :cascade do |t|
+    t.text "content", null: false
+    t.bigint "evaluation_id", null: false
+    t.bigint "teacher_id", null: false
+    t.bigint "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["evaluation_id"], name: "index_evaluation_feedbacks_on_evaluation_id"
+    t.index ["student_id"], name: "index_evaluation_feedbacks_on_student_id"
+    t.index ["teacher_id"], name: "index_evaluation_feedbacks_on_teacher_id"
+  end
+
   create_table "evaluation_questions", force: :cascade do |t|
     t.text "content", null: false
     t.datetime "created_at", null: false
@@ -267,6 +279,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_21_170703) do
   add_foreign_key "enrollments", "students", on_delete: :cascade
   add_foreign_key "evaluation_answers", "evaluation_questions", on_delete: :cascade
   add_foreign_key "evaluation_answers", "students", on_delete: :cascade
+  add_foreign_key "evaluation_feedbacks", "evaluations"
+  add_foreign_key "evaluation_feedbacks", "students"
+  add_foreign_key "evaluation_feedbacks", "teachers"
   add_foreign_key "evaluation_questions", "evaluations", on_delete: :cascade
   add_foreign_key "evaluations", "courses", on_delete: :cascade
   add_foreign_key "evaluations", "evaluation_types"
