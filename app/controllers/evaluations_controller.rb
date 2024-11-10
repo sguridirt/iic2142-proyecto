@@ -45,10 +45,12 @@ class EvaluationsController < ApplicationController
 
   def grade_answers
     @students = @evaluation.students
-    Rails.logger.debug @students.inspect
-    
-    @answers = @evaluation.evaluation_answers
+    @graded_students = @students.select { |student| @evaluation.graded?(student) }
+    @ungraded_students = @students.reject { |student| @evaluation.graded?(student) }
+
     @current_student = Student.find(params[:student_id])
+
+    @answers = @evaluation.evaluation_answers.where(student_id: @current_student.id)
     @total_points = @answers.sum(:points)
     @max_points = @evaluation.evaluation_questions.sum(:max_points)
   end
