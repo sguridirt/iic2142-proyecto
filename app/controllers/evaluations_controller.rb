@@ -49,10 +49,10 @@ class EvaluationsController < ApplicationController
     @ungraded_students = @students.reject { |student| @evaluation.graded?(student) }
 
     @current_student = Student.find(params[:student_id])
-
     @answers = @evaluation.evaluation_answers.where(student_id: @current_student.id)
     @total_points = @answers.sum(:points)
     @max_points = @evaluation.evaluation_questions.sum(:max_points)
+    @feedback = EvaluationFeedback.find_by(evaluation: @evaluation, student: @current_student)
   end
 
   def update_grades
@@ -61,8 +61,16 @@ class EvaluationsController < ApplicationController
       answer.update(points: answer_data[:points], evaluation_status: 2)
     end
 
+    feedback_content = params[:feedback][:content]
+    EvaluationFeedback.create(
+      content: feedback_content,
+      evaluation: @evaluation,
+      student: Student.find(params[:student_id]),
+      teacher: current_user.teacher
+    )
+
     redirect_to grade_answers_evaluation_path(@evaluation, student_id: params[:student_id]), 
-                notice: "Puntos asignados."
+                notice: "Puntos asignados y feedback asignados."
   end
 
   private
