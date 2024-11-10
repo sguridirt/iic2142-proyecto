@@ -10,4 +10,8 @@ class Evaluation < ApplicationRecord
   validates :name, presence: true
   validates :start_date, presence: true
   validates :duration, presence: true, numericality: { greater_than: 0 }
+
+  def graded?(student)
+    evaluation_answers.where(student: student).all? { |answer| answer.evaluation_status == 2 }
+  end
 end
