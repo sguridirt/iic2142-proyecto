@@ -6,6 +6,7 @@ class Evaluation < ApplicationRecord
   
   has_many :evaluation_answers, through: :evaluation_questions
   has_many :students, -> { distinct }, through: :evaluation_answers
+  has_many :evaluation_feedbacks, dependent: :destroy
 
   validates :name, presence: true
   validates :start_date, presence: true

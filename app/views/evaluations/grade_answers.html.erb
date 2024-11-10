@@ -34,8 +34,12 @@
             </li>
           <% end %>
         </ul>
+        <div class="feedback_form">
+          <%= form.label :content, "Feeback para el estudiante" %>
+          <%= form.text_area :content, name: "feedback[content]", value: @feedback&.content, value: @feedback&.content, class: "form-control", rows: 8 %>
+        </div>
         <div class="form-group mt-3">
-          <%= form.submit "Guardar calificaciones", class: "btn btn-primary" %>
+          <%= form.submit "Guardar y publicar calificaciones y feedback", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>
