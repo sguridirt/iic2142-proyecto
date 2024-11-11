@@ -61,13 +61,15 @@ class EvaluationsController < ApplicationController
       answer.update(points: answer_data[:points], evaluation_status: 2)
     end
 
-    feedback_content = params[:feedback][:content]
-    EvaluationFeedback.create(
-      content: feedback_content,
-      evaluation: @evaluation,
-      student: Student.find(params[:student_id]),
-      teacher: current_user.teacher
-    )
+    if params[:feedback].present?
+      feedback_content = params[:feedback][:content]
+      EvaluationFeedback.create(
+        content: feedback_content,
+        evaluation: @evaluation,
+        student: Student.find(params[:student_id]),
+        teacher: current_user.teacher
+      )
+    end
 
     redirect_to grade_answers_evaluation_path(@evaluation, student_id: params[:student_id]), 
                 notice: "Puntos asignados y feedback asignados."
