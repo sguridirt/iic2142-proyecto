@@ -70,12 +70,12 @@ group :test do
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem 'rails-controller-testing'
-
+  gem "image_processing", require: "image_processing/vips"
 end
 
 
 gem 'bootstrap'
 gem 'sassc-rails'
 gem 'devise'
-gem 'image_processing', '~> 1.2'
+gem 'image_processing'
 
