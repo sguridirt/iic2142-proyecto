@@ -1,5 +1,3 @@
-
-
 <div class="container">
   <div class="row justify-content-center mt-4">
     <div class="col-12 col-md-8 col-lg-6 d-flex justify-content-between align-items-baseline mb-3">
@@ -29,8 +27,8 @@
                   <div class="ps-5 pe-3 py-1 bg-primary text-white text-end rounded">
                     <%= message.content %>
                   </div>
-                  <div class="text-end text-muted" style="font-size: 0.8rem;">
-                    <%= message.created_at.strftime("%d %b %Y %H:%M") %>
+                  <div class="text-end text-muted message-datetime" data-utc="<%= message.created_at %>" style="font-size: 0.8rem;">
+                    <!-- Placeholder for local time -->
                   </div>
                 </div>
               <% else %>
@@ -41,8 +39,8 @@
                   <div class="pe-5 ps-3 py-1 bg-light text-dark text-start rounded">
                     <%= message.content %>
                   </div>
-                  <div class="text-start text-muted" style="font-size: 0.8rem;">
-                    <%= message.created_at.strftime("%d %b %Y %H:%M") %>
+                  <div class="text-start text-muted message-datetime" data-utc="<%= message.created_at %>" style="font-size: 0.8rem;">
+                    <!-- Placeholder for local time -->
                   </div>
                 </div>
               <% end %>
