@@ -61,6 +61,35 @@ class AdminController < ApplicationController
     redirect_to admin_course_reviews_path, notice: 'Reseña de curso eliminada exitosamente.'
   end
 
+  def new_admin_course
+    @course = Course.new
+  end
+
+  def create_admin_course
+    @course = Course.new(course_params)
+    @course.teacher_id = params[:course][:teacher_id] # Asigna el profesor al curso
+    if @course.save
+      redirect_to home_path, notice: 'Curso creado exitosamente por el administrador.'
+    else
+      render :new_admin_course
+    end
+  end
+
+  def edit_course
+    @course = Course.find(params[:id])
+  end
+
+  # Acción para actualizar el curso
+  def update_course
+    @course = Course.find(params[:id])
+    if @course.update(course_params)
+      redirect_to home_path, notice: 'El curso fue actualizado con éxito.'
+    else
+      render :edit_course
+    end
+  end
+
+
   private
 
   def set_user
@@ -69,6 +98,10 @@ class AdminController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :phone, :password, :password_confirmation, :user_role_id)
+  end
+
+  def set_course
+    @course = Course.find(params[:id])
   end
 
   def user_update_params
@@ -82,4 +115,9 @@ class AdminController < ApplicationController
   def authenticate_admin!
     redirect_to root_path, alert: 'No tienes acceso a esta página.' unless current_user&.admin?
   end
+
+  def course_params
+    params.require(:course).permit(:title, :description, :start_date, :end_date, :course_type_id)
+  end
+
 end

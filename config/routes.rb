@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       patch 'update_grades/:student_id', to: 'evaluations#update_grades', as: 'update_grades'
     end
   end
-  
+ 
 
   get '/teacher_requests', to: 'requests#teacher_requests'
   get 'settings', to: 'user_settings#show', as: 'user_settings'
@@ -39,6 +39,10 @@ Rails.application.routes.draw do
 
   resources :courses do
     resources :materials do
+      member do
+        get 'edit'   
+        patch 'update'  
+      end
       collection do
         get 'upload'
         post 'process_upload'
@@ -53,6 +57,16 @@ Rails.application.routes.draw do
   resources :course_reviews, only: [:new, :create]
   resources :materials, only: [:destroy, :show]
 
+
+  get 'admin/view_courses', to: 'admin#view_courses', as: 'admin_view_courses'
+  get 'admin/new_course', to: 'admin#new_admin_course', as: 'new_admin_course'
+  post 'admin/create_course', to: 'admin#create_admin_course', as: 'create_admin_course'
+  get 'admin/courses/:id/edit', to: 'admin#edit_course', as: 'edit_admin_course'
+  patch 'admin/courses/:id', to: 'admin#update_course', as: 'update_admin_course'
+  delete 'admin/courses/:id', to: 'admin#destroy_course', as: 'destroy_admin_course'
+  
+
+  
   get 'admin/view_users', to: 'admin#view_users', as: 'admin_view_users'
   get 'admin/users/new', to: 'admin#new_user', as: 'admin_new_user'
   post 'admin/users', to: 'admin#create_user', as: 'admin_users'
