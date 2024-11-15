@@ -1,7 +1,7 @@
 class WishlistsController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_student
-  before_action :set_wishlist, only: [:show, :create, :destroy]
+  before_action :set_wishlist
 
   def show
     @wishlist_courses = @wishlist.courses
@@ -9,8 +9,6 @@ class WishlistsController < ApplicationController
 
   def create
     course = Course.find(params[:course_id])
-
-    Rails.logger.debug "Course: #{course.inspect}"
 
     if current_user.student.courses.exists?(course.id)
       redirect_to courses_path, alert: 'Ya estás inscrito en este curso'
