@@ -1,11 +1,9 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+complaint1:
+  title: "Complaint 1"
+  content: "content 1"
+  user: student_user
 
-one:
-  title: MyString
-  content: MyText
-  user: one
-
-two:
-  title: MyString
-  content: MyText
-  user: two
+complaint2:
+  title: "Complaint 1"
+  content: "content 1"
+  user: teacher_user
