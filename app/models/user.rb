@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :conversation_participants
   has_many :conversations, through: :conversation_participants
   has_many :messages, class_name: 'ConversationMessage', foreign_key: 'sender_id'
+  has_many :complaints, dependent: :destroy
   
   has_one_attached :avatar
 
