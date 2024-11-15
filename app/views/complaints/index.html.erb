@@ -1,0 +1,20 @@
+<h1>Reclamos</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Autor</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @complaints.each do |complaint| %>
+      <tr>
+        <td><%= complaint.title %></td>
+        <td><%= complaint.user.name %></td>
+        <td><%= link_to "Ver", complaint_path(complaint), class: "btn btn-primary btn-sm" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
