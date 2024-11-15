@@ -183,9 +183,6 @@ class UserTest < ActiveSupport::TestCase
     assert_nil new_admin.teacher
     assert_nil new_admin.student
   end
-  
-  test
-
 end
 
 
