@@ -67,3 +67,50 @@ rails db:migrate
 4. Realizar commits de los cambios, idealmente lo más granular posibles. Commits con cambios pequeños, graduales y funcionales. **Que el mensaje continue la frase "if applied, this commit will ..."**. Por lo tanto, el mensaje comienza con un verbo y debe ser descriptivo. Uno debe poder leer el mensaje 6 meses después y acordarse qué hizo. https://www.freecodecamp.org/news/how-to-write-better-git-commit-messages/
 5. Subir los cambios al origen. ```git push```
 
+
+
+
+## Funcionalidades de la Página
+### Funcionalidades Generales (disponibles para cualquier usuario):
+
+1. **Buscar Cursos:** Los usuarios pueden explorar y ver el listado de cursos disponibles en la plataforma.
+2. **Chats:** Pueden chatear con otros usuarios en la plataforma, con opciones de crear chats grupales o individuales.
+3. **Perfil:** Cada usuario puede visualizar y gestionar su perfil personal, administrando su información de contacto y preferencias.
+
+
+
+### Tipos de Usuario y Funcionalidades Específicas
+
+### 1. **Administrador:**
+
+- **Gestión de Usuarios:**
+    - Puede gestionar la información de los usuarios registrados, incluyendo la edición de sus datos y la eliminación de cuentas.
+- **Gestión de Reseñas:**
+    - Tiene la capacidad de administrar reseñas realizadas sobre los cursos y los profesores, con opción de eliminarlas si es necesario.
+- **Gestión de Clases:**
+    - Puede crear nuevas clases y gestionar las existentes, incluyendo la adición, edición y visualización de material educativo.
+
+### 2. **Profesor:**
+
+- **Creación y Gestión de Cursos:**
+    - Puede crear cursos y dentro de ellos gestionar evaluaciones, las cuales puede crear, calificar y eliminar una vez respondidas por los estudiantes.
+- **Material de Curso:**
+    - Puede subir material educativo en distintos formatos (PDF, DOC, etc.), con la posibilidad de visualizarlo y eliminarlo.
+- **Gestión de Solicitudes:**
+    - Puede administrar las solicitudes de inscripción a sus cursos, aprobando o rechazando a los estudiantes.
+- **Reseñas:**
+    - Puede visualizar las reseñas realizadas sobre sus cursos y sobre él como profesor.
+- **Cursos Dictados:**
+    - Puede ver y gestionar los cursos que está dictando.
+
+### 3. **Estudiante:**
+
+- **Solicitud de Inscripción a Cursos:**
+    - Puede enviar solicitudes para inscribirse en cursos disponibles.
+- **Reseñas:**
+    - Puede realizar reseñas sobre los profesores y los cursos en los que está inscrito.
+- **Gestión de Cursos Inscritos:**
+    - Puede ver el listado de cursos en los que está inscrito, y dentro de cada curso:
+        - Acceder a las evaluaciones y realizarlas.
+        - Visualizar el contenido subido por el profesor.
+        - Ver la lista de personas inscritas en el curso.
