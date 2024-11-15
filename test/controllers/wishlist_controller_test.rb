@@ -28,9 +28,7 @@ class WishlistsControllerTest < ActionDispatch::IntegrationTest
     course = courses(:language_201)
 
     assert_difference('wishlist.courses.count', 1) do
-      puts wishlist.courses.inspect
       post wishlist_path, params: { course_id: course.id }
-      puts wishlist.courses.inspect
     end
     assert_redirected_to courses_path
     assert_equal 'Curso añadido a tu wishlist', flash[:notice]
