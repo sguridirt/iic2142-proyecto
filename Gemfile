@@ -70,7 +70,7 @@ group :test do
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem 'rails-controller-testing'
-  gem "image_processing", require: "image_processing/vips"
+  # gem "image_processing", require: "image_processing/vips"
 end
 
 
