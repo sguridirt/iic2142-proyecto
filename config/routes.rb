@@ -56,6 +56,8 @@ Rails.application.routes.draw do
   resources :teacher_reviews, only: [:new, :create]
   resources :course_reviews, only: [:new, :create]
   resources :materials, only: [:destroy, :show]
+  resources :complaints, only: [:new, :create, :index, :show]
+
 
 
   get 'admin/view_courses', to: 'admin#view_courses', as: 'admin_view_courses'

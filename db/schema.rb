@@ -49,6 +49,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_15_125220) do
     t.index ["user_id"], name: "index_admins_on_user_id"
   end
 
+  create_table "complaints", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "content", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_complaints_on_user_id"
+  end
+
   create_table "conversation_messages", force: :cascade do |t|
     t.bigint "conversation_id", null: false
     t.bigint "sender_id", null: false
@@ -278,6 +287,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_15_125220) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admins", "users", on_delete: :cascade
+  add_foreign_key "complaints", "users", on_delete: :cascade
   add_foreign_key "conversation_messages", "conversation_participants", column: "sender_id", on_delete: :cascade
   add_foreign_key "conversation_messages", "conversations"
   add_foreign_key "conversation_participants", "conversations"
