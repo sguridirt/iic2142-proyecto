@@ -31,8 +31,12 @@
                 <%= link_to "Gestionar Reseñas de Profesores", admin_teacher_reviews_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %> <!-- Botón para gestionar reseñas -->
                 <%= link_to "Gestionar Reseñas de Cursos", admin_course_reviews_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %> <!-- Botón para gestionar reseñas de cursos -->
                 <%= link_to "Crear Curso", new_admin_course_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %>
+                <%= link_to "Ver Reclamos", complaints_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %>
             <% end %>
-
+            
+            <% if current_user.teacher.present? || current_user.student.present? %>
+                <%= link_to "Crear Reclamo", new_complaint_path, class: "btn btn-outline-secondary w-100 mb-2 fluid" %>
+            <% end %>
 
         </div>
     </div>

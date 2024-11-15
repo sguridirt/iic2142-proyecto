@@ -1,0 +1,6 @@
+<h1><%= @complaint.title %></h1>
+
+<p><strong>Autor:</strong> <%= @complaint.user.name %></p>
+<p><strong>Contenido:</strong> <%= @complaint.content %></p>
+
+<%= link_to "Volver a la lista de reclamos", complaints_path, class: "btn btn-secondary" %>
