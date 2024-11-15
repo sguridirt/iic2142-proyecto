@@ -67,7 +67,18 @@ rails db:migrate
 4. Realizar commits de los cambios, idealmente lo más granular posibles. Commits con cambios pequeños, graduales y funcionales. **Que el mensaje continue la frase "if applied, this commit will ..."**. Por lo tanto, el mensaje comienza con un verbo y debe ser descriptivo. Uno debe poder leer el mensaje 6 meses después y acordarse qué hizo. https://www.freecodecamp.org/news/how-to-write-better-git-commit-messages/
 5. Subir los cambios al origen. ```git push```
 
+### Para correr las tests
 
+Para correr los tests de la aplicación
+```
+rails test
+```
+
+Utilizamos SimpleCov para analizar la cobertura de código. Sin embargo, existe una [falla en SimpleCov que no permite correr en tests paralelo y dar resultados correctos](https://github.com/simplecov-ruby/simplecov/issues/718#issuecomment-538201587). *Por lo tanto, desabilitamos el _coverage_ por defecto*. Con todo esto, si quieres analizar la cobertura de código, corre el comando:
+```
+COVERAGE=1 rails test
+```
+Esto habilitará SimpleCov y la configuración necesaria para que la cobertura funcione correctamente en paralelo.
 
 
 ## Funcionalidades de la Página

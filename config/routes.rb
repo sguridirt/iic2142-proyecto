@@ -85,6 +85,8 @@ Rails.application.routes.draw do
       post 'create_message', to: 'conversations#create_message'
     end
   end
+
+  resource :wishlist, only: [:show, :create, :destroy]
   
 end
 
