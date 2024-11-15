@@ -4,7 +4,6 @@ class Teacher < ApplicationRecord
   has_many :teacher_reviews, dependent: :destroy
   has_many :evaluation_feedbacks, dependent: :destroy
 
-
   def user_name
     user.name
   end

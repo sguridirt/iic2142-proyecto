@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_15_071540) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_15_125220) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -136,6 +136,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_15_071540) do
     t.bigint "course_type_id", null: false
     t.index ["course_type_id"], name: "index_courses_on_course_type_id"
     t.index ["teacher_id"], name: "index_courses_on_teacher_id"
+  end
+
+  create_table "courses_wishlists", id: false, force: :cascade do |t|
+    t.bigint "wishlist_id", null: false
+    t.bigint "course_id", null: false
+    t.index ["course_id", "wishlist_id"], name: "index_courses_wishlists_on_course_id_and_wishlist_id"
+    t.index ["wishlist_id", "course_id"], name: "index_courses_wishlists_on_wishlist_id_and_course_id"
   end
 
   create_table "enrollments", force: :cascade do |t|
@@ -270,6 +277,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_15_071540) do
     t.index ["user_role_id"], name: "index_users_on_user_role_id"
   end
 
+  create_table "wishlists", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_wishlists_on_student_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admins", "users", on_delete: :cascade
@@ -302,4 +316,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_15_071540) do
   add_foreign_key "teacher_reviews", "teachers", on_delete: :cascade
   add_foreign_key "teachers", "users", on_delete: :cascade
   add_foreign_key "users", "user_roles"
+  add_foreign_key "wishlists", "students"
 end
