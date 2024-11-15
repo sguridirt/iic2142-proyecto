@@ -36,8 +36,10 @@
         <td><%= course.teacher.user.name if course.teacher.present? %></td>
         
         <% if current_user&.user_role_id == UserRole.find_by(name: "Student")&.id %>
-          <td>
-          <%= button_to "Solicitar unirse", request_join_course_path(course), method: :post, class: "btn btn-success" %>
+          <td class="d-flex">
+          <%= button_to "Solicitar unirse", request_join_course_path(course), method: :post, class: "btn btn-primary btn-sm me-2" %>
+          <%= button_to "Agregar a la wishlist 🛒", wishlist_path(course_id: course.id), method: :post, class: "btn btn-outline-secondary btn-sm" %>
+          </td>
         <% end %>
 
         <% if current_user&.user_role_id == UserRole.find_by(name: "Admin")&.id %>
