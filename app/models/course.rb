@@ -6,6 +6,8 @@ class Course < ApplicationRecord
   has_many :materials, foreign_key: :course_id
   has_many :evaluations, foreign_key: :course_id, dependent: :destroy
   has_many :course_requests, dependent: :destroy
+  has_many :whishlists, dependent: :destroy
+  has_many :whishlisted_students, through: :whishlists, source: :student
 
   validates :title, presence: true
   validates :description, presence: true

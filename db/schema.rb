@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_10_201401) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_15_123322) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -261,6 +261,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_10_201401) do
     t.index ["user_role_id"], name: "index_users_on_user_role_id"
   end
 
+  create_table "wishlists", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.bigint "course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_wishlists_on_course_id"
+    t.index ["student_id"], name: "index_wishlists_on_student_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admins", "users", on_delete: :cascade
@@ -292,4 +301,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_10_201401) do
   add_foreign_key "teacher_reviews", "teachers", on_delete: :cascade
   add_foreign_key "teachers", "users", on_delete: :cascade
   add_foreign_key "users", "user_roles"
+  add_foreign_key "wishlists", "courses"
+  add_foreign_key "wishlists", "students"
 end
