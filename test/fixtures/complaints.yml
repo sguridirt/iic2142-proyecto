@@ -1,0 +1,11 @@
+complaint1:
+  title: "Complaint 1"
+  content: "content 1"
+  user: student_user
+
+
+complaint2:
+  title: "Complaint 1"
+  content: "content 1"
+  user: teacher_user
+

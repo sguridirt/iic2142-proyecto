@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_21_170703) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_15_125220) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_21_170703) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_admins_on_user_id"
+  end
+
+  create_table "complaints", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "content", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_complaints_on_user_id"
   end
 
   create_table "conversation_messages", force: :cascade do |t|
@@ -129,6 +138,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_21_170703) do
     t.index ["teacher_id"], name: "index_courses_on_teacher_id"
   end
 
+  create_table "courses_wishlists", id: false, force: :cascade do |t|
+    t.bigint "wishlist_id", null: false
+    t.bigint "course_id", null: false
+    t.index ["course_id", "wishlist_id"], name: "index_courses_wishlists_on_course_id_and_wishlist_id"
+    t.index ["wishlist_id", "course_id"], name: "index_courses_wishlists_on_wishlist_id_and_course_id"
+  end
+
   create_table "enrollments", force: :cascade do |t|
     t.date "enrollment_date", null: false
     t.datetime "created_at", null: false
@@ -149,6 +165,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_21_170703) do
     t.bigint "student_id"
     t.index ["evaluation_question_id"], name: "index_evaluation_answers_on_evaluation_question_id"
     t.index ["student_id"], name: "index_evaluation_answers_on_student_id"
+  end
+
+  create_table "evaluation_feedbacks", force: :cascade do |t|
+    t.text "content", null: false
+    t.bigint "evaluation_id", null: false
+    t.bigint "teacher_id", null: false
+    t.bigint "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["evaluation_id"], name: "index_evaluation_feedbacks_on_evaluation_id"
+    t.index ["student_id"], name: "index_evaluation_feedbacks_on_student_id"
+    t.index ["teacher_id"], name: "index_evaluation_feedbacks_on_teacher_id"
   end
 
   create_table "evaluation_questions", force: :cascade do |t|
@@ -249,9 +277,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_21_170703) do
     t.index ["user_role_id"], name: "index_users_on_user_role_id"
   end
 
+  create_table "wishlists", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_wishlists_on_student_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admins", "users", on_delete: :cascade
+  add_foreign_key "complaints", "users", on_delete: :cascade
   add_foreign_key "conversation_messages", "conversation_participants", column: "sender_id", on_delete: :cascade
   add_foreign_key "conversation_messages", "conversations"
   add_foreign_key "conversation_participants", "conversations"
@@ -267,6 +303,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_21_170703) do
   add_foreign_key "enrollments", "students", on_delete: :cascade
   add_foreign_key "evaluation_answers", "evaluation_questions", on_delete: :cascade
   add_foreign_key "evaluation_answers", "students", on_delete: :cascade
+  add_foreign_key "evaluation_feedbacks", "evaluations"
+  add_foreign_key "evaluation_feedbacks", "students"
+  add_foreign_key "evaluation_feedbacks", "teachers"
   add_foreign_key "evaluation_questions", "evaluations", on_delete: :cascade
   add_foreign_key "evaluations", "courses", on_delete: :cascade
   add_foreign_key "evaluations", "evaluation_types"
@@ -277,4 +316,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_21_170703) do
   add_foreign_key "teacher_reviews", "teachers", on_delete: :cascade
   add_foreign_key "teachers", "users", on_delete: :cascade
   add_foreign_key "users", "user_roles"
+  add_foreign_key "wishlists", "students"
 end

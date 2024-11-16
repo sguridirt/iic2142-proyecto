@@ -20,9 +20,12 @@
         <td><%= request.student.user.name if request.student.present? %></td>
         <td><%= request.course_request_status.name if request.course_request_status.present? %></td>
         <td>
-          <%= button_to 'Eliminar', request_path(request), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar esta solicitud?' }, class: 'btn btn-danger' %>
+          <% if request.course_request_status.name == "pending" %>
+            <%= button_to 'Eliminar', request_path(request), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar esta solicitud?' }, class: 'btn btn-danger' %>
+          <% end %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+

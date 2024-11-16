@@ -34,12 +34,16 @@
               <%= form.label :rating, "Puntuación (1-10)", class: "form-label" %>
               <%= form.number_field :rating, in: 1..10, required: true, class: "form-control" %>
             </div>
-
-            <div class="mb-3">
-              <%= form.label :teacher_id, "Seleccionar Profesor", class: "form-label" %>
-              <%= form.collection_select :teacher_id, Teacher.all, :id, ->(teacher) { teacher.user.name }, { prompt: "Seleccione un profesor" }, { required: true, class: "form-control" } %>
-            </div>
-
+          <div class="mb-3">
+            <%= form.label :teacher_id, "Seleccionar Profesor", class: "form-label" %>
+            <%= form.collection_select :teacher_id, 
+                current_user.student.courses.map(&:teacher).uniq, 
+                :id, 
+                ->(teacher) { teacher.user.name }, 
+                { prompt: "Seleccione un profesor" }, 
+                { required: true, class: "form-control" } 
+            %>
+          </div>
             <div class="text-center">
               <%= form.submit "Enviar Reseña", class: "btn btn-primary btn-lg mt-3" %>
             </div>

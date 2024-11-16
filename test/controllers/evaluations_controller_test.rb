@@ -26,7 +26,7 @@ class EvaluationControllerTest < ActionDispatch::IntegrationTest
       post evaluations_url, 
            params: { evaluation: { name: 'Test Evaluation', start_date: Date.today, duration: 60, 
            course_id: courses(:maths_101).id, 
-evaluation_type_id: evaluation_types(:quiz).id } }
+           evaluation_type_id: evaluation_types(:quiz).id } }
     end
 
     assert_redirected_to course_path(@evaluation.course)
