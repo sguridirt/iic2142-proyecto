@@ -22,12 +22,9 @@ class WishlistsControllerTest < ActionDispatch::IntegrationTest
   test "should add course to wishlist" do
     student_user = users(:student_user)
     sign_in student_user
-
-    student = student_user.student
-    wishlist = student.wishlist
     course = courses(:language_201)
 
-    assert_difference('wishlist.courses.count', 1) do
+    assert_difference('student_user.student.wishlist.courses.count', 1) do
       post wishlist_path, params: { course_id: course.id }
     end
     assert_redirected_to courses_path
