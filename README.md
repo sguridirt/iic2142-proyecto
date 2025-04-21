@@ -5,8 +5,8 @@ Plataforma de gestión de cursos: material, pruebas, alumnos, profesores.
 
 DCCanvas es una plataforma educativa diseñada para facilitar la interacción entre estudiantes y profesores. Permite gestionar cursos, evaluar a los alumnos y fomentar la comunicación en un entorno digital optimizado para el aprendizaje. Los profesores pueden crear y administrar cursos, calificar tareas y seguir el progreso de los estudiantes, mientras que estos tienen acceso a materiales de aprendizaje, foros y retroalimentación. La plataforma busca ofrecer una experiencia fluida y accesible para todos, mejorando tanto el proceso educativo como el rendimiento de los usuarios.
 
-![Inicio](docs/Inicio.png)
-![Curso](docs/Curso.png)
+![Inicio](docs/Inicio.jpeg)
+![Curso](docs/Curso.jpeg)
 
 _
 
